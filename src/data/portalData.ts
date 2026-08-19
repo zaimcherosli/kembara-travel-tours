@@ -38,6 +38,29 @@ export interface TripAssignment {
   status: 'Akan Datang' | 'Sedang Berlangsung' | 'Selesai';
 }
 
+export interface LedgerTransaction {
+  id: string;
+  bookingRef: string;
+  date: string;
+  accountCode: string; // e.g. "1000 - Maybank Islamic"
+  category: 'Kutipan Tempahan' | 'Deposit Pakej' | 'Bayaran Baki' | 'Kos Operasi / Tiket';
+  description: string;
+  customerName: string;
+  debit: number;  // Inflow / Masuk
+  credit: number; // Outflow / Keluar
+  balance: number;
+  paymentMethod: 'FPX Online' | 'DuitNow Transfer' | 'Kad Kredit' | 'Cek / CDM';
+  reconciled: boolean;
+}
+
+export interface BankStatementRow {
+  date: string;
+  desc: string;
+  amount: number;
+  type: 'CREDIT' | 'DEBIT';
+  referenceNo?: string;
+}
+
 export const initialBookings: BookingLead[] = [
   {
     id: "BK-2026-001",
@@ -189,5 +212,102 @@ export const initialTripAssignments: TripAssignment[] = [
     flightNo: "SV 831 (KLIA - Madinah)",
     hotelName: "Pullman Zamzam Makkah & Front Taiba Madinah",
     status: "Akan Datang"
+  }
+];
+
+export const initialLedgerEntries: LedgerTransaction[] = [
+  {
+    id: "LED-2026-01",
+    bookingRef: "BK-2026-001",
+    date: "2026-08-10",
+    accountCode: "4000 - Hasil Jualan Umrah VIP",
+    category: "Bayaran Penuh",
+    description: "Bayaran Penuh Umrah VIP 4 Pax - Dato' Hj Razak",
+    customerName: "Dato' Hj Razak",
+    debit: 31560.00,
+    credit: 0.00,
+    balance: 31560.00,
+    paymentMethod: "FPX Online",
+    reconciled: true
+  },
+  {
+    id: "LED-2026-02",
+    bookingRef: "BK-2026-002",
+    date: "2026-08-14",
+    accountCode: "4100 - Hasil Pakej Antarabangsa",
+    category: "Deposit Pakej",
+    description: "Deposit Trip Switzerland 3 Pax - Dr. Farhan Kamil",
+    customerName: "Dr. Farhan Kamil",
+    debit: 3000.00,
+    credit: 0.00,
+    balance: 34560.00,
+    paymentMethod: "DuitNow Transfer",
+    reconciled: true
+  },
+  {
+    id: "LED-2026-03",
+    bookingRef: "BK-2026-003",
+    date: "2026-08-17",
+    accountCode: "4200 - Hasil Percutian Domestik",
+    category: "Deposit Pakej",
+    description: "Deposit Semporna & Mabul 2 Pax - Nurul Aisyah",
+    customerName: "Nurul Aisyah",
+    debit: 600.00,
+    credit: 0.00,
+    balance: 35160.00,
+    paymentMethod: "FPX Online",
+    reconciled: true
+  },
+  {
+    id: "LED-2026-04",
+    bookingRef: "OPS-2026-101",
+    date: "2026-08-18",
+    accountCode: "5100 - Kos Tiket Penerbangan (Airlines)",
+    category: "Kos Operasi / Tiket",
+    description: "Bayaran Deposit Block Seat Saudi Airlines (SV 831)",
+    customerName: "Saudi Arabian Airlines",
+    debit: 0.00,
+    credit: 12000.00,
+    balance: 23160.00,
+    paymentMethod: "DuitNow Transfer",
+    reconciled: false
+  }
+];
+
+export const sampleBankStatements: BankStatementRow[] = [
+  {
+    date: "10/08/2026",
+    desc: "DUITNOW TRANSFER FR DATO HJ RAZAK * BK-2026-001 UMRAH",
+    amount: 31560.00,
+    type: "CREDIT",
+    referenceNo: "MBB-981029102"
+  },
+  {
+    date: "14/08/2026",
+    desc: "TRANSFER FR DR FARHAN KAMIL * BK-2026-002 SWISS DEPOSIT",
+    amount: 3000.00,
+    type: "CREDIT",
+    referenceNo: "CIMB-77182901"
+  },
+  {
+    date: "17/08/2026",
+    desc: "FPX PAYMENT NURUL AISYAH * BK-2026-003 SEMPORNA",
+    amount: 600.00,
+    type: "CREDIT",
+    referenceNo: "FPX-3391029"
+  },
+  {
+    date: "18/08/2026",
+    desc: "TRANSFER TO SAUDI ARABIAN AIRLINES * DEPOSIT SV831",
+    amount: 12000.00,
+    type: "DEBIT",
+    referenceNo: "MBB-OUT-1029"
+  },
+  {
+    date: "19/08/2026",
+    desc: "CDM CASH DEPOSIT MAYBANK KLANG * UNIDENTIFIED DEPOSIT",
+    amount: 1500.00,
+    type: "CREDIT",
+    referenceNo: "CDM-88192"
   }
 ];
