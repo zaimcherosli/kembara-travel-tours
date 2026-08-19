@@ -1,0 +1,194 @@
+---
+import { tourPackages } from '../data/packages';
+import PackageCard from './PackageCard.astro';
+---
+
+<section id="pakej" class="py-20 bg-slate-50 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
+        Katalog Pakej 2026 / 2027
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        Pakej Pilihan & Promosi Terhangat
+      </h2>
+      <p class="text-base text-slate-600">
+        Pilih destinasi impian anda daripada pakej percutian antarabangsa, domestik, percutian santai pulau mahupun ziarah ibadah Umrah VIP.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs & Search Bar -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-10 pb-6 border-b border-slate-200">
+      
+      <!-- Filter Tabs -->
+      <div id="category-tabs" class="flex flex-wrap gap-2 justify-center">
+        <button
+          type="button"
+          data-category="all"
+          class="cat-tab-btn active px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-sm bg-teal-600 text-white cursor-pointer"
+        >
+          Semua Pakej ({tourPackages.length})
+        </button>
+        <button
+          type="button"
+          data-category="antarabangsa"
+          class="cat-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 cursor-pointer"
+        >
+          ✈️ Antarabangsa
+        </button>
+        <button
+          type="button"
+          data-category="umrah"
+          class="cat-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 cursor-pointer"
+        >
+          🕋 Umrah & Ziarah
+        </button>
+        <button
+          type="button"
+          data-category="domestik"
+          class="cat-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 cursor-pointer"
+        >
+          🏞️ Domestik Malaysia
+        </button>
+        <button
+          type="button"
+          data-category="pulau"
+          class="cat-tab-btn px-5 py-2.5 rounded-full text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 cursor-pointer"
+        >
+          🏝️ Pulau & Santai
+        </button>
+      </div>
+
+      <!-- Quick Search input within packages section -->
+      <div class="w-full md:w-72 relative">
+        <input
+          type="text"
+          id="package-search-input"
+          placeholder="Cari pakej / destinasi..."
+          class="w-full bg-white border border-slate-300 text-slate-900 text-xs rounded-full py-2.5 pl-9 pr-4 focus:ring-2 focus:ring-teal-500 focus:outline-none"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+
+    </div>
+
+    <!-- Package Grid -->
+    <div id="package-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {tourPackages.map((pkg) => (
+        <PackageCard pkg={pkg} />
+      ))}
+    </div>
+
+    <!-- Empty State Message -->
+    <div id="empty-state" class="hidden text-center py-16 bg-white rounded-3xl border border-dashed border-slate-300 mt-6">
+      <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-base font-bold text-slate-800 mb-1">Tiada pakej dijumpai</h3>
+      <p class="text-xs text-slate-500 max-w-sm mx-auto mb-4">
+        Cuba tukar kata carian anda atau pilih kategori pakej yang lain.
+      </p>
+      <button
+        id="reset-filter-btn"
+        type="button"
+        class="bg-teal-600 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-teal-700 transition-colors"
+      >
+        Tunjukkan Semua Pakej
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.cat-tab-btn');
+  const searchInput = document.getElementById('package-search-input') as HTMLInputElement;
+  const packageItems = document.querySelectorAll<HTMLElement>('.package-item');
+  const emptyState = document.getElementById('empty-state');
+  const resetBtn = document.getElementById('reset-filter-btn');
+
+  let currentCategory = 'all';
+  let searchQuery = '';
+
+  function filterPackages() {
+    let visibleCount = 0;
+
+    packageItems.forEach((item) => {
+      const itemCategory = item.getAttribute('data-category') || '';
+      const itemDest = item.getAttribute('data-destination') || '';
+
+      const matchCategory = currentCategory === 'all' || itemCategory === currentCategory;
+      const matchSearch = searchQuery === '' || itemDest.includes(searchQuery.toLowerCase());
+
+      if (matchCategory && matchSearch) {
+        item.style.display = 'flex';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    if (emptyState) {
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+    }
+  }
+
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => {
+        b.classList.remove('bg-teal-600', 'text-white', 'shadow-sm');
+        b.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+      });
+      btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+      btn.classList.add('bg-teal-600', 'text-white', 'shadow-sm');
+
+      currentCategory = btn.getAttribute('data-category') || 'all';
+      filterPackages();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.trim();
+      filterPackages();
+    });
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      currentCategory = 'all';
+      searchQuery = '';
+      if (searchInput) searchInput.value = '';
+      tabButtons[0]?.click();
+    });
+  }
+
+  // Handle cross-component events from Hero search
+  window.addEventListener('filter-packages', (e: any) => {
+    if (e.detail) {
+      const { category, query } = e.detail;
+      currentCategory = category || 'all';
+      searchQuery = query || '';
+      if (searchInput) searchInput.value = searchQuery;
+
+      // Update button active state
+      tabButtons.forEach(b => {
+        if (b.getAttribute('data-category') === currentCategory) {
+          b.click();
+        }
+      });
+
+      filterPackages();
+    }
+  });
+</script>

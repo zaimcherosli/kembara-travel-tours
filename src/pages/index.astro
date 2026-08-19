@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import PackagesSection from '../components/PackagesSection.astro';
+import DestinationsSection from '../components/DestinationsSection.astro';
+import UmrahVIPBanner from '../components/UmrahVIPBanner.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import BookingInquirySection from '../components/BookingInquirySection.astro';
+import FAQSection from '../components/FAQSection.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+import ItineraryModal from '../components/ItineraryModal.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+---
+
+<Layout>
+  <!-- Main Navigation Header -->
+  <Navbar />
+
+  <!-- Main Hero Banner with Quick Search -->
+  <main class="flex-1">
+    <Hero />
+    <PackagesSection />
+    <DestinationsSection />
+    <UmrahVIPBanner />
+    <WhyChooseUs />
+    <TestimonialsSection />
+    <CTASection />
+    <BookingInquirySection />
+    <FAQSection />
+  </main>
+
+  <!-- Footer -->
+  <Footer />
+
+  <!-- Interactive Global Modals & Floating Tools -->
+  <ItineraryModal />
+  <FloatingWhatsApp />
+</Layout>

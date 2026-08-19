@@ -1,0 +1,67 @@
+---
+import { faqs } from '../data/faqs';
+---
+
+<section id="faq" class="py-20 bg-slate-50 relative">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center mb-14">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
+        Soalan Lazim
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        Ada Pertanyaan? Kami Sedia Membantu
+      </h2>
+      <p class="text-slate-600 text-sm sm:text-base">
+        Jawapan ringkas dan padat bagi soalan-soalan yang kerap ditanya oleh para pelanggan kami.
+      </p>
+    </div>
+
+    <!-- FAQ Accordion List -->
+    <div class="space-y-4">
+      {faqs.map((faq, idx) => (
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all">
+          <button
+            type="button"
+            class="faq-toggle-btn w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 text-sm sm:text-base hover:text-teal-600 transition-colors cursor-pointer"
+            data-index={idx}
+          >
+            <span>{faq.question}</span>
+            <span class="faq-icon w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 shrink-0 transition-transform duration-300">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-4 bg-slate-50/50">
+            {faq.answer}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const faqButtons = document.querySelectorAll<HTMLButtonElement>('.faq-toggle-btn');
+
+  faqButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.faq-item');
+      const answer = parent?.querySelector('.faq-answer');
+      const icon = btn.querySelector('.faq-icon');
+
+      const isHidden = answer?.classList.contains('hidden');
+
+      // Close all other faqs
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+      document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180', 'bg-teal-100', 'text-teal-700'));
+
+      if (isHidden && answer && icon) {
+        answer.classList.remove('hidden');
+        icon.classList.add('rotate-180', 'bg-teal-100', 'text-teal-700');
+      }
+    });
+  });
+</script>

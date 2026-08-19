@@ -1,0 +1,60 @@
+---
+import { destinations } from '../data/destinations';
+---
+
+<section id="destinasi" class="py-20 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Destinasi Global & Tempatan
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Terokai Destinasi Paling Popular
+        </h2>
+      </div>
+      <p class="text-slate-500 text-sm max-w-md mt-4 md:mt-0">
+        Daripada pemandangan indah pergunungan sejuk, kota metropolis dunia, hingga pantai laut biru yang mendamaikan.
+      </p>
+    </div>
+
+    <!-- Destination Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {destinations.map((dest) => (
+        <a
+          href="#pakej"
+          class="group relative h-80 rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 flex flex-col justify-end p-6 border border-slate-100"
+        >
+          <img
+            src={dest.image}
+            alt={dest.name}
+            loading="lazy"
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+
+          <!-- Top Tag -->
+          <div class="absolute top-4 left-4">
+            <span class="bg-teal-500/90 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md">
+              {dest.tag}
+            </span>
+          </div>
+
+          <!-- Bottom Meta -->
+          <div class="relative z-10 text-white">
+            <span class="text-xs text-teal-300 font-medium tracking-wide uppercase">{dest.country}</span>
+            <h3 class="text-xl font-extrabold text-white group-hover:text-teal-300 transition-colors mb-2">
+              {dest.name}
+            </h3>
+            <div class="flex items-center justify-between pt-2 border-t border-white/20 text-xs text-slate-200">
+              <span>{dest.packageCount} Pilihan Pakej</span>
+              <span class="font-bold text-amber-400">Dari RM {dest.startingPrice.toLocaleString()}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>

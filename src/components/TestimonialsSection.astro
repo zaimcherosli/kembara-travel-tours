@@ -1,0 +1,72 @@
+---
+import { testimonials } from '../data/testimonials';
+---
+
+<section id="ulasan" class="py-20 bg-slate-50 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-3">
+        Pengalaman Pelanggan Sebenar
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+        Apa Kata Mereka yang Pernah Mengembara Bersama Kami?
+      </h2>
+      <p class="text-slate-600 text-sm sm:text-base">
+        Kepuasan dan senyuman anda adalah keutamaan kami. Lihat pengalaman manis para jemaah dan pelancong.
+      </p>
+    </div>
+
+    <!-- Testimonials Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {testimonials.map((testi) => (
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div>
+            <!-- Star Rating -->
+            <div class="flex items-center gap-1 text-amber-400 mb-4">
+              {Array.from({ length: testi.rating }).map(() => (
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              ))}
+            </div>
+
+            <!-- Quote Text -->
+            <p class="text-xs text-slate-700 leading-relaxed italic mb-6">
+              "{testi.comment}"
+            </p>
+          </div>
+
+          <!-- Author Info -->
+          <div class="pt-4 border-t border-slate-100 flex items-center gap-3">
+            <img
+              src={testi.avatar}
+              alt={testi.name}
+              class="w-11 h-11 rounded-full object-cover border-2 border-teal-500"
+            />
+            <div>
+              <div class="text-xs font-bold text-slate-900 leading-tight">{testi.name}</div>
+              <div class="text-[11px] text-slate-500">{testi.location}</div>
+              <div class="text-[10px] text-teal-600 font-semibold mt-0.5">{testi.packageTaken}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Rating Summary Box -->
+    <div class="mt-12 bg-white rounded-2xl p-6 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-6 max-w-3xl mx-auto shadow-sm">
+      <div class="flex items-center gap-4">
+        <div class="text-3xl font-black text-slate-900">4.95<span class="text-base text-slate-400 font-normal">/5</span></div>
+        <div>
+          <div class="flex text-amber-400 text-sm">★★★★★</div>
+          <div class="text-xs text-slate-500">Berdasarkan 850+ Ulasan Google & Media Sosial</div>
+        </div>
+      </div>
+      <div class="text-xs text-slate-600 text-center sm:text-right">
+        <span class="font-bold text-emerald-600">✓ 100% Verified Travellers</span> | Khidmat Pelancongan Terpercaya Sejak 2018
+      </div>
+    </div>
+
+  </div>
+</section>

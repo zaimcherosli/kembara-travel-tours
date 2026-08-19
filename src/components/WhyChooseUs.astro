@@ -1,0 +1,78 @@
+---
+import { companyInfo } from '../data/company';
+
+const features = [
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>`,
+    title: "Lesen Sah MOTAC & MATTA",
+    description: `Berdaftar rasmi di bawah Kementerian Pelancongan (${companyInfo.motacNo}). Percutian anda 100% selamat, sah dan terjamin.`
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>`,
+    title: "100% Sajian Halal & Solat",
+    description: "Semua hidangan makanan disahkan Halal / Muslim-Friendly. Jadual perjalanan dirancang rapi agar waktu solat sentiasa terpelihara."
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>`,
+    title: "Sifar Caj Tersembunyi",
+    description: "Semua tiket penerbangan, hotel, pengangkutan, makanan dan tiket masuk dinyatakan secara telus dalam pakej tanpa sebarang caj mengejut."
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>`,
+    title: "Pemandu & Mutawwif Pakar",
+    description: "Dibimbing oleh Tour Leader tempatan fasih bahasa asing serta Mutawwif bertauliah lulusan universiti Islam terkemuka."
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>`,
+    title: "Skim Ansuran Mudah",
+    description: "Hanya bayar deposit serendah RM200 - RM1,000 untuk 'lock' harga promosi, baki boleh diansur sehingga 45 hari sebelum tarikh berlepas."
+  },
+  {
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>`,
+    title: "Bantuan WhatsApp 24/7",
+    description: "Pasukan sokongan sedia membantu anda sebelum, semasa, dan selepas percutian bagi memastikan perjalanan anda sentiasa lancar."
+  }
+];
+---
+
+<section id="kenapa-kami" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+  
+  <!-- Decorative subtle background circles -->
+  <div class="absolute -top-40 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-bold uppercase tracking-wider mb-3">
+        Kelebihan & Jaminan Kami
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+        Kenapa 15,000+ Rakyat Malaysia Memilih Kembara Travel?
+      </h2>
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+        Kami menitikberatkan kualiti, keselamatan, keselesaan ibadah dan ketenangan fikiran sepanjang percutian anda.
+      </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map((feat) => (
+        <div class="bg-slate-800/70 border border-slate-700/80 rounded-3xl p-7 hover:border-teal-500/50 hover:bg-slate-800 transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-teal-600 to-sky-500 text-white flex items-center justify-center mb-5 shadow-lg shadow-teal-500/20 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={feat.icon} />
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+              {feat.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              {feat.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
