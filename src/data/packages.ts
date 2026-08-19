@@ -5,6 +5,12 @@ export interface ItineraryDay {
   meals?: string; // e.g. "Sarapan, Makan Tengah Hari, Makan Malam"
 }
 
+export interface DepartureSlot {
+  date: string;
+  availablePax: number;
+  totalPax: number;
+}
+
 export interface TourPackage {
   id: string;
   slug: string;
@@ -31,6 +37,7 @@ export interface TourPackage {
   exclusions: string[];
   itinerary: ItineraryDay[];
   nextDepartureDates: string[];
+  departureSlots?: DepartureSlot[];
 }
 
 export const tourPackages: TourPackage[] = [
@@ -130,7 +137,13 @@ export const tourPackages: TourPackage[] = [
         meals: "Makan dalam pesawat"
       }
     ],
-    nextDepartureDates: ["15 Okt 2026", "02 Nov 2026", "18 Dis 2026", "20 Jan 2027"]
+    nextDepartureDates: ["15 Okt 2026", "02 Nov 2026", "18 Dis 2026", "20 Jan 2027"],
+    departureSlots: [
+      { date: "15 Okt 2026", availablePax: 6, totalPax: 25 },
+      { date: "02 Nov 2026", availablePax: 12, totalPax: 25 },
+      { date: "18 Dis 2026", availablePax: 4, totalPax: 25 },
+      { date: "20 Jan 2027", availablePax: 18, totalPax: 30 }
+    ]
   },
   {
     id: "japan-autumn-sakura-golden-route",
@@ -192,36 +205,42 @@ export const tourPackages: TourPackage[] = [
       },
       {
         day: 3,
-        title: "Gunung Fuji – Oshino Hakkai – Gotemba Premium Outlets",
-        description: "Menuju ke kawasan Tasik Kawaguchiko untuk pemandangan memukau Gunung Fuji. Melawat perkampungan air mata air Oshino Hakkai, kemudian berbelanja barangan berjenama di Gotemba.",
-        meals: "Sarapan Hotel, Makan Tengah Hari Halal BBQ, Makan Malam Halal"
+        title: "Tokyo – Tasik Kawaguchiko – Panorama Gunung Fuji",
+        description: "Bertolak ke kawasan Tasik Kawaguchiko. Menikmati panorama Gunung Fuji dari Oishi Park dan perkampungan tradisional Oshino Hakkai.",
+        meals: "Sarapan Hotel, Makan Tengah Hari Halal, Makan Malam Halal"
       },
       {
         day: 4,
-        title: "Pengalaman Bullet Train Shinkansen ke Kyoto – Arashiyama Bamboo Grove",
-        description: "Menaiki kereta api laju Shinkansen ke Kyoto. Melawat Hutan Buluh Arashiyama dan Jambatan Togetsukyo yang tenang dan memukau.",
-        meals: "Sarapan Hotel, Bento Halal Shinkansen, Makan Malam Halal"
+        title: "Tokyo ke Kyoto dengan Shinkansen (Bullet Train)",
+        description: "Merasai kelajuan Shinkansen menuju ke bandar bersejarah Kyoto. Melawat Kuil Fushimi Inari Taisha (Gerbang Torii) dan Hutan Buluh Arashiyama.",
+        meals: "Sarapan Hotel, Makan Tengah Hari Halal, Makan Malam Halal"
       },
       {
         day: 5,
-        title: "Kyoto Fushimi Inari – Osaka Castle & Dotonbori",
-        description: "Bergambar di lorong ribuan torii gates Fushimi Inari. Berlepas ke Osaka, melawat Istana Osaka dan shopping makanan street food di Dotonbori & Shinsaibashi.",
-        meals: "Sarapan Hotel, Makan Tengah Hari Halal, Makan Malam Halal Yakiniku"
+        title: "Kyoto – Osaka Dotonbori & Shinsaibashi",
+        description: "Melawat Istana Osaka (Osaka Castle). Sebelah petang membeli-belah di Dotonbori dan Shinsaibashi (Syurga Street Food & Shopping Osaka).",
+        meals: "Sarapan Hotel, Makan Tengah Hari Halal"
       },
       {
         day: 6,
-        title: "Osaka – Rinku Premium Outlets – Lapangan Terbang Kansai",
-        description: "Shopping saat akhir di Rinku Town sebelum ke Lapangan Terbang Kansai untuk penerbangan pulang ke tanah air.",
+        title: "Osaka – Lapangan Terbang Kansai (KIX) ke Kuala Lumpur",
+        description: "Masa bebas di Rinku Premium Outlets sebelum berlepas ke Lapangan Terbang Kansai untuk penerbangan pulang ke Kuala Lumpur.",
         meals: "Sarapan Hotel, Makan dalam pesawat"
       },
       {
         day: 7,
-        title: "Selamat Tiba di Kuala Lumpur",
-        description: "Mendarat di KLIA dengan kenangan terindah dari bumi matahari terbit.",
+        title: "Tiba di Lapangan Terbang Antarabangsa Kuala Lumpur (KLIA)",
+        description: "Selamat tiba di Malaysia dengan kenangan indah percutian Negara Matahari Terbit.",
         meals: "Makan dalam pesawat"
       }
     ],
-    nextDepartureDates: ["10 Okt 2026", "24 Nov 2026", "15 Dis 2026", "08 Mac 2027"]
+    nextDepartureDates: ["10 Okt 2026", "24 Okt 2026", "15 Nov 2026", "05 Dis 2026"],
+    departureSlots: [
+      { date: "10 Okt 2026", availablePax: 3, totalPax: 28 },
+      { date: "24 Okt 2026", availablePax: 8, totalPax: 28 },
+      { date: "15 Nov 2026", availablePax: 14, totalPax: 28 },
+      { date: "05 Dis 2026", availablePax: 5, totalPax: 28 }
+    ]
   },
   {
     id: "umrah-vip-musim-sejuk",
@@ -336,7 +355,13 @@ export const tourPackages: TourPackage[] = [
         meals: "Makan dalam pesawat"
       }
     ],
-    nextDepartureDates: ["05 Nov 2026", "20 Nov 2026", "08 Dis 2026", "15 Jan 2027"]
+    nextDepartureDates: ["05 Nov 2026", "20 Nov 2026", "08 Dis 2026", "15 Jan 2027"],
+    departureSlots: [
+      { date: "05 Nov 2026", availablePax: 4, totalPax: 45 },
+      { date: "20 Nov 2026", availablePax: 10, totalPax: 45 },
+      { date: "08 Dis 2026", availablePax: 2, totalPax: 45 },
+      { date: "15 Jan 2027", availablePax: 15, totalPax: 45 }
+    ]
   },
   {
     id: "sabah-kundasang-kota-kinabalu",
@@ -408,7 +433,13 @@ export const tourPackages: TourPackage[] = [
         meals: "Sarapan Hotel"
       }
     ],
-    nextDepartureDates: ["Setiap Hari (Min 2 Pax)", "Cuti Sekolah Oktober 2026", "Disember 2026"]
+    nextDepartureDates: ["12 Sep 2026", "26 Sep 2026", "17 Okt 2026", "14 Nov 2026"],
+    departureSlots: [
+      { date: "12 Sep 2026", availablePax: 8, totalPax: 20 },
+      { date: "26 Sep 2026", availablePax: 12, totalPax: 20 },
+      { date: "17 Okt 2026", availablePax: 5, totalPax: 20 },
+      { date: "14 Nov 2026", availablePax: 15, totalPax: 20 }
+    ]
   },
   {
     id: "vietnam-hanoi-sapa-halong-bay",
@@ -491,7 +522,13 @@ export const tourPackages: TourPackage[] = [
         meals: "Sarapan Hotel"
       }
     ],
-    nextDepartureDates: ["12 Okt 2026", "08 Nov 2026", "22 Dis 2026", "10 Feb 2027"]
+    nextDepartureDates: ["12 Okt 2026", "08 Nov 2026", "22 Dis 2026", "10 Feb 2027"],
+    departureSlots: [
+      { date: "12 Okt 2026", availablePax: 8, totalPax: 20 },
+      { date: "08 Nov 2026", availablePax: 5, totalPax: 20 },
+      { date: "22 Dis 2026", availablePax: 12, totalPax: 25 },
+      { date: "10 Feb 2027", availablePax: 16, totalPax: 25 }
+    ]
   },
   {
     id: "semporna-mabul-kapalai-island",
@@ -561,6 +598,12 @@ export const tourPackages: TourPackage[] = [
         meals: "Sarapan Hotel"
       }
     ],
-    nextDepartureDates: ["Setiap Minggu (Jumaat - Isnin)", "Pakej Honeymoon & Keluarga Tersedia"]
+    nextDepartureDates: ["04 Sep 2026", "18 Sep 2026", "09 Okt 2026", "06 Nov 2026"],
+    departureSlots: [
+      { date: "04 Sep 2026", availablePax: 6, totalPax: 16 },
+      { date: "18 Sep 2026", availablePax: 10, totalPax: 16 },
+      { date: "09 Okt 2026", availablePax: 4, totalPax: 16 },
+      { date: "06 Nov 2026", availablePax: 12, totalPax: 16 }
+    ]
   }
 ];

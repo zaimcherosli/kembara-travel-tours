@@ -9,7 +9,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   <div class="min-h-screen bg-slate-100 text-slate-900 flex flex-col font-sans">
     
     <!-- Top Navigation Header -->
-    <header class="bg-white border-b border-slate-250 sticky top-0 z-40 shadow-xs">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 gap-2">
           
@@ -57,7 +57,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             <button
               type="button"
               id="header-apply-leave-btn"
-              class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold transition-colors border border-amber-200 cursor-pointer"
+              class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold transition-colors border border-amber-300 cursor-pointer"
             >
               <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -76,6 +76,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <span>Web Awam</span>
             </a>
 
+            <!-- Logout Button -->
             <button
               id="logout-btn"
               type="button"
@@ -333,8 +334,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
               Modul Katalog Pelancongan (CMS)
             </div>
-            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Katalog Pakej Pelancongan (Live CMS)</h2>
-            <p class="text-xs text-slate-600">Kemas kini harga, diskaun promosi, tarikh perlepasan atau tambah pakej baru.</p>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Katalog Pakej Pelancongan & Slot Pax Live</h2>
+            <p class="text-xs text-slate-600">Kemas kini harga, baki kekosongan pax setiap tarikh perlepasan atau tambah pakej baru yang terselaras secara live dengan web.</p>
           </div>
           <button
             type="button"
@@ -346,21 +347,21 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           </button>
         </div>
 
-        <!-- Package List Cards -->
+        <!-- Package List Cards with Slots Status -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="cms-packages-container">
           {tourPackages.map((pkg) => (
             <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-sm space-y-4 flex flex-col justify-between hover:shadow-md transition-all">
               <div>
-                <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center justify-between mb-2">
                   <span class="text-[11px] font-bold text-teal-700 uppercase tracking-wider">{pkg.categoryLabel}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
                     Aktif di Web
                   </span>
                 </div>
-                <h3 class="text-base font-bold text-slate-900 line-clamp-1">{pkg.title}</h3>
+                <h3 class="text-base font-extrabold text-slate-900 line-clamp-1">{pkg.title}</h3>
                 <p class="text-xs text-slate-600 line-clamp-2 mt-1">{pkg.subtitle}</p>
                 
-                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
                   <div>
                     <span class="text-[10px] text-slate-500 font-medium block">Harga Jualan</span>
                     <span class="text-base font-extrabold text-teal-700">RM {pkg.price.toLocaleString()}</span>
@@ -371,11 +372,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
                   </div>
                 </div>
 
-                <div class="mt-3 text-[11px] text-slate-600">
-                  <span class="font-semibold text-slate-700">Perlepasan:</span>
-                  <div class="flex flex-wrap gap-1 mt-1">
-                    {pkg.nextDepartureDates.slice(0, 2).map(d => (
-                      <span class="bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-[10px] text-slate-700 font-medium">{d}</span>
+                <!-- Live Departure Slots Info in CMS Card -->
+                <div class="mt-3 bg-slate-50 p-2.5 rounded-xl border border-slate-200 text-[11px] space-y-1.5">
+                  <div class="font-bold text-slate-800 flex items-center justify-between">
+                    <span>Tarikh & Baki Pax (Live Web):</span>
+                    <span class="text-[9px] text-teal-700 uppercase font-black">Terselaras</span>
+                  </div>
+                  <div class="space-y-1" id={`cms-slots-list-${pkg.id}`}>
+                    {(pkg.departureSlots || []).map(slot => (
+                      <div class="flex items-center justify-between bg-white px-2 py-1 rounded border border-slate-200 text-[10px]">
+                        <span class="font-semibold text-slate-900">{slot.date}</span>
+                        <span class={`font-bold px-1.5 py-0.2 rounded ${slot.availablePax <= 4 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}`}>
+                          Baki {slot.availablePax} / {slot.totalPax} Pax
+                        </span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -385,17 +395,18 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <div class="pt-3 border-t border-slate-100 flex items-center gap-2">
                 <button
                   type="button"
-                  class="edit-pkg-btn flex-1 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold py-2 px-3 rounded-xl border border-slate-300 transition-colors cursor-pointer"
+                  class="open-edit-slot-btn flex-1 bg-teal-50 hover:bg-teal-100 text-teal-900 text-xs font-bold py-2 px-2.5 rounded-xl border border-teal-200 transition-colors cursor-pointer text-center"
                   data-pkg-id={pkg.id}
+                  data-pkg-title={pkg.title}
                 >
-                  Edit Harga / Info
+                  Kemas Kini Slot Pax
                 </button>
                 <button
                   type="button"
                   class="toggle-status-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 cursor-pointer"
                   title="Toggle Sold Out"
                 >
-                  Sold Out
+                  Status
                 </button>
               </div>
             </div>
@@ -621,7 +632,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <input type="file" id="bank-statement-file-input" accept=".csv, .txt, .xlsx, .pdf" class="hidden" />
               <button
                 type="button"
-                onclick="document.getElementById('bank-statement-file-input').click()"
+                id="upload-bank-btn"
                 class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 transition-colors cursor-pointer"
               >
                 Muat Naik Penyata Bank
@@ -706,7 +717,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           </div>
 
           <!-- Official Invoice / Receipt Template Display -->
-          <div class="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 shadow-md border border-slate-250 max-w-3xl mx-auto overflow-hidden" id="printable-receipt">
+          <div class="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 shadow-md border border-slate-200 max-w-3xl mx-auto overflow-hidden" id="printable-receipt">
             
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b-2 border-slate-900 pb-5 gap-3">
               <div>
@@ -1085,7 +1096,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       <button type="button" id="close-role-switcher-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
     </div>
     <div class="space-y-2.5 text-xs">
-      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="admin" data-name="Zaim Rosli" data-role-name="Admin Utama">
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between cursor-pointer" data-role-key="admin" data-name="Zaim Rosli" data-role-name="Admin Utama">
         <div>
           <div class="font-extrabold text-slate-900">Admin Utama</div>
           <div class="text-slate-500">Nampak SEMUA modul (Overview, CMS, CRM, Lejer, HR & Cuti)</div>
@@ -1093,7 +1104,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-100 text-teal-800 border border-teal-300">Semua</span>
       </button>
 
-      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="sales" data-name="Siti Sarah" data-role-name="Pegawai Jualan (Sales)">
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between cursor-pointer" data-role-key="sales" data-name="Siti Sarah" data-role-name="Pegawai Jualan (Sales)">
         <div>
           <div class="font-extrabold text-slate-900">Pegawai Jualan (Sales)</div>
           <div class="text-slate-500">Nampak Tempahan CRM & Pakej CMS sahaja</div>
@@ -1101,7 +1112,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-300">Sales</span>
       </button>
 
-      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="finance" data-name="Hafizuddin Danial" data-role-name="Akauntan & Kewangan">
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between cursor-pointer" data-role-key="finance" data-name="Hafizuddin Danial" data-role-name="Akauntan & Kewangan">
         <div>
           <div class="font-extrabold text-slate-900">Akauntan & Kewangan</div>
           <div class="text-slate-500">Nampak Lejer Kewangan & Penyesuaian Bank sahaja</div>
@@ -1109,7 +1120,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Finance</span>
       </button>
 
-      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="hr" data-name="Siti Aminah" data-role-name="Pegawai Sumber Manusia (HR)">
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between cursor-pointer" data-role-key="hr" data-name="Siti Aminah" data-role-name="Pegawai Sumber Manusia (HR)">
         <div>
           <div class="font-extrabold text-slate-900">Pegawai HR (Sumber Manusia)</div>
           <div class="text-slate-500">Nampak Pengurusan Staf, Mohon Cuti & Kelulusan Cuti sahaja</div>
@@ -1120,12 +1131,38 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   </div>
 </div>
 
-<!-- Modal 4: Add Package Modal -->
+<!-- Modal 4: Kemas Kini Tarikh & Baki Pax (Slot Editor Modal) -->
+<div id="edit-slots-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+      <div>
+        <h3 class="text-base font-bold text-slate-900">Kemas Kini Tarikh & Baki Kekosongan (Pax Slots)</h3>
+        <p class="text-xs text-teal-700 font-semibold" id="edit-slots-pkg-name">Pakej: -</p>
+      </div>
+      <button type="button" id="close-edit-slots-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold cursor-pointer">✕</button>
+    </div>
+    
+    <form id="edit-slots-form" class="space-y-4 text-xs">
+      <input type="hidden" id="edit-slots-pkg-id" />
+      <div id="slots-rows-container" class="space-y-3">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="pt-3 border-t border-slate-200 flex gap-2">
+        <button type="submit" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl transition-all cursor-pointer">
+          Simpan & Selaraskan dengan Web Awam
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 5: Add Package Modal -->
 <div id="new-pkg-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
   <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
       <h3 class="text-base font-bold text-slate-900">Tambah / Edit Pakej Pelancongan</h3>
-      <button type="button" id="close-new-pkg-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+      <button type="button" id="close-new-pkg-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold cursor-pointer">✕</button>
     </div>
     <form id="new-package-form" class="space-y-3.5 text-xs">
       <div>
@@ -1170,12 +1207,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   </div>
 </div>
 
-<!-- Modal 5: Manual Ledger Entry Modal -->
+<!-- Modal 6: Manual Ledger Entry Modal -->
 <div id="new-ledger-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
   <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
       <h3 class="text-base font-bold text-slate-900">Tambah Entri Lejer Kewangan Manual</h3>
-      <button type="button" id="close-new-ledger-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+      <button type="button" id="close-new-ledger-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold cursor-pointer">✕</button>
     </div>
     <form id="new-ledger-form" class="space-y-3.5 text-xs">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1229,57 +1266,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   </div>
 </div>
 
-<script>
+<script define:vars={{ initialTourPackages: tourPackages }}>
   // -------------------------------------------------------------
   // STATE DEFINITIONS & LOCAL STORAGE HELPERS
   // -------------------------------------------------------------
-  interface LocalStaff {
-    id: string;
-    name: string;
-    role: string;
-    email: string;
-    phone: string;
-    assignedTripsCount: number;
-    totalSalesDeals: number;
-    status: string;
-  }
-
-  interface LocalLeave {
-    id: string;
-    staffId: string;
-    staffName: string;
-    staffRole: string;
-    leaveType: string;
-    startDate: string;
-    endDate: string;
-    totalDays: number;
-    reason: string;
-    status: 'Menunggu Kelulusan' | 'Diluluskan' | 'Ditolak';
-    appliedAt: string;
-    approvedBy?: string;
-  }
-
-  interface LocalLedgerItem {
-    id: string;
-    bookingRef: string;
-    date: string;
-    accountCode: string;
-    customerName: string;
-    description: string;
-    paymentMethod: string;
-    debit: number;
-    credit: number;
-    reconciled: boolean;
-  }
-
-  interface BankItem {
-    date: string;
-    desc: string;
-    amount: number;
-    type: 'CREDIT' | 'DEBIT';
-  }
-
-  const DEFAULT_STAFF_ITEMS: LocalStaff[] = [
+  const DEFAULT_STAFF_ITEMS = [
     { id: "STF-01", name: "Zaim Rosli", role: "Admin Utama", email: "zaim@kembaratours.com.my", phone: "011-56889201", assignedTripsCount: 12, totalSalesDeals: 45, status: "Aktif" },
     { id: "STF-02", name: "Siti Sarah binti Idris", role: "Pegawai Jualan (Sales)", email: "sarah.sales@kembaratours.com.my", phone: "019-3321908", assignedTripsCount: 0, totalSalesDeals: 38, status: "Aktif" },
     { id: "STF-03", name: "Ustaz Amir Syakir", role: "Mutawwif / Tour Lead", email: "amir.mutawwif@kembaratours.com.my", phone: "013-4458921", assignedTripsCount: 8, totalSalesDeals: 15, status: "Aktif" },
@@ -1287,20 +1278,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     { id: "STF-05", name: "Zulkifli Hassan", role: "Mutawwif / Tour Lead", email: "zul.guide@kembaratours.com.my", phone: "017-6628901", assignedTripsCount: 14, totalSalesDeals: 20, status: "Sedang Bertugas (Luar Negara)" }
   ];
 
-  const DEFAULT_LEAVE_ITEMS: LocalLeave[] = [
+  const DEFAULT_LEAVE_ITEMS = [
     { id: "LV-2026-01", staffId: "STF-02", staffName: "Siti Sarah binti Idris", staffRole: "Pegawai Jualan (Sales)", leaveType: "Cuti Tahunan", startDate: "2026-08-25", endDate: "2026-08-27", totalDays: 3, reason: "Urusan keluarga di kampung (Kedah)", status: "Menunggu Kelulusan", appliedAt: "2026-08-18" },
     { id: "LV-2026-02", staffId: "STF-03", staffName: "Ustaz Amir Syakir", staffRole: "Mutawwif / Tour Lead", leaveType: "Cuti Sakit (MC)", startDate: "2026-08-18", endDate: "2026-08-18", totalDays: 1, reason: "Demam & rawatan klinik Mediviron", status: "Diluluskan", appliedAt: "2026-08-18", approvedBy: "Zaim Rosli (Admin)" },
     { id: "LV-2026-03", staffId: "STF-04", staffName: "Hafizuddin Danial", staffRole: "Akauntan & Kewangan", leaveType: "Cuti Tahunan", startDate: "2026-09-02", endDate: "2026-09-04", totalDays: 3, reason: "Urusan pembaharuan pasport", status: "Menunggu Kelulusan", appliedAt: "2026-08-19" }
   ];
 
-  const DEFAULT_LEDGER_ITEMS: LocalLedgerItem[] = [
+  const DEFAULT_LEDGER_ITEMS = [
     { id: "LED-2026-01", bookingRef: "BK-2026-001", date: "2026-08-10", accountCode: "4000 - Hasil Jualan Umrah VIP", customerName: "Dato' Hj Razak", description: "Bayaran Penuh Umrah VIP 4 Pax - Dato' Hj Razak", paymentMethod: "FPX Online", debit: 31560.00, credit: 0.00, reconciled: true },
     { id: "LED-2026-02", bookingRef: "BK-2026-002", date: "2026-08-14", accountCode: "4100 - Hasil Pakej Antarabangsa", customerName: "Dr. Farhan Kamil", description: "Deposit Trip Switzerland 3 Pax - Dr. Farhan Kamil", paymentMethod: "DuitNow Transfer", debit: 3000.00, credit: 0.00, reconciled: true },
     { id: "LED-2026-03", bookingRef: "BK-2026-003", date: "2026-08-17", accountCode: "4200 - Hasil Percutian Domestik", customerName: "Nurul Aisyah", description: "Deposit Semporna & Mabul 2 Pax - Nurul Aisyah", paymentMethod: "FPX Online", debit: 600.00, credit: 0.00, reconciled: true },
     { id: "LED-2026-04", bookingRef: "OPS-2026-101", date: "2026-08-18", accountCode: "5100 - Kos Tiket Penerbangan (Airlines)", customerName: "Saudi Arabian Airlines", description: "Bayaran Deposit Block Seat Saudi Airlines (SV 831)", paymentMethod: "DuitNow Transfer", debit: 0.00, credit: 12000.00, reconciled: true }
   ];
 
-  const DEFAULT_BANK_ROWS: BankItem[] = [
+  const DEFAULT_BANK_ROWS = [
     { date: "10/08/2026", desc: "DUITNOW TRANSFER FR DATO HJ RAZAK * BK-2026-001 UMRAH", amount: 31560.00, type: "CREDIT" },
     { date: "14/08/2026", desc: "TRANSFER FR DR FARHAN KAMIL * BK-2026-002 SWISS DEPOSIT", amount: 3000.00, type: "CREDIT" },
     { date: "17/08/2026", desc: "FPX PAYMENT NURUL AISYAH * BK-2026-003 SEMPORNA", amount: 600.00, type: "CREDIT" },
@@ -1308,7 +1299,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     { date: "19/08/2026", desc: "CDM CASH DEPOSIT MAYBANK KLANG * UNIDENTIFIED DEPOSIT", amount: 1500.00, type: "CREDIT" }
   ];
 
-  function getStoredStaff(): LocalStaff[] {
+  function getStoredStaff() {
     const raw = localStorage.getItem('kembara_staff_list');
     if (raw) {
       try { return JSON.parse(raw); } catch (e) { return DEFAULT_STAFF_ITEMS; }
@@ -1316,11 +1307,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     return DEFAULT_STAFF_ITEMS;
   }
 
-  function saveStoredStaff(items: LocalStaff[]) {
+  function saveStoredStaff(items) {
     localStorage.setItem('kembara_staff_list', JSON.stringify(items));
   }
 
-  function getStoredLeaves(): LocalLeave[] {
+  function getStoredLeaves() {
     const raw = localStorage.getItem('kembara_leave_list');
     if (raw) {
       try { return JSON.parse(raw); } catch (e) { return DEFAULT_LEAVE_ITEMS; }
@@ -1328,11 +1319,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     return DEFAULT_LEAVE_ITEMS;
   }
 
-  function saveStoredLeaves(items: LocalLeave[]) {
+  function saveStoredLeaves(items) {
     localStorage.setItem('kembara_leave_list', JSON.stringify(items));
   }
 
-  function getStoredLedger(): LocalLedgerItem[] {
+  function getStoredLedger() {
     const raw = localStorage.getItem('kembara_ledger_data');
     if (raw) {
       try { return JSON.parse(raw); } catch (e) { return DEFAULT_LEDGER_ITEMS; }
@@ -1340,8 +1331,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     return DEFAULT_LEDGER_ITEMS;
   }
 
-  function saveStoredLedger(items: LocalLedgerItem[]) {
+  function saveStoredLedger(items) {
     localStorage.setItem('kembara_ledger_data', JSON.stringify(items));
+  }
+
+  function getStoredSlots() {
+    const raw = localStorage.getItem('kembara_package_slots');
+    if (raw) {
+      try { return JSON.parse(raw); } catch (e) { return {}; }
+    }
+    return {};
+  }
+
+  function saveStoredSlots(map) {
+    localStorage.setItem('kembara_package_slots', JSON.stringify(map));
   }
 
   // -------------------------------------------------------------
@@ -1351,8 +1354,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   let currentUserName = 'Zaim Rosli';
   let currentUserRoleDisplay = 'Admin Utama';
 
-  function applyRolePermissions(roleKey: string, userName?: string, roleDisplay?: string) {
-    currentRoleKey = roleKey;
+  function applyRolePermissions(roleKey, userName, roleDisplay) {
+    currentRoleKey = roleKey || 'admin';
     if (userName) currentUserName = userName;
     if (roleDisplay) currentUserRoleDisplay = roleDisplay;
 
@@ -1371,16 +1374,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     }
 
     // Filter Tab Buttons based on role
-    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
-    let firstVisibleTab = '';
-
+    const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(btn => {
       const allowedRoles = (btn.getAttribute('data-roles') || 'admin').split(',');
-      const tabTarget = btn.getAttribute('data-tab') || '';
-
       if (currentRoleKey === 'admin' || allowedRoles.includes(currentRoleKey)) {
         btn.classList.remove('hidden');
-        if (!firstVisibleTab) firstVisibleTab = tabTarget;
       } else {
         btn.classList.add('hidden');
       }
@@ -1392,14 +1390,15 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     else if (currentRoleKey === 'hr') switchTab('hr');
     else switchTab('overview');
 
-    // Re-render UI components with new role permissions
+    // Re-render UI components
     renderStaffCards();
     renderLeavesTable();
     renderLedgerAndRecon();
     populateLeaveStaffDropdown();
+    refreshCmsSlotsDisplay();
   }
 
-  // Load Session
+  // Load Session on init
   const sessionData = localStorage.getItem('kembara_staff_session');
   if (sessionData) {
     try {
@@ -1412,20 +1411,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     applyRolePermissions('admin');
   }
 
-  // Logout button
-  const logoutBtn = document.getElementById('logout-btn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('kembara_staff_session');
-      window.location.href = '/staf/login/';
-    });
-  }
+  // Tab switching function
+  function switchTab(tabId) {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
 
-  // Tab switching
-  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
-  const tabPanes = document.querySelectorAll<HTMLElement>('.tab-pane');
-
-  function switchTab(tabId: string) {
     tabButtons.forEach(btn => {
       if (btn.getAttribute('data-tab') === tabId) {
         btn.classList.add('bg-teal-700', 'text-white', 'shadow-sm');
@@ -1445,7 +1435,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     });
   }
 
-  tabButtons.forEach(btn => {
+  // Bind tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tab = btn.getAttribute('data-tab');
       if (tab) switchTab(tab);
@@ -1460,12 +1451,21 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     });
   });
 
+  // Logout button binding
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('kembara_staff_session');
+      window.location.href = '/staf/login/';
+    });
+  }
+
   // -------------------------------------------------------------
   // HR & LEAVE APPROVAL SYSTEM
   // -------------------------------------------------------------
   function populateLeaveStaffDropdown() {
     const staffList = getStoredStaff();
-    const selectEl = document.getElementById('modal-leave-staff') as HTMLSelectElement;
+    const selectEl = document.getElementById('modal-leave-staff');
     if (!selectEl) return;
 
     selectEl.innerHTML = staffList.map(stf => `
@@ -1503,11 +1503,11 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <div class="pt-3 border-t border-slate-200 grid grid-cols-2 gap-2 text-xs">
           <div>
             <span class="text-[10px] text-slate-500 font-medium block">Tugasan Trip</span>
-            <span class="font-bold text-slate-900">${stf.assignedTripsCount} Trip Diketuai</span>
+            <span class="font-bold text-slate-900">${stf.assignedTripsCount || 0} Trip Diketuai</span>
           </div>
           <div>
             <span class="text-[10px] text-slate-500 font-medium block">Deals Jualan</span>
-            <span class="font-bold text-teal-700">${stf.totalSalesDeals} Pelanggan</span>
+            <span class="font-bold text-teal-700">${stf.totalSalesDeals || 0} Pelanggan</span>
           </div>
         </div>
       </div>
@@ -1599,7 +1599,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     `).join('');
 
     // Attach leave approval buttons
-    document.querySelectorAll<HTMLButtonElement>('.approve-leave-btn').forEach(btn => {
+    document.querySelectorAll('.approve-leave-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const leaveId = btn.getAttribute('data-leave-id');
         const leaveList = getStoredLeaves();
@@ -1609,12 +1609,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           item.approvedBy = `Diluluskan oleh ${currentUserName} (${currentUserRoleDisplay})`;
           saveStoredLeaves(leaveList);
           renderLeavesTable();
-          alert(`Permohonan cuti ${item.id} (${item.staffName}) telah berjaya DILULUSKAN oleh ${currentUserName}!`);
+          alert(`Permohonan cuti ${item.id} (${item.staffName}) telah DILULUSKAN oleh ${currentUserName}!`);
         }
       });
     });
 
-    document.querySelectorAll<HTMLButtonElement>('.reject-leave-btn').forEach(btn => {
+    document.querySelectorAll('.reject-leave-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const leaveId = btn.getAttribute('data-leave-id');
         const leaveList = getStoredLeaves();
@@ -1631,9 +1631,124 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   }
 
   // -------------------------------------------------------------
+  // CMS PACKAGE SLOTS MANAGEMENT (TALLY WITH WEB ITINERARY)
+  // -------------------------------------------------------------
+  function refreshCmsSlotsDisplay() {
+    const slotsMap = getStoredSlots();
+    initialTourPackages.forEach(pkg => {
+      const container = document.getElementById(`cms-slots-list-${pkg.id}`);
+      if (container) {
+        const slots = slotsMap[pkg.id] || pkg.departureSlots || [];
+        container.innerHTML = slots.map(s => `
+          <div class="flex items-center justify-between bg-white px-2 py-1 rounded border border-slate-200 text-[10px]">
+            <span class="font-semibold text-slate-900">${s.date}</span>
+            <span class="font-bold px-1.5 py-0.2 rounded ${s.availablePax <= 4 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
+              Baki ${s.availablePax} / ${s.totalPax} Pax
+            </span>
+          </div>
+        `).join('');
+      }
+    });
+  }
+
+  // Slot Editor Modal Handlers
+  const editSlotsModal = document.getElementById('edit-slots-modal');
+  const closeEditSlotsBtn = document.getElementById('close-edit-slots-modal');
+  const editSlotsForm = document.getElementById('edit-slots-form');
+
+  function openEditSlotsModal(pkgId, pkgTitle) {
+    if (!editSlotsModal) return;
+    const pkg = initialTourPackages.find(p => p.id === pkgId);
+    if (!pkg) return;
+
+    const slotsMap = getStoredSlots();
+    const currentSlots = slotsMap[pkgId] || pkg.departureSlots || [];
+
+    const titleEl = document.getElementById('edit-slots-pkg-name');
+    const idInput = document.getElementById('edit-slots-pkg-id');
+    const rowsContainer = document.getElementById('slots-rows-container');
+
+    if (titleEl) titleEl.textContent = `Pakej: ${pkg.title}`;
+    if (idInput) idInput.value = pkgId;
+
+    if (rowsContainer) {
+      rowsContainer.innerHTML = currentSlots.map((slot, idx) => `
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-800 text-xs">Tarikh Slot #${idx + 1}</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>
+              <label class="block text-[10px] text-slate-600 font-bold mb-0.5">Tarikh Perlepasan</label>
+              <input type="text" class="slot-date-input w-full bg-white border border-slate-300 rounded-lg p-1.5 text-xs font-bold text-slate-900" value="${slot.date}" required />
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-600 font-bold mb-0.5">Baki Pax (Available)</label>
+              <input type="number" class="slot-avail-input w-full bg-white border border-slate-300 rounded-lg p-1.5 text-xs font-bold text-emerald-700" value="${slot.availablePax}" min="0" max="100" required />
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-600 font-bold mb-0.5">Kapasiti Penuh (Total)</label>
+              <input type="number" class="slot-total-input w-full bg-white border border-slate-300 rounded-lg p-1.5 text-xs font-bold text-slate-900" value="${slot.totalPax}" min="1" max="100" required />
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    editSlotsModal.classList.remove('hidden');
+    editSlotsModal.classList.add('flex');
+  }
+
+  document.querySelectorAll('.open-edit-slot-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pId = btn.getAttribute('data-pkg-id');
+      const pTitle = btn.getAttribute('data-pkg-title');
+      if (pId) openEditSlotsModal(pId, pTitle || '');
+    });
+  });
+
+  if (closeEditSlotsBtn && editSlotsModal) {
+    closeEditSlotsBtn.addEventListener('click', () => {
+      editSlotsModal.classList.add('hidden');
+      editSlotsModal.classList.remove('flex');
+    });
+  }
+
+  if (editSlotsForm && editSlotsModal) {
+    editSlotsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pkgId = (document.getElementById('edit-slots-pkg-id')).value;
+      if (!pkgId) return;
+
+      const dateInputs = document.querySelectorAll('.slot-date-input');
+      const availInputs = document.querySelectorAll('.slot-avail-input');
+      const totalInputs = document.querySelectorAll('.slot-total-input');
+
+      const updatedSlots = [];
+      for (let i = 0; i < dateInputs.length; i++) {
+        updatedSlots.push({
+          date: (dateInputs[i]).value,
+          availablePax: parseInt((availInputs[i]).value) || 0,
+          totalPax: parseInt((totalInputs[i]).value) || 25
+        });
+      }
+
+      const slotsMap = getStoredSlots();
+      slotsMap[pkgId] = updatedSlots;
+      saveStoredSlots(slotsMap);
+
+      refreshCmsSlotsDisplay();
+      editSlotsModal.classList.add('hidden');
+      editSlotsModal.classList.remove('flex');
+
+      alert(`Baki kekosongan pax untuk pakej ${pkgId} berjaya dikemas kini dan diselaraskan secara langsung dengan web awam!`);
+    });
+  }
+
+  // -------------------------------------------------------------
   // RECONCILIATION & LEDGER ENGINE
   // -------------------------------------------------------------
-  function renderLedgerAndRecon(bankData: BankItem[] = DEFAULT_BANK_ROWS) {
+  function renderLedgerAndRecon(bankData = DEFAULT_BANK_ROWS) {
     const ledgerItems = getStoredLedger();
     const ledgerTableTbody = document.getElementById('ledger-table-tbody');
     const reconLedgerTbody = document.getElementById('recon-ledger-tbody');
@@ -1647,7 +1762,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     let mismatchCount = 0;
     let discrepancyAmt = 0;
 
-    const matchedLedgerRefs = new Set<string>();
+    const matchedLedgerRefs = new Set();
 
     ledgerItems.forEach(item => {
       totalLedgerInflows += item.debit;
@@ -1843,19 +1958,26 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     });
   }
 
-  // Real Bank File Upload handler
-  const bankFileInput = document.getElementById('bank-statement-file-input') as HTMLInputElement;
+  // Upload Bank Statement
+  const uploadBankBtn = document.getElementById('upload-bank-btn');
+  const bankFileInput = document.getElementById('bank-statement-file-input');
+  if (uploadBankBtn && bankFileInput) {
+    uploadBankBtn.addEventListener('click', () => {
+      bankFileInput.click();
+    });
+  }
+
   if (bankFileInput) {
     bankFileInput.addEventListener('change', (e) => {
-      const files = (e.target as HTMLInputElement).files;
+      const files = e.target.files;
       if (files && files.length > 0) {
         const file = files[0];
         const reader = new FileReader();
         reader.onload = function(evt) {
-          const text = evt.target?.result as string;
-          if (text) {
+          const text = evt.target?.result;
+          if (typeof text === 'string') {
             const lines = text.split('\n');
-            const customRows: BankItem[] = [];
+            const customRows = [];
             for (let i = 1; i < lines.length; i++) {
               const line = lines[i].trim();
               if (line) {
@@ -1887,9 +2009,9 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   // -------------------------------------------------------------
   // CRM STATUS SYNC TO GENERAL LEDGER
   // -------------------------------------------------------------
-  document.querySelectorAll<HTMLSelectElement>('.crm-lead-status-select').forEach(select => {
+  document.querySelectorAll('.crm-lead-status-select').forEach(select => {
     select.addEventListener('change', (e) => {
-      const target = e.target as HTMLSelectElement;
+      const target = e.target;
       const bId = target.getAttribute('data-booking-id');
       const newStatus = target.value;
       const row = target.closest('tr');
@@ -1917,7 +2039,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         const ledgerItems = getStoredLedger();
         const existingIdx = ledgerItems.findIndex(l => l.bookingRef === bId);
         
-        const newLedgerEntry: LocalLedgerItem = {
+        const newLedgerEntry = {
           id: `LED-2026-0${ledgerItems.length + 1}`,
           bookingRef: bId || 'BK-2026-NEW',
           date: new Date().toISOString().split('T')[0],
@@ -1964,7 +2086,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     });
   }
 
-  document.querySelectorAll<HTMLButtonElement>('.role-switch-choice-btn').forEach(btn => {
+  document.querySelectorAll('.role-switch-choice-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const rKey = btn.getAttribute('data-role-key') || 'admin';
       const uName = btn.getAttribute('data-name') || 'Zaim Rosli';
@@ -1999,7 +2121,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       staffModal.classList.remove('hidden');
       staffModal.classList.add('flex');
       const staffList = getStoredStaff();
-      const idInput = document.getElementById('modal-staff-id') as HTMLInputElement;
+      const idInput = document.getElementById('modal-staff-id');
       if (idInput) idInput.value = `STF-0${staffList.length + 1}`;
     }
   }
@@ -2017,15 +2139,15 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   if (newStaffForm && staffModal) {
     newStaffForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const id = (document.getElementById('modal-staff-id') as HTMLInputElement)?.value;
-      const role = (document.getElementById('modal-staff-role') as HTMLSelectElement)?.value;
-      const name = (document.getElementById('modal-staff-name') as HTMLInputElement)?.value;
-      const email = (document.getElementById('modal-staff-email') as HTMLInputElement)?.value;
-      const phone = (document.getElementById('modal-staff-phone') as HTMLInputElement)?.value;
-      const status = (document.getElementById('modal-staff-status') as HTMLSelectElement)?.value;
+      const id = (document.getElementById('modal-staff-id')).value;
+      const role = (document.getElementById('modal-staff-role')).value;
+      const name = (document.getElementById('modal-staff-name')).value;
+      const email = (document.getElementById('modal-staff-email')).value;
+      const phone = (document.getElementById('modal-staff-phone')).value;
+      const status = (document.getElementById('modal-staff-status')).value;
 
       const staffList = getStoredStaff();
-      const newStaff: LocalStaff = {
+      const newStaff = {
         id: id || `STF-0${staffList.length + 1}`,
         name: name,
         role: role,
@@ -2061,8 +2183,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       leaveModal.classList.add('flex');
       populateLeaveStaffDropdown();
 
-      const startInput = document.getElementById('modal-leave-start') as HTMLInputElement;
-      const endInput = document.getElementById('modal-leave-end') as HTMLInputElement;
+      const startInput = document.getElementById('modal-leave-start');
+      const endInput = document.getElementById('modal-leave-end');
       const today = new Date().toISOString().split('T')[0];
       if (startInput) startInput.value = today;
       if (endInput) endInput.value = today;
@@ -2081,20 +2203,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   if (newLeaveForm && leaveModal) {
     newLeaveForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const staffSelect = document.getElementById('modal-leave-staff') as HTMLSelectElement;
+      const staffSelect = document.getElementById('modal-leave-staff');
       const selectedOption = staffSelect?.options[staffSelect.selectedIndex];
       const staffId = staffSelect?.value || 'STF-01';
       const staffName = selectedOption?.getAttribute('data-name') || currentUserName;
       const staffRole = selectedOption?.getAttribute('data-role') || currentUserRoleDisplay;
 
-      const type = (document.getElementById('modal-leave-type') as HTMLSelectElement)?.value;
-      const days = parseInt((document.getElementById('modal-leave-days') as HTMLInputElement)?.value || '1');
-      const start = (document.getElementById('modal-leave-start') as HTMLInputElement)?.value;
-      const end = (document.getElementById('modal-leave-end') as HTMLInputElement)?.value;
-      const reason = (document.getElementById('modal-leave-reason') as HTMLTextAreaElement)?.value;
+      const type = (document.getElementById('modal-leave-type')).value;
+      const days = parseInt((document.getElementById('modal-leave-days')).value || '1');
+      const start = (document.getElementById('modal-leave-start')).value;
+      const end = (document.getElementById('modal-leave-end')).value;
+      const reason = (document.getElementById('modal-leave-reason')).value;
 
       const leaveList = getStoredLeaves();
-      const newLeave: LocalLeave = {
+      const newLeave = {
         id: `LV-2026-0${leaveList.length + 1}`,
         staffId: staffId,
         staffName: staffName,
@@ -2130,7 +2252,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     openLedgerModalBtn.addEventListener('click', () => {
       ledgerModal.classList.remove('hidden');
       ledgerModal.classList.add('flex');
-      const dateInput = document.getElementById('modal-led-date') as HTMLInputElement;
+      const dateInput = document.getElementById('modal-led-date');
       if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
     });
   }
@@ -2143,17 +2265,17 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   if (newLedgerForm && ledgerModal) {
     newLedgerForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const ref = (document.getElementById('modal-led-ref') as HTMLInputElement)?.value;
-      const date = (document.getElementById('modal-led-date') as HTMLInputElement)?.value;
-      const code = (document.getElementById('modal-led-code') as HTMLSelectElement)?.value;
-      const cust = (document.getElementById('modal-led-customer') as HTMLInputElement)?.value;
-      const desc = (document.getElementById('modal-led-desc') as HTMLInputElement)?.value;
-      const type = (document.getElementById('modal-led-type') as HTMLSelectElement)?.value;
-      const amt = parseFloat((document.getElementById('modal-led-amount') as HTMLInputElement)?.value || '0');
+      const ref = (document.getElementById('modal-led-ref')).value;
+      const date = (document.getElementById('modal-led-date')).value;
+      const code = (document.getElementById('modal-led-code')).value;
+      const cust = (document.getElementById('modal-led-customer')).value;
+      const desc = (document.getElementById('modal-led-desc')).value;
+      const type = (document.getElementById('modal-led-type')).value;
+      const amt = parseFloat((document.getElementById('modal-led-amount')).value || '0');
 
       const isDebit = type === 'DEBIT';
       const ledgerItems = getStoredLedger();
-      const newEntry: LocalLedgerItem = {
+      const newEntry = {
         id: `LED-2026-0${ledgerItems.length + 1}`,
         bookingRef: ref || 'MANUAL',
         date: date || new Date().toISOString().split('T')[0],
@@ -2251,10 +2373,10 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   if (newPkgForm && pkgModal) {
     newPkgForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const title = (document.getElementById('modal-pkg-title') as HTMLInputElement)?.value;
-      const price = (document.getElementById('modal-pkg-price') as HTMLInputElement)?.value;
-      const deposit = (document.getElementById('modal-pkg-deposit') as HTMLInputElement)?.value;
-      const duration = (document.getElementById('modal-pkg-duration') as HTMLInputElement)?.value;
+      const title = (document.getElementById('modal-pkg-title')).value;
+      const price = (document.getElementById('modal-pkg-price')).value;
+      const deposit = (document.getElementById('modal-pkg-deposit')).value;
+      const duration = (document.getElementById('modal-pkg-duration')).value;
 
       const container = document.getElementById('cms-packages-container');
       if (container && title) {
