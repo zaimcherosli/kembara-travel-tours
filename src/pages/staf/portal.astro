@@ -37,7 +37,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
           <div class="flex items-center space-x-4">
             <div class="text-right hidden sm:block">
               <div id="display-staff-name" class="text-xs font-bold text-white">ZAIM ROSLI</div>
-              <div id="display-staff-role" class="text-[10px] text-emerald-400 font-semibold">👑 Admin Utama</div>
+              <div id="display-staff-role" class="text-[10px] text-emerald-400 font-semibold">Admin Utama</div>
             </div>
 
             <a
@@ -75,7 +75,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
             data-tab="overview"
             class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-teal-600 text-white shadow-sm flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>📊 Ringkasan Dashboard</span>
+            <span>Ringkasan Dashboard</span>
           </button>
 
           <button
@@ -83,7 +83,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
             data-tab="packages"
             class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>📦 Pengurusan Pakej (CMS)</span>
+            <span>Pengurusan Pakej (CMS)</span>
           </button>
 
           <button
@@ -91,7 +91,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
             data-tab="bookings"
             class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>👥 Tempahan & Leads CRM</span>
+            <span>Tempahan & Leads CRM</span>
           </button>
 
           <button
@@ -99,7 +99,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
             data-tab="accounts"
             class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>💰 Invois & Resit Rasmi</span>
+            <span>Invois & Resit Rasmi</span>
           </button>
 
           <button
@@ -107,7 +107,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
             data-tab="hr"
             class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
           >
-            <span>👔 HR & Tugasan Trip</span>
+            <span>HR & Tugasan Trip</span>
           </button>
 
         </div>
@@ -151,7 +151,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
           <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
             <div class="flex items-center justify-between text-slate-400 mb-3">
               <span class="text-xs font-semibold uppercase tracking-wider">Hasil Jualan (Bulan Ini)</span>
-              <span class="p-2 rounded-xl bg-teal-500/10 text-teal-400">💵</span>
+              <span class="p-2 rounded-xl bg-teal-500/10 text-teal-400 font-bold text-xs">RM</span>
             </div>
             <div class="text-2xl font-black text-white">RM 98,150</div>
             <div class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
@@ -162,7 +162,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
           <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
             <div class="flex items-center justify-between text-slate-400 mb-3">
               <span class="text-xs font-semibold uppercase tracking-wider">Tempahan & Leads</span>
-              <span class="p-2 rounded-xl bg-sky-500/10 text-sky-400">👥</span>
+              <span class="p-2 rounded-xl bg-sky-500/10 text-sky-400 font-bold text-xs">PAX</span>
             </div>
             <div class="text-2xl font-black text-white">15 Peserta</div>
             <div class="text-[11px] text-sky-400 font-semibold mt-1">
@@ -173,7 +173,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
           <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
             <div class="flex items-center justify-between text-slate-400 mb-3">
               <span class="text-xs font-semibold uppercase tracking-wider">Pakej Aktif di Web</span>
-              <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">📦</span>
+              <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400 font-bold text-xs">PKG</span>
             </div>
             <div class="text-2xl font-black text-white">{tourPackages.length} Pakej</div>
             <div class="text-[11px] text-amber-400 font-semibold mt-1">
@@ -184,7 +184,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
           <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
             <div class="flex items-center justify-between text-slate-400 mb-3">
               <span class="text-xs font-semibold uppercase tracking-wider">Trip Berlepas Terdekat</span>
-              <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">✈️</span>
+              <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 font-bold text-xs">TRIP</span>
             </div>
             <div class="text-2xl font-black text-white">3 Kumpulan</div>
             <div class="text-[11px] text-emerald-400 font-semibold mt-1">
@@ -271,7 +271,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                     </span>
                   </div>
                   <div class="text-[11px] text-slate-400">
-                    📅 Tarikh: <span class="text-slate-200">{trip.departureDate} - {trip.returnDate}</span>
+                    Tarikh: <span class="text-slate-200">{trip.departureDate} - {trip.returnDate}</span>
                   </div>
                   <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-slate-800">
                     <span>Lead: <strong class="text-emerald-400">{trip.leadGuide}</strong></span>
@@ -313,7 +313,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                 <div class="flex items-center justify-between mb-3">
                   <span class="text-[11px] font-bold text-teal-400 uppercase tracking-wider">{pkg.categoryLabel}</span>
                   <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                    ● Aktif di Web
+                    Aktif di Web
                   </span>
                 </div>
                 <h3 class="text-base font-bold text-white line-clamp-1">{pkg.title}</h3>
@@ -331,7 +331,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                 </div>
 
                 <div class="mt-3 text-[11px] text-slate-400">
-                  <span>📅 Perlepasan:</span>
+                  <span>Perlepasan:</span>
                   <div class="flex flex-wrap gap-1 mt-1">
                     {pkg.nextDepartureDates.slice(0, 2).map(d => (
                       <span class="bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-300">{d}</span>
@@ -347,14 +347,14 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                   class="edit-pkg-btn flex-1 bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700 transition-colors"
                   data-pkg-id={pkg.id}
                 >
-                  ✏️ Edit Harga / Info
+                  Edit Harga / Info
                 </button>
                 <button
                   type="button"
                   class="toggle-status-btn px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 text-xs rounded-xl border border-slate-700"
                   title="Toggle Sold Out"
                 >
-                  🔒 Sold Out
+                  Sold Out
                 </button>
               </div>
             </div>
@@ -406,7 +406,7 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                     </td>
                     <td class="py-3.5">
                       <div class="font-semibold text-slate-200">{bk.packageName}</div>
-                      <div class="text-[11px] text-slate-400">📅 {bk.travelDate}</div>
+                      <div class="text-[11px] text-slate-400">{bk.travelDate}</div>
                     </td>
                     <td class="py-3.5 font-bold text-slate-200">
                       {bk.pax} Orang
@@ -417,10 +417,10 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                     </td>
                     <td class="py-3.5">
                       <select class="lead-status-select bg-slate-900 border border-slate-700 text-xs text-white rounded-lg p-1 font-semibold">
-                        <option value="Pertanyaan Baru" selected={bk.status === 'Pertanyaan Baru'}>⏳ Pertanyaan Baru</option>
-                        <option value="Deposit Selesai" selected={bk.status === 'Deposit Selesai'}>💳 Deposit Selesai</option>
-                        <option value="Bayaran Penuh" selected={bk.status === 'Bayaran Penuh'}>✅ Bayaran Penuh</option>
-                        <option value="Selesai Trip" selected={bk.status === 'Selesai Trip'}>🎉 Selesai Trip</option>
+                        <option value="Pertanyaan Baru" selected={bk.status === 'Pertanyaan Baru'}>Pertanyaan Baru</option>
+                        <option value="Deposit Selesai" selected={bk.status === 'Deposit Selesai'}>Deposit Selesai</option>
+                        <option value="Bayaran Penuh" selected={bk.status === 'Bayaran Penuh'}>Bayaran Penuh</option>
+                        <option value="Selesai Trip" selected={bk.status === 'Selesai Trip'}>Selesai Trip</option>
                       </select>
                     </td>
                     <td class="py-3.5">
@@ -428,17 +428,17 @@ import { initialBookings, initialStaff, initialTripAssignments } from '../../dat
                         <a
                           href={`https://wa.me/6${bk.phone.replace(/[^0-9]/g, '')}?text=Salam%20${encodeURIComponent(bk.customerName)},%20ini%20adalah%20susulan%20rasmi%20daripada%20Kembara%20Travel%20berkenaan%20pakej%20${encodeURIComponent(bk.packageName)}.`}
                           target="_blank"
-                          class="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white"
+                          class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px]"
                           title="Hantar WhatsApp Follow-up"
                         >
-                          💬
+                          WhatsApp
                         </a>
                         <button
                           type="button"
                           class="generate-invoice-btn px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-semibold border border-slate-700"
                           data-booking-id={bk.id}
                         >
-                          📄 Resit
+                          Resit
                         </button>
                       </div>
                     </td>

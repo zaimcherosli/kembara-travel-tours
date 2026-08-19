@@ -37,7 +37,7 @@ const whatsappMessage = encodeURIComponent(
     <div class="absolute top-3.5 left-3.5 flex flex-wrap gap-2 items-center">
       {pkg.badge && (
         <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-          ★ {pkg.badge}
+          {pkg.badge}
         </span>
       )}
       {discountPercentage && (
@@ -86,7 +86,7 @@ const whatsappMessage = encodeURIComponent(
           {pkg.destination}
         </span>
         <span class="flex items-center gap-1 text-amber-600 font-bold">
-          ★ {pkg.rating} <span class="text-slate-400 font-normal">({pkg.reviewCount})</span>
+          {pkg.rating} <span class="text-slate-400 font-normal">({pkg.reviewCount} ulasan)</span>
         </span>
       </div>
 

@@ -173,7 +173,7 @@ import { tourPackages } from '../data/packages';
           </div>
 
           <p class="text-[11px] text-slate-500 text-center">
-            🔒 Maklumat anda adalah sulit dan hanya digunakan untuk urusan tempahan rasmi.
+            Maklumat anda adalah sulit dan hanya digunakan untuk urusan tempahan rasmi.
           </p>
 
         </form>
@@ -198,12 +198,12 @@ import { tourPackages } from '../data/packages';
       const notes = (document.getElementById('form-notes') as HTMLTextAreaElement)?.value || 'Tiada nota tambahan';
 
       const message = `Salam Kembara Travel, saya ingin bertanyakan sebut harga/tempahan:%0A%0A` +
-        `👤 *Nama:* ${encodeURIComponent(name)}%0A` +
-        `📞 *No Tel:* ${encodeURIComponent(phone)}%0A` +
-        `✈️ *Pakej:* ${encodeURIComponent(pkg)}%0A` +
-        `👥 *Bilangan Pax:* ${encodeURIComponent(pax)}%0A` +
-        `📅 *Bulan Perlepasan:* ${encodeURIComponent(month)}%0A` +
-        `📝 *Nota/Permintaan:* ${encodeURIComponent(notes)}`;
+        `*Nama:* ${encodeURIComponent(name)}%0A` +
+        `*No Tel:* ${encodeURIComponent(phone)}%0A` +
+        `*Pakej:* ${encodeURIComponent(pkg)}%0A` +
+        `*Bilangan Pax:* ${encodeURIComponent(pax)}%0A` +
+        `*Bulan Perlepasan:* ${encodeURIComponent(month)}%0A` +
+        `*Nota/Permintaan:* ${encodeURIComponent(notes)}`;
 
       window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
     });
