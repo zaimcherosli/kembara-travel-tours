@@ -84,8 +84,8 @@ import { companyInfo } from '../data/company';
           </a>
         </div>
 
-        <!-- CTA Action Buttons -->
-        <div class="hidden sm:flex items-center gap-3">
+        <!-- CTA Action Buttons & Staff Gear Setting Icon -->
+        <div class="hidden sm:flex items-center gap-2.5">
           <a
             href={`https://wa.me/${companyInfo.whatsappNumber}?text=Hai%20Kembara%20Travel,%20saya%20berminat%20untuk%20dapatkan%20sebut%20harga%20pakej.`}
             target="_blank"
@@ -97,14 +97,41 @@ import { companyInfo } from '../data/company';
             </svg>
             <span>Tempah Sekarang</span>
           </a>
+
+          <!-- Gear Setting Icon (Staff Access) -->
+          <a
+            href="/staf/login"
+            title="Akses Portal Staf & Pengurusan"
+            class="p-2.5 rounded-xl text-slate-500 hover:text-teal-700 hover:bg-slate-100 transition-colors border border-slate-200"
+            aria-label="Akses Portal Staf"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </a>
         </div>
 
-        <!-- Mobile menu hamburger button -->
-        <div class="flex items-center lg:hidden">
+        <!-- Mobile Right Controls (Staff Gear + Hamburger Button) -->
+        <div class="flex items-center gap-1.5 lg:hidden">
+          <!-- Mobile Staff Gear Icon Button -->
+          <a
+            href="/staf/login"
+            title="Akses Portal Staf & Pengurusan"
+            class="p-2 rounded-xl text-slate-600 hover:text-teal-700 hover:bg-slate-100 transition-colors border border-slate-200"
+            aria-label="Akses Portal Staf"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </a>
+
+          <!-- Mobile menu hamburger button -->
           <button
             id="mobile-menu-btn"
             type="button"
-            class="p-2.5 rounded-xl text-slate-700 hover:text-teal-600 hover:bg-slate-100 transition-colors focus:outline-none"
+            class="p-2 rounded-xl text-slate-700 hover:text-teal-600 hover:bg-slate-100 transition-colors focus:outline-none"
             aria-label="Buka Menu"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +144,7 @@ import { companyInfo } from '../data/company';
     </div>
 
     <!-- Mobile Drawer Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 pt-3 pb-6 space-y-2">
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2">
       <a href="#pakej" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100 hover:text-teal-600">
         Pakej Percutian
       </a>
@@ -139,7 +166,20 @@ import { companyInfo } from '../data/company';
       <a href="#pertanyaan" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-base font-semibold text-slate-800 hover:bg-slate-100 hover:text-teal-600">
         Borang Pertanyaan / Sebut Harga
       </a>
-      <div class="pt-3">
+
+      <!-- Staff Portal direct link inside mobile drawer -->
+      <a href="/staf/login" class="mobile-nav-link flex items-center justify-between px-3 py-2.5 rounded-lg text-base font-bold text-teal-800 hover:bg-teal-50 border-t border-slate-100 mt-2 pt-3">
+        <span class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Portal Staf & Pengurusan</span>
+        </span>
+        <span class="text-[11px] text-teal-800 bg-teal-100 font-bold px-2 py-0.5 rounded border border-teal-200">Akses</span>
+      </a>
+
+      <div class="pt-2">
         <a
           href={`https://wa.me/${companyInfo.whatsappNumber}?text=Hai%20Kembara%20Travel,%20saya%20ingin%20tempah%20pakej%20percutian.`}
           target="_blank"
