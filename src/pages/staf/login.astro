@@ -4,44 +4,41 @@ import { companyInfo } from '../../data/company';
 ---
 
 <Layout title="Log Masuk Staf & Operasi | Kembara Travel">
-  <div class="min-h-screen bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+  <div class="min-h-screen bg-slate-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
     
-    <!-- Background glow -->
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-teal-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-
     <div class="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
       
       <!-- Brand Logo -->
       <a href="/" class="inline-flex items-center gap-3 group mb-6">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-teal-500/20 group-hover:scale-105 transition-transform">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-600 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-600/20 group-hover:scale-105 transition-transform">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         </div>
         <div class="text-left">
-          <div class="text-xl font-extrabold text-white tracking-tight leading-tight">
-            KEMBARA <span class="text-teal-400">PORTAL</span>
+          <div class="text-xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            KEMBARA <span class="text-teal-600">PORTAL</span>
           </div>
-          <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
+          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
             Sistem Operasi & Pengurusan Staf
           </div>
         </div>
       </a>
 
-      <h2 class="text-2xl font-black text-white tracking-tight">
+      <h2 class="text-2xl font-black text-slate-900 tracking-tight">
         Log Masuk Portal Staf
       </h2>
-      <p class="mt-2 text-xs text-slate-400 max-w-sm mx-auto">
+      <p class="mt-2 text-xs text-slate-600 max-w-sm mx-auto">
         Akses khusus pegawai syarikat bagi pengurusan Pakej, Tempahan Leads, Invois Kewangan & Operasi Trip.
       </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-      <div class="bg-slate-900/90 border border-slate-800 backdrop-blur-xl py-8 px-6 shadow-2xl rounded-3xl sm:px-10">
+      <div class="bg-white border border-slate-200/90 shadow-xl rounded-3xl p-6 sm:p-10">
         
         <form id="login-form" class="space-y-5">
           <div>
-            <label for="staff-id" class="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <label for="staff-id" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Emel / ID Staf
             </label>
             <div class="mt-1.5">
@@ -51,14 +48,14 @@ import { companyInfo } from '../../data/company';
                 type="text"
                 required
                 value="zaim@kembaratours.com.my"
-                class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 font-medium placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all"
                 placeholder="nama@kembaratours.com.my"
               />
             </div>
           </div>
 
           <div>
-            <label for="password" class="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <label for="password" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Kata Laluan
             </label>
             <div class="mt-1.5">
@@ -68,7 +65,7 @@ import { companyInfo } from '../../data/company';
                 type="password"
                 required
                 value="••••••••"
-                class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 font-medium placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-transparent transition-all"
                 placeholder="Kata laluan staf"
               />
             </div>
@@ -76,13 +73,13 @@ import { companyInfo } from '../../data/company';
 
           <!-- Role Selector for quick demo testing -->
           <div>
-            <label for="role-select" class="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <label for="role-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
               Pilihan Peranan (Role):
             </label>
             <div class="mt-1.5">
               <select
                 id="role-select"
-                class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-4 py-3 text-xs font-semibold text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-bold text-teal-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600"
               >
                 <option value="Admin Utama">Admin Utama (Akses Penuh)</option>
                 <option value="Pegawai Jualan (Sales)">Pegawai Jualan / Sales</option>
@@ -94,16 +91,16 @@ import { companyInfo } from '../../data/company';
 
           <div class="flex items-center justify-between text-xs">
             <div class="flex items-center">
-              <input id="remember-me" name="remember-me" type="checkbox" checked class="h-4 w-4 rounded bg-slate-800 border-slate-700 text-teal-600 focus:ring-teal-500" />
-              <label for="remember-me" class="ml-2 block text-slate-400">Ingat sesi ini</label>
+              <input id="remember-me" name="remember-me" type="checkbox" checked class="h-4 w-4 rounded bg-slate-100 border-slate-300 text-teal-600 focus:ring-teal-500" />
+              <label for="remember-me" class="ml-2 block text-slate-600 font-medium">Ingat sesi ini</label>
             </div>
-            <span class="text-teal-400 hover:text-teal-300 cursor-pointer">Lupa kata laluan?</span>
+            <span class="text-teal-700 hover:text-teal-800 font-semibold cursor-pointer">Lupa kata laluan?</span>
           </div>
 
           <div>
             <button
               type="submit"
-              class="w-full flex justify-center items-center gap-2 py-3.5 px-4 border border-transparent rounded-2xl shadow-lg shadow-teal-500/20 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all cursor-pointer"
+              class="w-full flex justify-center items-center gap-2 py-3.5 px-4 rounded-2xl shadow-md text-sm font-bold text-white bg-teal-700 hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-600 transition-all cursor-pointer"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
@@ -114,19 +111,19 @@ import { companyInfo } from '../../data/company';
         </form>
 
         <!-- Quick Demo Switcher Buttons -->
-        <div class="mt-6 pt-6 border-t border-slate-800 text-center">
-          <span class="text-[11px] text-slate-500 block mb-2">Quick Login Demo (Klik untuk isi automatik):</span>
+        <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+          <span class="text-[11px] text-slate-500 font-medium block mb-2">Quick Login Demo (Klik untuk isi automatik):</span>
           <div class="grid grid-cols-2 gap-2 text-[11px]">
-            <button type="button" class="quick-login-btn py-1.5 px-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-colors" data-email="zaim@kembaratours.com.my" data-role="Admin Utama">
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="zaim@kembaratours.com.my" data-role="Admin Utama">
               Admin (Zaim)
             </button>
-            <button type="button" class="quick-login-btn py-1.5 px-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-colors" data-email="sarah.sales@kembaratours.com.my" data-role="Pegawai Jualan (Sales)">
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="sarah.sales@kembaratours.com.my" data-role="Pegawai Jualan (Sales)">
               Sales (Sarah)
             </button>
-            <button type="button" class="quick-login-btn py-1.5 px-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-colors" data-email="amir.mutawwif@kembaratours.com.my" data-role="Mutawwif / Tour Lead">
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="amir.mutawwif@kembaratours.com.my" data-role="Mutawwif / Tour Lead">
               Mutawwif (Ustaz)
             </button>
-            <button type="button" class="quick-login-btn py-1.5 px-2.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white border border-slate-700 transition-colors" data-email="accounts@kembaratours.com.my" data-role="Akauntan & Kewangan">
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="accounts@kembaratours.com.my" data-role="Akauntan & Kewangan">
               Akaun (Hafiz)
             </button>
           </div>
@@ -135,7 +132,7 @@ import { companyInfo } from '../../data/company';
       </div>
 
       <div class="mt-6 text-center">
-        <a href="/" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center justify-center gap-1.5">
+        <a href="/" class="text-xs font-bold text-slate-600 hover:text-slate-900 transition-colors flex items-center justify-center gap-1.5">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
@@ -178,7 +175,7 @@ import { companyInfo } from '../../data/company';
       }));
 
       // Redirect to portal dashboard
-      window.location.href = '/staf/portal';
+      window.location.href = '/staf/portal/';
     });
   }
 </script>
