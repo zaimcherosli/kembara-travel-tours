@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { companyInfo } from '../../data/company';
 import { tourPackages } from '../../data/packages';
-import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEntries, sampleBankStatements } from '../../data/portalData';
+import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEntries, sampleBankStatements, initialLeaveApplications } from '../../data/portalData';
 ---
 
 <Layout title="Portal Pengurusan & Operasi Staf | Kembara Travel">
@@ -30,12 +30,40 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             </a>
           </div>
 
-          <!-- Staff Profile & Quick Actions -->
-          <div class="flex items-center space-x-2 sm:space-x-4">
+          <!-- Staff Profile, Role Switcher & Quick Actions -->
+          <div class="flex items-center space-x-2 sm:space-x-3">
+            
+            <!-- Quick Role Switcher Button -->
+            <button
+              type="button"
+              id="open-role-switcher-btn"
+              class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold transition-colors border border-slate-300 cursor-pointer"
+              title="Tukar Peranan Paparan (Role)"
+            >
+              <svg class="w-3.5 h-3.5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+              </svg>
+              <span class="hidden md:inline">Tukar Role:</span>
+              <span id="header-role-badge" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-900 border border-teal-300">ADMIN</span>
+            </button>
+
+            <!-- Staff Info -->
             <div class="text-right hidden sm:block">
               <div id="display-staff-name" class="text-xs font-black text-slate-900">ZAIM ROSLI</div>
               <div id="display-staff-role" class="text-[11px] text-teal-700 font-bold">Admin Utama</div>
             </div>
+
+            <!-- Quick Apply Leave Button for all staff -->
+            <button
+              type="button"
+              id="header-apply-leave-btn"
+              class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold transition-colors border border-amber-200 cursor-pointer"
+            >
+              <svg class="w-3.5 h-3.5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Mohon Cuti</span>
+            </button>
 
             <a
               href="/"
@@ -45,7 +73,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <svg class="w-3.5 h-3.5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
-              <span>Lihat Web Awam</span>
+              <span>Web Awam</span>
             </a>
 
             <button
@@ -56,20 +84,21 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              <span>Log Keluar</span>
+              <span>Keluar</span>
             </button>
           </div>
 
         </div>
       </div>
 
-      <!-- Tab Navigation Bar (Scrollable on Mobile) -->
+      <!-- Tab Navigation Bar (Role-Filtered) -->
       <div class="bg-slate-100/95 border-t border-slate-200 px-3 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-3 overflow-x-auto py-2 sm:py-2.5 scrollbar-none" style="-webkit-overflow-scrolling: touch;">
+        <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-3 overflow-x-auto py-2 sm:py-2.5 scrollbar-none" id="portal-tab-bar" style="-webkit-overflow-scrolling: touch;">
           
           <button
             type="button"
             data-tab="overview"
+            data-roles="admin"
             class="tab-btn active px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-teal-700 text-white shadow-sm flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Ringkasan Dashboard</span>
@@ -78,6 +107,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="packages"
+            data-roles="admin,sales"
             class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Pengurusan Pakej (CMS)</span>
@@ -86,6 +116,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="bookings"
+            data-roles="admin,sales"
             class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Tempahan & Leads CRM</span>
@@ -94,17 +125,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="accounts"
+            data-roles="admin,finance"
             class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
-            <span>Lejer Kewangan & Penyesuaian Bank</span>
+            <span>Lejer Kewangan & Bank</span>
           </button>
 
           <button
             type="button"
             data-tab="hr"
-            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
+            data-roles="admin,hr"
+            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer relative"
           >
-            <span>HR & Tugasan Trip</span>
+            <span>HR, Staf & Cuti</span>
+            <span id="tab-leave-badge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] font-black bg-rose-500 text-white">2</span>
           </button>
 
         </div>
@@ -114,7 +148,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     <!-- Main Content Area -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
       
-      <!-- ================= TAB 1: OVERVIEW ================= -->
+      <!-- ================= TAB 1: OVERVIEW (ADMIN) ================= -->
       <section id="tab-overview" class="tab-pane space-y-6 sm:space-y-8">
         
         <!-- Welcome Banner -->
@@ -127,17 +161,24 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               Papan Kawalan Operasi Kembara Travel
             </h1>
             <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-              Pantau status jualan pakej, lejer kutipan bayaran jemaah, dan penugasan Mutawwif/Tour Leader secara langsung.
+              Pantau status jualan pakej, lejer kutipan bayaran jemaah, permohonan cuti staf dan penugasan Mutawwif secara berpusat.
             </p>
           </div>
-          <div class="flex items-center gap-3 w-full sm:w-auto">
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
             <button
               type="button"
               id="quick-add-pkg-btn"
-              class="w-full sm:w-auto justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              class="flex-1 sm:flex-none justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-              <span>Tambah Pakej Baru</span>
+              <span>Tambah Pakej</span>
+            </button>
+            <button
+              type="button"
+              id="quick-add-staff-btn-overview"
+              class="flex-1 sm:flex-none justify-center bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-slate-300 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            >
+              <span>+ Staf Baru</span>
             </button>
           </div>
         </div>
@@ -180,12 +221,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
           <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
             <div class="flex items-center justify-between text-slate-500 mb-2 sm:mb-3">
-              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Trip Berlepas Terdekat</span>
-              <span class="p-1.5 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold text-xs">TRIP</span>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Permohonan Cuti Staf</span>
+              <span class="p-1.5 rounded-lg bg-rose-100 text-rose-800 font-extrabold text-xs">CUTI</span>
             </div>
-            <div class="text-xl sm:text-2xl font-black text-slate-900">3 Kumpulan</div>
-            <div class="text-[10px] sm:text-[11px] text-emerald-700 font-bold mt-1">
-              <span>Jepun (10 Okt) & Swiss (15 Okt)</span>
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="overview-stat-leaves">2 Permohonan</div>
+            <div class="text-[10px] sm:text-[11px] text-rose-700 font-bold mt-1">
+              <span>Menunggu kelulusan Admin/HR</span>
             </div>
           </div>
 
@@ -206,7 +247,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </button>
             </div>
 
-            <!-- Responsive Table with explicit min-w to prevent overlapping -->
             <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
               <table class="w-full text-left text-xs min-w-[520px]">
                 <thead>
@@ -285,11 +325,14 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       </section>
 
 
-      <!-- ================= TAB 2: PENGURUSAN PAKEJ (CMS) ================= -->
+      <!-- ================= TAB 2: PENGURUSAN PAKEJ (CMS) (ADMIN & SALES) ================= -->
       <section id="tab-packages" class="tab-pane hidden space-y-6">
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm">
           <div>
+            <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
+              Modul Katalog Pelancongan (CMS)
+            </div>
             <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Katalog Pakej Pelancongan (Live CMS)</h2>
             <p class="text-xs text-slate-600">Kemas kini harga, diskaun promosi, tarikh perlepasan atau tambah pakej baru.</p>
           </div>
@@ -362,11 +405,14 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       </section>
 
 
-      <!-- ================= TAB 3: TEMPAHAN & LEADS CRM ================= -->
+      <!-- ================= TAB 3: TEMPAHAN & LEADS CRM (ADMIN & SALES) ================= -->
       <section id="tab-bookings" class="tab-pane hidden space-y-6">
         
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm">
           <div>
+            <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
+              Modul Jualan & Pengurusan Pelanggan (Sales CRM)
+            </div>
             <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Pengurusan Tempahan & Leads CRM</h2>
             <p class="text-xs text-slate-600">Pantau permohonan tempahan daripada borang web & WhatsApp pelanggan. Status bayaran akan mengemas kini Lejer Kewangan secara automatik.</p>
           </div>
@@ -456,7 +502,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       </section>
 
 
-      <!-- ================= TAB 4: LEJER KEWANGAN & PENYESUAIAN BANK ================= -->
+      <!-- ================= TAB 4: LEJER KEWANGAN & PENYESUAIAN BANK (ADMIN & FINANCE) ================= -->
       <section id="tab-accounts" class="tab-pane hidden space-y-6 sm:space-y-8">
         
         <!-- Header & Action Toolbar -->
@@ -540,7 +586,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             </div>
           </div>
 
-          <!-- Responsive Table with explicit min-w -->
           <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
             <table class="w-full text-left text-xs min-w-[780px]">
               <thead>
@@ -556,61 +601,13 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100" id="ledger-table-tbody">
-                {initialLedgerEntries.map((led) => (
-                  <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-3 px-3 whitespace-nowrap">
-                      <div class="font-bold text-slate-900">{led.date}</div>
-                      <span class="text-[10px] text-teal-700 font-mono font-bold">{led.id}</span>
-                    </td>
-                    <td class="py-3 px-3 whitespace-nowrap">
-                      <div class="font-bold text-slate-800">{led.bookingRef}</div>
-                      <div class="text-[10px] text-slate-500">{led.accountCode}</div>
-                    </td>
-                    <td class="py-3 px-3 whitespace-nowrap">
-                      <div class="font-bold text-slate-900">{led.customerName}</div>
-                      <div class="text-slate-500 text-[11px] max-w-[220px] truncate">{led.description}</div>
-                    </td>
-                    <td class="py-3 px-3 whitespace-nowrap">
-                      <span class="bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded text-[10px] border border-slate-200">
-                        {led.paymentMethod}
-                      </span>
-                    </td>
-                    <td class="py-3 px-3 text-right font-extrabold text-emerald-700 whitespace-nowrap">
-                      {led.debit > 0 ? `+RM ${led.debit.toLocaleString(undefined, {minimumFractionDigits:2})}` : '-'}
-                    </td>
-                    <td class="py-3 px-3 text-right font-extrabold text-rose-700 whitespace-nowrap">
-                      {led.credit > 0 ? `-RM ${led.credit.toLocaleString(undefined, {minimumFractionDigits:2})}` : '-'}
-                    </td>
-                    <td class="py-3 px-3 text-center whitespace-nowrap">
-                      <span class={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        led.reconciled ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
-                        'bg-amber-100 text-amber-800 border border-amber-200'
-                      }`}>
-                        {led.reconciled ? 'MATCHED' : 'PENDING'}
-                      </span>
-                    </td>
-                    <td class="py-3 px-3 text-center whitespace-nowrap">
-                      <button
-                        type="button"
-                        class="generate-invoice-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold border border-slate-300 transition-colors cursor-pointer"
-                        data-booking-id={led.bookingRef}
-                        data-name={led.customerName}
-                        data-pkg={led.description}
-                        data-paid={led.debit || led.credit}
-                        data-total={led.debit || led.credit}
-                        data-pax={1}
-                      >
-                        Resit
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                <!-- Rendered by JS -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 2. AUTOMATED BANK RECONCILIATION ENGINE (SIDE-BY-SIDE MATCHING) -->
+        <!-- 2. AUTOMATED BANK RECONCILIATION ENGINE -->
         <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
@@ -711,7 +708,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <!-- Official Invoice / Receipt Template Display -->
           <div class="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 shadow-md border border-slate-250 max-w-3xl mx-auto overflow-hidden" id="printable-receipt">
             
-            <!-- Letterhead Header -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b-2 border-slate-900 pb-5 gap-3">
               <div>
                 <div class="text-lg sm:text-xl font-black text-slate-950 tracking-tight leading-tight">
@@ -733,7 +729,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </div>
             </div>
 
-            <!-- Customer Info -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-5 border-b border-slate-200 text-xs">
               <div>
                 <span class="font-bold text-slate-500 uppercase text-[10px] block mb-1">Dikeluarkan Kepada:</span>
@@ -749,7 +744,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </div>
             </div>
 
-            <!-- Line Items Table (with min-w) -->
             <div class="overflow-x-auto w-full my-4 pb-1">
               <table class="w-full text-xs min-w-[460px]">
                 <thead>
@@ -774,7 +768,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </table>
             </div>
 
-            <!-- Financial Calculation Total -->
             <div class="border-t-2 border-slate-900 pt-4 flex justify-end">
               <div class="w-full sm:w-64 space-y-1.5 text-xs text-right">
                 <div class="flex justify-between text-slate-600 font-medium">
@@ -792,7 +785,6 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </div>
             </div>
 
-            <!-- Bottom Official Stamp / Signature Area -->
             <div class="mt-8 sm:mt-12 pt-5 border-t border-slate-200 grid grid-cols-2 gap-4 text-[10px] sm:text-[11px] text-slate-500">
               <div>
                 <p class="italic">Resit ini dijana secara elektronik oleh sistem operasi Kembara Travel & Tours Sdn Bhd.</p>
@@ -809,46 +801,159 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       </section>
 
 
-      <!-- ================= TAB 5: HR & TUGASAN TRIP ================= -->
+      <!-- ================= TAB 5: HR, STAF & CUTI (ADMIN & HR) ================= -->
       <section id="tab-hr" class="tab-pane hidden space-y-6 sm:space-y-8">
         
-        <div class="bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <!-- HR Header & Action Toolbar -->
+        <div class="bg-white border border-slate-200 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
           <div>
-            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Pengurusan Staf & Penugasan Mutawwif / Tour Leader</h2>
-            <p class="text-xs text-slate-600">Senarai kakitangan, peranan, penugasan trip dan pengiraan komisen jualan.</p>
+            <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
+              Modul Sumber Manusia & Operasi Kakitangan (HR Engine)
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+              Pengurusan Staf, Mutawwif & Sistem Kelulusan Cuti
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
+              Tambah staf baru, pantau senarai pegawai, uruskan penugasan trip dan luluskan permohonan cuti tahunan / MC staf secara real-time.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto">
+            <button
+              type="button"
+              id="open-new-staff-modal-btn"
+              class="flex-1 sm:flex-none justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+              <span>+ Tambah Staf Baru</span>
+            </button>
+            <button
+              type="button"
+              id="open-apply-leave-modal-btn"
+              class="flex-1 sm:flex-none justify-center bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-amber-300 transition-colors flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            >
+              <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <span>Borang Mohon Cuti</span>
+            </button>
           </div>
         </div>
 
-        <!-- Staff List Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {initialStaff.map((stf) => (
-            <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-sm space-y-4 hover:shadow-md transition-all">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-teal-800 font-mono">{stf.id}</span>
-                <span class={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                  stf.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
-                  'bg-sky-100 text-sky-800 border border-sky-200'
-                }`}>
-                  {stf.status}
-                </span>
-              </div>
-              <div>
-                <h3 class="text-base font-extrabold text-slate-900">{stf.name}</h3>
-                <div class="text-xs font-bold text-slate-600">{stf.role}</div>
-                <div class="text-[11px] text-slate-500 mt-1">{stf.email} • {stf.phone}</div>
-              </div>
-              <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-3 text-xs">
-                <div>
-                  <span class="text-[10px] text-slate-500 font-medium block">Tugasan Trip</span>
-                  <span class="font-bold text-slate-900">{stf.assignedTripsCount} Trip Diketuai</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-slate-500 font-medium block">Deals Jualan</span>
-                  <span class="font-bold text-teal-700">{stf.totalSalesDeals} Pelanggan</span>
-                </div>
-              </div>
+        <!-- 4 HR KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Jumlah Kakitangan</span>
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="hr-stat-total-staff">5 Orang</div>
+            <span class="text-[10px] sm:text-[11px] text-slate-500 mt-1 block">Termasuk Mutawwif & Tour Guide</span>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Permohonan Cuti Menunggu</span>
+            <div class="text-xl sm:text-2xl font-black text-amber-600" id="hr-stat-pending-leaves">2 Permohonan</div>
+            <span class="text-[10px] sm:text-[11px] text-amber-700 font-semibold mt-1 block">Perlu kelulusan Admin/HR</span>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Staf Bertugas di Luar Negara</span>
+            <div class="text-xl sm:text-2xl font-black text-sky-700" id="hr-stat-on-trip">1 Orang</div>
+            <span class="text-[10px] sm:text-[11px] text-sky-700 font-bold mt-1 block">Zulkifli Hassan (Narita, Tokyo)</span>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Trip Berlepas Terdekat</span>
+            <div class="text-xl sm:text-2xl font-black text-emerald-700">3 Kumpulan</div>
+            <span class="text-[10px] sm:text-[11px] text-emerald-700 font-medium mt-1 block">Jepun, Swiss & Umrah Musim Sejuk</span>
+          </div>
+        </div>
+
+        <!-- 1. PERMOHONAN & KELULUSAN CUTI STAF (LEAVE APPROVAL ENGINE) -->
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
+            <div>
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                Sistem Permohonan & Kelulusan Cuti (Leave Approval Engine)
+              </h3>
+              <p class="text-xs text-slate-600 mt-0.5">Semua permohonan cuti staf boleh disemak dan diluluskan secara terus oleh Admin / Pengurus HR.</p>
             </div>
-          ))}
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-600" id="leave-table-count">3 Rekod Cuti</span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
+            <table class="w-full text-left text-xs min-w-[750px]">
+              <thead>
+                <tr class="text-slate-600 bg-slate-50 border-b border-slate-200 font-bold">
+                  <th class="py-2.5 px-3 whitespace-nowrap">ID & Tarikh Mohon</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Pemohon & Jawatan</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Jenis Cuti</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Tempoh Cuti</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Sebab / Catatan</th>
+                  <th class="py-2.5 px-3 text-center whitespace-nowrap">Status</th>
+                  <th class="py-2.5 px-3 text-center whitespace-nowrap">Tindakan Kelulusan</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100" id="leave-table-tbody">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2. DIREKTORI KAKITANGAN & MUTAWWIF -->
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
+            <div>
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-teal-700"></span>
+                Direktori Kakitangan Syarikat & Mutawwif
+              </h3>
+              <p class="text-xs text-slate-600 mt-0.5">Senarai staf aktif, pegawai jualan, mutawwif pembimbing dan bahagian akaun.</p>
+            </div>
+            <button
+              type="button"
+              id="open-new-staff-modal-btn-2"
+              class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 transition-colors cursor-pointer"
+            >
+              + Tambah Staf Baru
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="staff-cards-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3. JADUAL TUGASAN TRIP & MUTAWWIF -->
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+              Jadual Penugasan Mutawwif & Tour Leader (Trip Roster)
+            </h3>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {initialTripAssignments.map((trip) => (
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono font-bold text-teal-800">{trip.id}</span>
+                  <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-300">
+                    {trip.totalPax} Peserta
+                  </span>
+                </div>
+                <h4 class="text-sm font-bold text-slate-900">{trip.tripTitle}</h4>
+                <div class="text-xs text-slate-600">
+                  <div>Tarikh: <strong>{trip.departureDate} - {trip.returnDate}</strong></div>
+                  <div>Penerbangan: <strong>{trip.flightNo}</strong></div>
+                  <div>Hotel: <strong>{trip.hotelName}</strong></div>
+                </div>
+                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
+                  <span>Ketua: <strong class="text-teal-800">{trip.leadGuide}</strong></span>
+                  <span class="text-emerald-700 font-bold">{trip.status}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
       </section>
@@ -858,7 +963,164 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   </div>
 </Layout>
 
-<!-- Add/Edit Package Modal -->
+<!-- Modal 1: Tambah Staf Baru -->
+<div id="new-staff-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+      <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-teal-700"></span>
+        Daftar Staf / Mutawwif Baru
+      </h3>
+      <button type="button" id="close-new-staff-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+    </div>
+    <form id="new-staff-form" class="space-y-3.5 text-xs">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ID Staf *</label>
+          <input type="text" id="modal-staff-id" required placeholder="cth: STF-06" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-mono font-bold" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Peranan / Jawatan *</label>
+          <select id="modal-staff-role" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-medium">
+            <option value="Admin Utama">Admin Utama</option>
+            <option value="Pegawai Jualan (Sales)">Pegawai Jualan (Sales)</option>
+            <option value="Pegawai Sumber Manusia (HR)">Pegawai Sumber Manusia (HR)</option>
+            <option value="Akauntan & Kewangan">Akauntan & Kewangan</option>
+            <option value="Mutawwif / Tour Lead">Mutawwif / Tour Lead</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Nama Penuh Kakitangan *</label>
+        <input type="text" id="modal-staff-name" required placeholder="cth: Ustazah Noraini binti Yusof" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Emel Rasmi *</label>
+          <input type="email" id="modal-staff-email" required placeholder="cth: noraini@kembaratours.com.my" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">No. Telefon (WhatsApp) *</label>
+          <input type="text" id="modal-staff-phone" required placeholder="cth: 019-5561029" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Status Awal *</label>
+        <select id="modal-staff-status" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-medium">
+          <option value="Aktif">Aktif</option>
+          <option value="Cuti">Cuti</option>
+          <option value="Sedang Bertugas (Luar Negara)">Sedang Bertugas (Luar Negara)</option>
+        </select>
+      </div>
+      <div class="pt-3">
+        <button type="submit" class="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-xl transition-all cursor-pointer">
+          Simpan & Daftar Staf ke Direktori
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 2: Borang Permohonan Cuti Staf -->
+<div id="new-leave-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+      <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+        Borang Permohonan Cuti Staf
+      </h3>
+      <button type="button" id="close-new-leave-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+    </div>
+    <form id="new-leave-form" class="space-y-3.5 text-xs">
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Nama Pemohon *</label>
+        <select id="modal-leave-staff" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-bold">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Jenis Cuti *</label>
+          <select id="modal-leave-type" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-medium">
+            <option value="Cuti Tahunan">Cuti Tahunan</option>
+            <option value="Cuti Sakit (MC)">Cuti Sakit (MC)</option>
+            <option value="Cuti Kecemasan">Cuti Kecemasan</option>
+            <option value="Cuti Ibadah Umrah/Haji">Cuti Ibadah Umrah/Haji</option>
+            <option value="Cuti Tanpa Gaji">Cuti Tanpa Gaji</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Bilangan Hari *</label>
+          <input type="number" id="modal-leave-days" required min="1" max="60" value="1" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-bold" />
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tarikh Mula *</label>
+          <input type="date" id="modal-leave-start" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Tarikh Tamat *</label>
+          <input type="date" id="modal-leave-end" required class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Sebab Permohonan / Catatan *</label>
+        <textarea id="modal-leave-reason" rows="3" required placeholder="cth: Menghadiri kenduri keluarga di kampung / Rawatan klinik" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white"></textarea>
+      </div>
+      <div class="pt-3">
+        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-xl transition-all cursor-pointer">
+          Hantar Permohonan Cuti (Untuk Kelulusan)
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal 3: Quick Role Switcher Modal -->
+<div id="role-switcher-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-md w-full shadow-2xl">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
+      <h3 class="text-base font-bold text-slate-900">Tukar Peranan Pengguna (RBAC Test)</h3>
+      <button type="button" id="close-role-switcher-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
+    </div>
+    <div class="space-y-2.5 text-xs">
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="admin" data-name="Zaim Rosli" data-role-name="Admin Utama">
+        <div>
+          <div class="font-extrabold text-slate-900">Admin Utama</div>
+          <div class="text-slate-500">Nampak SEMUA modul (Overview, CMS, CRM, Lejer, HR & Cuti)</div>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-100 text-teal-800 border border-teal-300">Semua</span>
+      </button>
+
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="sales" data-name="Siti Sarah" data-role-name="Pegawai Jualan (Sales)">
+        <div>
+          <div class="font-extrabold text-slate-900">Pegawai Jualan (Sales)</div>
+          <div class="text-slate-500">Nampak Tempahan CRM & Pakej CMS sahaja</div>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-300">Sales</span>
+      </button>
+
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="finance" data-name="Hafizuddin Danial" data-role-name="Akauntan & Kewangan">
+        <div>
+          <div class="font-extrabold text-slate-900">Akauntan & Kewangan</div>
+          <div class="text-slate-500">Nampak Lejer Kewangan & Penyesuaian Bank sahaja</div>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Finance</span>
+      </button>
+
+      <button type="button" class="role-switch-choice-btn w-full p-3 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left transition-all flex items-center justify-between" data-role-key="hr" data-name="Siti Aminah" data-role-name="Pegawai Sumber Manusia (HR)">
+        <div>
+          <div class="font-extrabold text-slate-900">Pegawai HR (Sumber Manusia)</div>
+          <div class="text-slate-500">Nampak Pengurusan Staf, Mohon Cuti & Kelulusan Cuti sahaja</div>
+        </div>
+        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">HR</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 4: Add Package Modal -->
 <div id="new-pkg-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
   <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
@@ -908,7 +1170,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   </div>
 </div>
 
-<!-- Add Manual Ledger Entry Modal -->
+<!-- Modal 5: Manual Ledger Entry Modal -->
 <div id="new-ledger-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
   <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
@@ -968,18 +1230,186 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 </div>
 
 <script>
-  // Session check
+  // -------------------------------------------------------------
+  // STATE DEFINITIONS & LOCAL STORAGE HELPERS
+  // -------------------------------------------------------------
+  interface LocalStaff {
+    id: string;
+    name: string;
+    role: string;
+    email: string;
+    phone: string;
+    assignedTripsCount: number;
+    totalSalesDeals: number;
+    status: string;
+  }
+
+  interface LocalLeave {
+    id: string;
+    staffId: string;
+    staffName: string;
+    staffRole: string;
+    leaveType: string;
+    startDate: string;
+    endDate: string;
+    totalDays: number;
+    reason: string;
+    status: 'Menunggu Kelulusan' | 'Diluluskan' | 'Ditolak';
+    appliedAt: string;
+    approvedBy?: string;
+  }
+
+  interface LocalLedgerItem {
+    id: string;
+    bookingRef: string;
+    date: string;
+    accountCode: string;
+    customerName: string;
+    description: string;
+    paymentMethod: string;
+    debit: number;
+    credit: number;
+    reconciled: boolean;
+  }
+
+  interface BankItem {
+    date: string;
+    desc: string;
+    amount: number;
+    type: 'CREDIT' | 'DEBIT';
+  }
+
+  const DEFAULT_STAFF_ITEMS: LocalStaff[] = [
+    { id: "STF-01", name: "Zaim Rosli", role: "Admin Utama", email: "zaim@kembaratours.com.my", phone: "011-56889201", assignedTripsCount: 12, totalSalesDeals: 45, status: "Aktif" },
+    { id: "STF-02", name: "Siti Sarah binti Idris", role: "Pegawai Jualan (Sales)", email: "sarah.sales@kembaratours.com.my", phone: "019-3321908", assignedTripsCount: 0, totalSalesDeals: 38, status: "Aktif" },
+    { id: "STF-03", name: "Ustaz Amir Syakir", role: "Mutawwif / Tour Lead", email: "amir.mutawwif@kembaratours.com.my", phone: "013-4458921", assignedTripsCount: 8, totalSalesDeals: 15, status: "Aktif" },
+    { id: "STF-04", name: "Hafizuddin Danial", role: "Akauntan & Kewangan", email: "accounts@kembaratours.com.my", phone: "012-7789021", assignedTripsCount: 0, totalSalesDeals: 0, status: "Aktif" },
+    { id: "STF-05", name: "Zulkifli Hassan", role: "Mutawwif / Tour Lead", email: "zul.guide@kembaratours.com.my", phone: "017-6628901", assignedTripsCount: 14, totalSalesDeals: 20, status: "Sedang Bertugas (Luar Negara)" }
+  ];
+
+  const DEFAULT_LEAVE_ITEMS: LocalLeave[] = [
+    { id: "LV-2026-01", staffId: "STF-02", staffName: "Siti Sarah binti Idris", staffRole: "Pegawai Jualan (Sales)", leaveType: "Cuti Tahunan", startDate: "2026-08-25", endDate: "2026-08-27", totalDays: 3, reason: "Urusan keluarga di kampung (Kedah)", status: "Menunggu Kelulusan", appliedAt: "2026-08-18" },
+    { id: "LV-2026-02", staffId: "STF-03", staffName: "Ustaz Amir Syakir", staffRole: "Mutawwif / Tour Lead", leaveType: "Cuti Sakit (MC)", startDate: "2026-08-18", endDate: "2026-08-18", totalDays: 1, reason: "Demam & rawatan klinik Mediviron", status: "Diluluskan", appliedAt: "2026-08-18", approvedBy: "Zaim Rosli (Admin)" },
+    { id: "LV-2026-03", staffId: "STF-04", staffName: "Hafizuddin Danial", staffRole: "Akauntan & Kewangan", leaveType: "Cuti Tahunan", startDate: "2026-09-02", endDate: "2026-09-04", totalDays: 3, reason: "Urusan pembaharuan pasport", status: "Menunggu Kelulusan", appliedAt: "2026-08-19" }
+  ];
+
+  const DEFAULT_LEDGER_ITEMS: LocalLedgerItem[] = [
+    { id: "LED-2026-01", bookingRef: "BK-2026-001", date: "2026-08-10", accountCode: "4000 - Hasil Jualan Umrah VIP", customerName: "Dato' Hj Razak", description: "Bayaran Penuh Umrah VIP 4 Pax - Dato' Hj Razak", paymentMethod: "FPX Online", debit: 31560.00, credit: 0.00, reconciled: true },
+    { id: "LED-2026-02", bookingRef: "BK-2026-002", date: "2026-08-14", accountCode: "4100 - Hasil Pakej Antarabangsa", customerName: "Dr. Farhan Kamil", description: "Deposit Trip Switzerland 3 Pax - Dr. Farhan Kamil", paymentMethod: "DuitNow Transfer", debit: 3000.00, credit: 0.00, reconciled: true },
+    { id: "LED-2026-03", bookingRef: "BK-2026-003", date: "2026-08-17", accountCode: "4200 - Hasil Percutian Domestik", customerName: "Nurul Aisyah", description: "Deposit Semporna & Mabul 2 Pax - Nurul Aisyah", paymentMethod: "FPX Online", debit: 600.00, credit: 0.00, reconciled: true },
+    { id: "LED-2026-04", bookingRef: "OPS-2026-101", date: "2026-08-18", accountCode: "5100 - Kos Tiket Penerbangan (Airlines)", customerName: "Saudi Arabian Airlines", description: "Bayaran Deposit Block Seat Saudi Airlines (SV 831)", paymentMethod: "DuitNow Transfer", debit: 0.00, credit: 12000.00, reconciled: true }
+  ];
+
+  const DEFAULT_BANK_ROWS: BankItem[] = [
+    { date: "10/08/2026", desc: "DUITNOW TRANSFER FR DATO HJ RAZAK * BK-2026-001 UMRAH", amount: 31560.00, type: "CREDIT" },
+    { date: "14/08/2026", desc: "TRANSFER FR DR FARHAN KAMIL * BK-2026-002 SWISS DEPOSIT", amount: 3000.00, type: "CREDIT" },
+    { date: "17/08/2026", desc: "FPX PAYMENT NURUL AISYAH * BK-2026-003 SEMPORNA", amount: 600.00, type: "CREDIT" },
+    { date: "18/08/2026", desc: "TRANSFER TO SAUDI ARABIAN AIRLINES * DEPOSIT SV831", amount: 12000.00, type: "DEBIT" },
+    { date: "19/08/2026", desc: "CDM CASH DEPOSIT MAYBANK KLANG * UNIDENTIFIED DEPOSIT", amount: 1500.00, type: "CREDIT" }
+  ];
+
+  function getStoredStaff(): LocalStaff[] {
+    const raw = localStorage.getItem('kembara_staff_list');
+    if (raw) {
+      try { return JSON.parse(raw); } catch (e) { return DEFAULT_STAFF_ITEMS; }
+    }
+    return DEFAULT_STAFF_ITEMS;
+  }
+
+  function saveStoredStaff(items: LocalStaff[]) {
+    localStorage.setItem('kembara_staff_list', JSON.stringify(items));
+  }
+
+  function getStoredLeaves(): LocalLeave[] {
+    const raw = localStorage.getItem('kembara_leave_list');
+    if (raw) {
+      try { return JSON.parse(raw); } catch (e) { return DEFAULT_LEAVE_ITEMS; }
+    }
+    return DEFAULT_LEAVE_ITEMS;
+  }
+
+  function saveStoredLeaves(items: LocalLeave[]) {
+    localStorage.setItem('kembara_leave_list', JSON.stringify(items));
+  }
+
+  function getStoredLedger(): LocalLedgerItem[] {
+    const raw = localStorage.getItem('kembara_ledger_data');
+    if (raw) {
+      try { return JSON.parse(raw); } catch (e) { return DEFAULT_LEDGER_ITEMS; }
+    }
+    return DEFAULT_LEDGER_ITEMS;
+  }
+
+  function saveStoredLedger(items: LocalLedgerItem[]) {
+    localStorage.setItem('kembara_ledger_data', JSON.stringify(items));
+  }
+
+  // -------------------------------------------------------------
+  // ROLE-BASED ACCESS CONTROL (RBAC) ENGINE
+  // -------------------------------------------------------------
+  let currentRoleKey = 'admin';
+  let currentUserName = 'Zaim Rosli';
+  let currentUserRoleDisplay = 'Admin Utama';
+
+  function applyRolePermissions(roleKey: string, userName?: string, roleDisplay?: string) {
+    currentRoleKey = roleKey;
+    if (userName) currentUserName = userName;
+    if (roleDisplay) currentUserRoleDisplay = roleDisplay;
+
+    const nameEl = document.getElementById('display-staff-name');
+    const roleEl = document.getElementById('display-staff-role');
+    const badgeEl = document.getElementById('header-role-badge');
+
+    if (nameEl) nameEl.textContent = currentUserName.toUpperCase();
+    if (roleEl) roleEl.textContent = currentUserRoleDisplay;
+    if (badgeEl) {
+      badgeEl.textContent = currentRoleKey.toUpperCase();
+      if (currentRoleKey === 'admin') badgeEl.className = 'px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-900 border border-teal-300';
+      else if (currentRoleKey === 'sales') badgeEl.className = 'px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-sky-100 text-sky-900 border border-sky-300';
+      else if (currentRoleKey === 'finance') badgeEl.className = 'px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-emerald-100 text-emerald-900 border border-emerald-300';
+      else if (currentRoleKey === 'hr') badgeEl.className = 'px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300';
+    }
+
+    // Filter Tab Buttons based on role
+    const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+    let firstVisibleTab = '';
+
+    tabButtons.forEach(btn => {
+      const allowedRoles = (btn.getAttribute('data-roles') || 'admin').split(',');
+      const tabTarget = btn.getAttribute('data-tab') || '';
+
+      if (currentRoleKey === 'admin' || allowedRoles.includes(currentRoleKey)) {
+        btn.classList.remove('hidden');
+        if (!firstVisibleTab) firstVisibleTab = tabTarget;
+      } else {
+        btn.classList.add('hidden');
+      }
+    });
+
+    // Auto-switch to appropriate default tab
+    if (currentRoleKey === 'sales') switchTab('bookings');
+    else if (currentRoleKey === 'finance') switchTab('accounts');
+    else if (currentRoleKey === 'hr') switchTab('hr');
+    else switchTab('overview');
+
+    // Re-render UI components with new role permissions
+    renderStaffCards();
+    renderLeavesTable();
+    renderLedgerAndRecon();
+    populateLeaveStaffDropdown();
+  }
+
+  // Load Session
   const sessionData = localStorage.getItem('kembara_staff_session');
   if (sessionData) {
     try {
       const parsed = JSON.parse(sessionData);
-      const nameEl = document.getElementById('display-staff-name');
-      const roleEl = document.getElementById('display-staff-role');
-      if (nameEl) nameEl.textContent = parsed.name || 'STAF AKTIF';
-      if (roleEl) roleEl.textContent = parsed.role || 'Admin';
+      applyRolePermissions(parsed.roleKey || 'admin', parsed.name || 'Zaim Rosli', parsed.role || 'Admin Utama');
     } catch (e) {
-      console.error(e);
+      applyRolePermissions('admin');
     }
+  } else {
+    applyRolePermissions('admin');
   }
 
   // Logout button
@@ -1031,103 +1461,178 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   });
 
   // -------------------------------------------------------------
-  // RECONCILIATION & LEDGER ENGINE
+  // HR & LEAVE APPROVAL SYSTEM
   // -------------------------------------------------------------
-  interface LocalLedgerItem {
-    id: string;
-    bookingRef: string;
-    date: string;
-    accountCode: string;
-    customerName: string;
-    description: string;
-    paymentMethod: string;
-    debit: number;
-    credit: number;
-    reconciled: boolean;
+  function populateLeaveStaffDropdown() {
+    const staffList = getStoredStaff();
+    const selectEl = document.getElementById('modal-leave-staff') as HTMLSelectElement;
+    if (!selectEl) return;
+
+    selectEl.innerHTML = staffList.map(stf => `
+      <option value="${stf.id}" data-name="${stf.name}" data-role="${stf.role}" ${stf.name.toLowerCase().includes(currentUserName.toLowerCase().split(' ')[0]) ? 'selected' : ''}>
+        ${stf.name} (${stf.role})
+      </option>
+    `).join('');
   }
 
-  interface BankItem {
-    date: string;
-    desc: string;
-    amount: number;
-    type: 'CREDIT' | 'DEBIT';
+  function renderStaffCards() {
+    const staffList = getStoredStaff();
+    const container = document.getElementById('staff-cards-container');
+    const totalStaffEl = document.getElementById('hr-stat-total-staff');
+    if (totalStaffEl) totalStaffEl.textContent = `${staffList.length} Orang`;
+
+    if (!container) return;
+
+    container.innerHTML = staffList.map(stf => `
+      <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-xs space-y-3.5 hover:bg-white hover:shadow-md transition-all">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-teal-800 font-mono">${stf.id}</span>
+          <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+            stf.status === 'Aktif' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
+            stf.status === 'Cuti' ? 'bg-amber-100 text-amber-800 border border-amber-200' :
+            'bg-sky-100 text-sky-800 border border-sky-200'
+          }">
+            ${stf.status}
+          </span>
+        </div>
+        <div>
+          <h4 class="text-base font-extrabold text-slate-900">${stf.name}</h4>
+          <div class="text-xs font-bold text-slate-600">${stf.role}</div>
+          <div class="text-[11px] text-slate-500 mt-1">${stf.email} • ${stf.phone}</div>
+        </div>
+        <div class="pt-3 border-t border-slate-200 grid grid-cols-2 gap-2 text-xs">
+          <div>
+            <span class="text-[10px] text-slate-500 font-medium block">Tugasan Trip</span>
+            <span class="font-bold text-slate-900">${stf.assignedTripsCount} Trip Diketuai</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 font-medium block">Deals Jualan</span>
+            <span class="font-bold text-teal-700">${stf.totalSalesDeals} Pelanggan</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
   }
 
-  const DEFAULT_LEDGER_ITEMS: LocalLedgerItem[] = [
-    {
-      id: "LED-2026-01",
-      bookingRef: "BK-2026-001",
-      date: "2026-08-10",
-      accountCode: "4000 - Hasil Jualan Umrah VIP",
-      customerName: "Dato' Hj Razak",
-      description: "Bayaran Penuh Umrah VIP 4 Pax - Dato' Hj Razak",
-      paymentMethod: "FPX Online",
-      debit: 31560.00,
-      credit: 0.00,
-      reconciled: true
-    },
-    {
-      id: "LED-2026-02",
-      bookingRef: "BK-2026-002",
-      date: "2026-08-14",
-      accountCode: "4100 - Hasil Pakej Antarabangsa",
-      customerName: "Dr. Farhan Kamil",
-      description: "Deposit Trip Switzerland 3 Pax - Dr. Farhan Kamil",
-      paymentMethod: "DuitNow Transfer",
-      debit: 3000.00,
-      credit: 0.00,
-      reconciled: true
-    },
-    {
-      id: "LED-2026-03",
-      bookingRef: "BK-2026-003",
-      date: "2026-08-17",
-      accountCode: "4200 - Hasil Percutian Domestik",
-      customerName: "Nurul Aisyah",
-      description: "Deposit Semporna & Mabul 2 Pax - Nurul Aisyah",
-      paymentMethod: "FPX Online",
-      debit: 600.00,
-      credit: 0.00,
-      reconciled: true
-    },
-    {
-      id: "LED-2026-04",
-      bookingRef: "OPS-2026-101",
-      date: "2026-08-18",
-      accountCode: "5100 - Kos Tiket Penerbangan (Airlines)",
-      customerName: "Saudi Arabian Airlines",
-      description: "Bayaran Deposit Block Seat Saudi Airlines (SV 831)",
-      paymentMethod: "DuitNow Transfer",
-      debit: 0.00,
-      credit: 12000.00,
-      reconciled: true
-    }
-  ];
+  function renderLeavesTable() {
+    const leaves = getStoredLeaves();
+    const tbody = document.getElementById('leave-table-tbody');
+    const countEl = document.getElementById('leave-table-count');
+    const hrPendingEl = document.getElementById('hr-stat-pending-leaves');
+    const overviewLeavesEl = document.getElementById('overview-stat-leaves');
+    const tabBadgeEl = document.getElementById('tab-leave-badge');
 
-  const DEFAULT_BANK_ROWS: BankItem[] = [
-    { date: "10/08/2026", desc: "DUITNOW TRANSFER FR DATO HJ RAZAK * BK-2026-001 UMRAH", amount: 31560.00, type: "CREDIT" },
-    { date: "14/08/2026", desc: "TRANSFER FR DR FARHAN KAMIL * BK-2026-002 SWISS DEPOSIT", amount: 3000.00, type: "CREDIT" },
-    { date: "17/08/2026", desc: "FPX PAYMENT NURUL AISYAH * BK-2026-003 SEMPORNA", amount: 600.00, type: "CREDIT" },
-    { date: "18/08/2026", desc: "TRANSFER TO SAUDI ARABIAN AIRLINES * DEPOSIT SV831", amount: 12000.00, type: "DEBIT" },
-    { date: "19/08/2026", desc: "CDM CASH DEPOSIT MAYBANK KLANG * UNIDENTIFIED DEPOSIT", amount: 1500.00, type: "CREDIT" }
-  ];
+    const pendingCount = leaves.filter(l => l.status === 'Menunggu Kelulusan').length;
 
-  function getStoredLedger(): LocalLedgerItem[] {
-    const raw = localStorage.getItem('kembara_ledger_data');
-    if (raw) {
-      try {
-        return JSON.parse(raw);
-      } catch (e) {
-        return DEFAULT_LEDGER_ITEMS;
+    if (countEl) countEl.textContent = `${leaves.length} Rekod Cuti`;
+    if (hrPendingEl) hrPendingEl.textContent = `${pendingCount} Permohonan`;
+    if (overviewLeavesEl) overviewLeavesEl.textContent = `${pendingCount} Permohonan`;
+
+    if (tabBadgeEl) {
+      if (pendingCount > 0) {
+        tabBadgeEl.textContent = `${pendingCount}`;
+        tabBadgeEl.classList.remove('hidden');
+      } else {
+        tabBadgeEl.classList.add('hidden');
       }
     }
-    return DEFAULT_LEDGER_ITEMS;
+
+    if (!tbody) return;
+
+    const canApprove = currentRoleKey === 'admin' || currentRoleKey === 'hr';
+
+    tbody.innerHTML = leaves.map(lv => `
+      <tr class="hover:bg-slate-50 transition-colors">
+        <td class="py-3 px-3 whitespace-nowrap">
+          <div class="font-bold text-slate-900">${lv.appliedAt}</div>
+          <span class="text-[10px] text-amber-700 font-mono font-bold">${lv.id}</span>
+        </td>
+        <td class="py-3 px-3 whitespace-nowrap">
+          <div class="font-bold text-slate-900">${lv.staffName}</div>
+          <div class="text-[10px] text-slate-500">${lv.staffRole}</div>
+        </td>
+        <td class="py-3 px-3 whitespace-nowrap">
+          <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[10px] border border-slate-200">
+            ${lv.leaveType}
+          </span>
+        </td>
+        <td class="py-3 px-3 whitespace-nowrap">
+          <div class="font-semibold text-slate-900">${lv.startDate} hingga ${lv.endDate}</div>
+          <div class="text-[10px] text-teal-700 font-bold">${lv.totalDays} Hari Bekerja</div>
+        </td>
+        <td class="py-3 px-3 max-w-[200px] truncate text-slate-600">
+          ${lv.reason}
+        </td>
+        <td class="py-3 px-3 text-center whitespace-nowrap">
+          <span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+            lv.status === 'Diluluskan' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
+            lv.status === 'Ditolak' ? 'bg-rose-100 text-rose-800 border border-rose-300' :
+            'bg-amber-100 text-amber-800 border border-amber-300 animate-pulse'
+          }">
+            ${lv.status}
+          </span>
+          ${lv.approvedBy ? `<div class="text-[9px] text-slate-400 mt-0.5">${lv.approvedBy}</div>` : ''}
+        </td>
+        <td class="py-3 px-3 text-center whitespace-nowrap">
+          ${canApprove && lv.status === 'Menunggu Kelulusan' ? `
+            <div class="flex items-center justify-center gap-1.5">
+              <button
+                type="button"
+                class="approve-leave-btn bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] px-2.5 py-1 rounded-lg transition-colors cursor-pointer"
+                data-leave-id="${lv.id}"
+              >
+                Luluskan
+              </button>
+              <button
+                type="button"
+                class="reject-leave-btn bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-[10px] px-2 py-1 rounded-lg border border-rose-200 transition-colors cursor-pointer"
+                data-leave-id="${lv.id}"
+              >
+                Tolak
+              </button>
+            </div>
+          ` : `
+            <span class="text-[10px] text-slate-400 font-medium">${lv.status === 'Menunggu Kelulusan' ? 'Menunggu Tindakan HR' : 'Selesai'}</span>
+          `}
+        </td>
+      </tr>
+    `).join('');
+
+    // Attach leave approval buttons
+    document.querySelectorAll<HTMLButtonElement>('.approve-leave-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const leaveId = btn.getAttribute('data-leave-id');
+        const leaveList = getStoredLeaves();
+        const item = leaveList.find(l => l.id === leaveId);
+        if (item) {
+          item.status = 'Diluluskan';
+          item.approvedBy = `Diluluskan oleh ${currentUserName} (${currentUserRoleDisplay})`;
+          saveStoredLeaves(leaveList);
+          renderLeavesTable();
+          alert(`Permohonan cuti ${item.id} (${item.staffName}) telah berjaya DILULUSKAN oleh ${currentUserName}!`);
+        }
+      });
+    });
+
+    document.querySelectorAll<HTMLButtonElement>('.reject-leave-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const leaveId = btn.getAttribute('data-leave-id');
+        const leaveList = getStoredLeaves();
+        const item = leaveList.find(l => l.id === leaveId);
+        if (item) {
+          item.status = 'Ditolak';
+          item.approvedBy = `Ditolak oleh ${currentUserName} (${currentUserRoleDisplay})`;
+          saveStoredLeaves(leaveList);
+          renderLeavesTable();
+          alert(`Permohonan cuti ${item.id} (${item.staffName}) telah DITOLAK.`);
+        }
+      });
+    });
   }
 
-  function saveStoredLedger(items: LocalLedgerItem[]) {
-    localStorage.setItem('kembara_ledger_data', JSON.stringify(items));
-  }
-
+  // -------------------------------------------------------------
+  // RECONCILIATION & LEDGER ENGINE
+  // -------------------------------------------------------------
   function renderLedgerAndRecon(bankData: BankItem[] = DEFAULT_BANK_ROWS) {
     const ledgerItems = getStoredLedger();
     const ledgerTableTbody = document.getElementById('ledger-table-tbody');
@@ -1144,17 +1649,13 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
     const matchedLedgerRefs = new Set<string>();
 
-    // Calculate totals and matches
     ledgerItems.forEach(item => {
       totalLedgerInflows += item.debit;
     });
 
     bankData.forEach(bankRow => {
-      if (bankRow.type === 'CREDIT') {
-        totalBankInflows += bankRow.amount;
-      }
+      if (bankRow.type === 'CREDIT') totalBankInflows += bankRow.amount;
 
-      // Check matching against ledger item
       const matchedLedger = ledgerItems.find(l => {
         const amt = l.debit > 0 ? l.debit : l.credit;
         const bRef = (l.bookingRef || '').trim().toUpperCase();
@@ -1217,7 +1718,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       }
     }
 
-    // Render 1: Main Ledger Table (with whitespace-nowrap and min-w)
+    // Render 1: Main Ledger Table
     ledgerTableTbody.innerHTML = ledgerItems.map(led => `
       <tr class="hover:bg-slate-50 transition-colors">
         <td class="py-3 px-3 whitespace-nowrap">
@@ -1313,12 +1814,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       `;
     }).join('');
 
-    // Reattach receipt buttons listeners
     attachReceiptButtons();
   }
-
-  // Initial Ledger Render
-  renderLedgerAndRecon();
 
   // Trigger Auto Match Button
   const autoMatchBtn = document.getElementById('trigger-auto-match-btn');
@@ -1388,7 +1885,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
   }
 
   // -------------------------------------------------------------
-  // CRM PAYMENT STATUS CHANGE -> AUTO SYNC TO GENERAL LEDGER
+  // CRM STATUS SYNC TO GENERAL LEDGER
   // -------------------------------------------------------------
   document.querySelectorAll<HTMLSelectElement>('.crm-lead-status-select').forEach(select => {
     select.addEventListener('change', (e) => {
@@ -1441,14 +1938,189 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
         saveStoredLedger(ledgerItems);
         renderLedgerAndRecon();
-        alert(`Status ${bId} dikemas kini kepada "${newStatus}". Entri transaksi RM ${debitToAdd.toLocaleString()} telah diautomasikan ke Lejer Am.`);
+        alert(`Status ${bId} dikemas kini kepada "${newStatus}". Entri terimaan RM ${debitToAdd.toLocaleString()} telah dimasukkan ke Lejer Am.`);
       }
     });
   });
 
   // -------------------------------------------------------------
-  // MANUAL LEDGER ENTRY MODAL LOGIC
+  // MODAL HANDLERS
   // -------------------------------------------------------------
+  // Role Switcher Modal
+  const roleSwitcherModal = document.getElementById('role-switcher-modal');
+  const openRoleSwitcherBtn = document.getElementById('open-role-switcher-btn');
+  const closeRoleSwitcherBtn = document.getElementById('close-role-switcher-modal');
+
+  if (openRoleSwitcherBtn && roleSwitcherModal) {
+    openRoleSwitcherBtn.addEventListener('click', () => {
+      roleSwitcherModal.classList.remove('hidden');
+      roleSwitcherModal.classList.add('flex');
+    });
+  }
+  if (closeRoleSwitcherBtn && roleSwitcherModal) {
+    closeRoleSwitcherBtn.addEventListener('click', () => {
+      roleSwitcherModal.classList.add('hidden');
+      roleSwitcherModal.classList.remove('flex');
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.role-switch-choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const rKey = btn.getAttribute('data-role-key') || 'admin';
+      const uName = btn.getAttribute('data-name') || 'Zaim Rosli';
+      const rName = btn.getAttribute('data-role-name') || 'Admin Utama';
+
+      localStorage.setItem('kembara_staff_session', JSON.stringify({
+        email: `${rKey}@kembaratours.com.my`,
+        name: uName,
+        role: rName,
+        roleKey: rKey,
+        loginTime: new Date().toISOString()
+      }));
+
+      applyRolePermissions(rKey, uName, rName);
+      if (roleSwitcherModal) {
+        roleSwitcherModal.classList.add('hidden');
+        roleSwitcherModal.classList.remove('flex');
+      }
+    });
+  });
+
+  // New Staff Modal
+  const staffModal = document.getElementById('new-staff-modal');
+  const openStaffBtn1 = document.getElementById('open-new-staff-modal-btn');
+  const openStaffBtn2 = document.getElementById('open-new-staff-modal-btn-2');
+  const openStaffBtnOverview = document.getElementById('quick-add-staff-btn-overview');
+  const closeStaffBtn = document.getElementById('close-new-staff-modal');
+  const newStaffForm = document.getElementById('new-staff-form');
+
+  function openStaffModal() {
+    if (staffModal) {
+      staffModal.classList.remove('hidden');
+      staffModal.classList.add('flex');
+      const staffList = getStoredStaff();
+      const idInput = document.getElementById('modal-staff-id') as HTMLInputElement;
+      if (idInput) idInput.value = `STF-0${staffList.length + 1}`;
+    }
+  }
+
+  if (openStaffBtn1) openStaffBtn1.addEventListener('click', openStaffModal);
+  if (openStaffBtn2) openStaffBtn2.addEventListener('click', openStaffModal);
+  if (openStaffBtnOverview) openStaffBtnOverview.addEventListener('click', openStaffModal);
+  if (closeStaffBtn && staffModal) {
+    closeStaffBtn.addEventListener('click', () => {
+      staffModal.classList.add('hidden');
+      staffModal.classList.remove('flex');
+    });
+  }
+
+  if (newStaffForm && staffModal) {
+    newStaffForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = (document.getElementById('modal-staff-id') as HTMLInputElement)?.value;
+      const role = (document.getElementById('modal-staff-role') as HTMLSelectElement)?.value;
+      const name = (document.getElementById('modal-staff-name') as HTMLInputElement)?.value;
+      const email = (document.getElementById('modal-staff-email') as HTMLInputElement)?.value;
+      const phone = (document.getElementById('modal-staff-phone') as HTMLInputElement)?.value;
+      const status = (document.getElementById('modal-staff-status') as HTMLSelectElement)?.value;
+
+      const staffList = getStoredStaff();
+      const newStaff: LocalStaff = {
+        id: id || `STF-0${staffList.length + 1}`,
+        name: name,
+        role: role,
+        email: email,
+        phone: phone,
+        assignedTripsCount: role.includes('Mutawwif') ? 1 : 0,
+        totalSalesDeals: role.includes('Sales') ? 5 : 0,
+        status: status
+      };
+
+      staffList.push(newStaff);
+      saveStoredStaff(staffList);
+      renderStaffCards();
+      populateLeaveStaffDropdown();
+
+      staffModal.classList.add('hidden');
+      staffModal.classList.remove('flex');
+      newStaffForm.reset();
+      alert(`Staf "${name}" (${role}) telah berjaya didaftarkan ke dalam direktori kakitangan!`);
+    });
+  }
+
+  // Apply Leave Modal
+  const leaveModal = document.getElementById('new-leave-modal');
+  const openLeaveBtn1 = document.getElementById('open-apply-leave-modal-btn');
+  const openLeaveBtnHeader = document.getElementById('header-apply-leave-btn');
+  const closeLeaveBtn = document.getElementById('close-new-leave-modal');
+  const newLeaveForm = document.getElementById('new-leave-form');
+
+  function openLeaveModal() {
+    if (leaveModal) {
+      leaveModal.classList.remove('hidden');
+      leaveModal.classList.add('flex');
+      populateLeaveStaffDropdown();
+
+      const startInput = document.getElementById('modal-leave-start') as HTMLInputElement;
+      const endInput = document.getElementById('modal-leave-end') as HTMLInputElement;
+      const today = new Date().toISOString().split('T')[0];
+      if (startInput) startInput.value = today;
+      if (endInput) endInput.value = today;
+    }
+  }
+
+  if (openLeaveBtn1) openLeaveBtn1.addEventListener('click', openLeaveModal);
+  if (openLeaveBtnHeader) openLeaveBtnHeader.addEventListener('click', openLeaveModal);
+  if (closeLeaveBtn && leaveModal) {
+    closeLeaveBtn.addEventListener('click', () => {
+      leaveModal.classList.add('hidden');
+      leaveModal.classList.remove('flex');
+    });
+  }
+
+  if (newLeaveForm && leaveModal) {
+    newLeaveForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const staffSelect = document.getElementById('modal-leave-staff') as HTMLSelectElement;
+      const selectedOption = staffSelect?.options[staffSelect.selectedIndex];
+      const staffId = staffSelect?.value || 'STF-01';
+      const staffName = selectedOption?.getAttribute('data-name') || currentUserName;
+      const staffRole = selectedOption?.getAttribute('data-role') || currentUserRoleDisplay;
+
+      const type = (document.getElementById('modal-leave-type') as HTMLSelectElement)?.value;
+      const days = parseInt((document.getElementById('modal-leave-days') as HTMLInputElement)?.value || '1');
+      const start = (document.getElementById('modal-leave-start') as HTMLInputElement)?.value;
+      const end = (document.getElementById('modal-leave-end') as HTMLInputElement)?.value;
+      const reason = (document.getElementById('modal-leave-reason') as HTMLTextAreaElement)?.value;
+
+      const leaveList = getStoredLeaves();
+      const newLeave: LocalLeave = {
+        id: `LV-2026-0${leaveList.length + 1}`,
+        staffId: staffId,
+        staffName: staffName,
+        staffRole: staffRole,
+        leaveType: type,
+        startDate: start,
+        endDate: end,
+        totalDays: days,
+        reason: reason,
+        status: 'Menunggu Kelulusan',
+        appliedAt: new Date().toISOString().split('T')[0]
+      };
+
+      leaveList.unshift(newLeave);
+      saveStoredLeaves(leaveList);
+      renderLeavesTable();
+
+      leaveModal.classList.add('hidden');
+      leaveModal.classList.remove('flex');
+      newLeaveForm.reset();
+      switchTab('hr');
+      alert(`Permohonan cuti (${type} - ${days} Hari) untuk ${staffName} telah dihantar kepada Admin & HR untuk kelulusan!`);
+    });
+  }
+
+  // Manual Ledger Modal
   const ledgerModal = document.getElementById('new-ledger-modal');
   const openLedgerModalBtn = document.getElementById('open-manual-ledger-btn');
   const closeLedgerModalBtn = document.getElementById('close-new-ledger-modal');
@@ -1462,14 +2134,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
     });
   }
-
   if (closeLedgerModalBtn && ledgerModal) {
     closeLedgerModalBtn.addEventListener('click', () => {
       ledgerModal.classList.add('hidden');
       ledgerModal.classList.remove('flex');
     });
   }
-
   if (newLedgerForm && ledgerModal) {
     newLedgerForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -1506,9 +2176,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     });
   }
 
-  // -------------------------------------------------------------
-  // DYNAMIC RECEIPT GENERATOR TRIGGER
-  // -------------------------------------------------------------
+  // Invoice / Receipt Buttons
   function attachReceiptButtons() {
     document.querySelectorAll('.generate-invoice-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1550,44 +2218,43 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
         switchTab('accounts');
         const printable = document.getElementById('printable-receipt');
-        if (printable) {
-          printable.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (printable) printable.scrollIntoView({ behavior: 'smooth' });
       });
     });
   }
 
-  // -------------------------------------------------------------
-  // MODAL LOGIC FOR ADD PACKAGE
-  // -------------------------------------------------------------
-  const modal = document.getElementById('new-pkg-modal');
-  const openModalBtn = document.getElementById('open-new-pkg-modal');
-  const quickAddBtn = document.getElementById('quick-add-pkg-btn');
-  const closeModalBtn = document.getElementById('close-new-pkg-modal');
+  // Package Modal
+  const pkgModal = document.getElementById('new-pkg-modal');
+  const openPkgModalBtn = document.getElementById('open-new-pkg-modal');
+  const quickAddPkgBtn = document.getElementById('quick-add-pkg-btn');
+  const closePkgModalBtn = document.getElementById('close-new-pkg-modal');
   const newPkgForm = document.getElementById('new-package-form');
 
-  function openModal() {
-    if (modal) modal.classList.remove('hidden');
-    if (modal) modal.classList.add('flex');
+  if (openPkgModalBtn && pkgModal) {
+    openPkgModalBtn.addEventListener('click', () => {
+      pkgModal.classList.remove('hidden');
+      pkgModal.classList.add('flex');
+    });
   }
-
-  function closeModal() {
-    if (modal) modal.classList.add('hidden');
-    if (modal) modal.classList.remove('flex');
+  if (quickAddPkgBtn && pkgModal) {
+    quickAddPkgBtn.addEventListener('click', () => {
+      pkgModal.classList.remove('hidden');
+      pkgModal.classList.add('flex');
+    });
   }
-
-  if (openModalBtn) openModalBtn.addEventListener('click', openModal);
-  if (quickAddBtn) quickAddBtn.addEventListener('click', openModal);
-  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-
-  if (newPkgForm) {
+  if (closePkgModalBtn && pkgModal) {
+    closePkgModalBtn.addEventListener('click', () => {
+      pkgModal.classList.add('hidden');
+      pkgModal.classList.remove('flex');
+    });
+  }
+  if (newPkgForm && pkgModal) {
     newPkgForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const title = (document.getElementById('modal-pkg-title') as HTMLInputElement)?.value;
       const price = (document.getElementById('modal-pkg-price') as HTMLInputElement)?.value;
       const deposit = (document.getElementById('modal-pkg-deposit') as HTMLInputElement)?.value;
       const duration = (document.getElementById('modal-pkg-duration') as HTMLInputElement)?.value;
-      const dates = (document.getElementById('modal-pkg-dates') as HTMLInputElement)?.value || 'Segera';
 
       const container = document.getElementById('cms-packages-container');
       if (container && title) {
@@ -1618,7 +2285,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         `;
         container.prepend(newCard);
       }
-      closeModal();
+      pkgModal.classList.add('hidden');
+      pkgModal.classList.remove('flex');
       switchTab('packages');
       alert(`Pakej "${title}" berjaya ditambah!`);
     });

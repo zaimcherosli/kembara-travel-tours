@@ -74,17 +74,17 @@ import { companyInfo } from '../../data/company';
           <!-- Role Selector for quick demo testing -->
           <div>
             <label for="role-select" class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Pilihan Peranan (Role):
+              Pilihan Peranan (Role / Bahagian):
             </label>
             <div class="mt-1.5">
               <select
                 id="role-select"
                 class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-xs font-bold text-teal-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600"
               >
-                <option value="Admin Utama">Admin Utama (Akses Penuh)</option>
-                <option value="Pegawai Jualan (Sales)">Pegawai Jualan / Sales</option>
-                <option value="Akauntan & Kewangan">Akauntan & Invois</option>
-                <option value="Mutawwif / Tour Lead">Mutawwif / Tour Leader</option>
+                <option value="admin" data-display="Admin Utama">Admin Utama (Akses Penuh Semua Modul)</option>
+                <option value="sales" data-display="Pegawai Jualan (Sales)">Pegawai Jualan / Sales (Lihat Tempahan & Pakej Sahaja)</option>
+                <option value="hr" data-display="Pegawai Sumber Manusia (HR)">Pegawai HR (Urus Staf & Permohonan Cuti Sahaja)</option>
+                <option value="finance" data-display="Akauntan & Kewangan">Akauntan & Kewangan (Lihat Lejer & Penyata Bank Sahaja)</option>
               </select>
             </div>
           </div>
@@ -112,19 +112,19 @@ import { companyInfo } from '../../data/company';
 
         <!-- Quick Demo Switcher Buttons -->
         <div class="mt-6 pt-6 border-t border-slate-200 text-center">
-          <span class="text-[11px] text-slate-500 font-medium block mb-2">Quick Login Demo (Klik untuk isi automatik):</span>
+          <span class="text-[11px] text-slate-500 font-medium block mb-2">Akses Pantas Mengikut Peranan (Role Access):</span>
           <div class="grid grid-cols-2 gap-2 text-[11px]">
-            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="zaim@kembaratours.com.my" data-role="Admin Utama">
-              Admin (Zaim)
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-teal-50 hover:text-teal-800 font-bold border border-slate-200 transition-colors" data-email="zaim@kembaratours.com.my" data-role="admin" data-display="Admin Utama">
+              Admin (Akses Penuh)
             </button>
-            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="sarah.sales@kembaratours.com.my" data-role="Pegawai Jualan (Sales)">
-              Sales (Sarah)
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-teal-50 hover:text-teal-800 font-bold border border-slate-200 transition-colors" data-email="sarah.sales@kembaratours.com.my" data-role="sales" data-display="Pegawai Jualan (Sales)">
+              Sales (Jualan Sahaja)
             </button>
-            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="amir.mutawwif@kembaratours.com.my" data-role="Mutawwif / Tour Lead">
-              Mutawwif (Ustaz)
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-teal-50 hover:text-teal-800 font-bold border border-slate-200 transition-colors" data-email="siti.hr@kembaratours.com.my" data-role="hr" data-display="Pegawai Sumber Manusia (HR)">
+              HR (Staf & Cuti)
             </button>
-            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-slate-200 font-semibold border border-slate-200 transition-colors" data-email="accounts@kembaratours.com.my" data-role="Akauntan & Kewangan">
-              Akaun (Hafiz)
+            <button type="button" class="quick-login-btn py-2 px-2.5 rounded-xl bg-slate-100 text-slate-800 hover:bg-teal-50 hover:text-teal-800 font-bold border border-slate-200 transition-colors" data-email="accounts@kembaratours.com.my" data-role="finance" data-display="Akauntan & Kewangan">
+              Finance (Akaun Sahaja)
             </button>
           </div>
         </div>
@@ -154,7 +154,7 @@ import { companyInfo } from '../../data/company';
   quickBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const email = btn.getAttribute('data-email') || '';
-      const role = btn.getAttribute('data-role') || 'Admin Utama';
+      const role = btn.getAttribute('data-role') || 'admin';
       if (staffInput) staffInput.value = email;
       if (roleSelect) roleSelect.value = role;
     });
@@ -164,13 +164,21 @@ import { companyInfo } from '../../data/company';
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const staffEmail = staffInput?.value || 'zaim@kembaratours.com.my';
-      const role = roleSelect?.value || 'Admin Utama';
+      const roleKey = roleSelect?.value || 'admin';
+      const selectedOption = roleSelect?.options[roleSelect.selectedIndex];
+      const roleDisplay = selectedOption?.getAttribute('data-display') || 'Admin Utama';
+
+      let staffName = 'Zaim Rosli';
+      if (roleKey === 'sales') staffName = 'Siti Sarah';
+      else if (roleKey === 'hr') staffName = 'Siti Aminah';
+      else if (roleKey === 'finance') staffName = 'Hafizuddin Danial';
 
       // Save user session in localStorage
       localStorage.setItem('kembara_staff_session', JSON.stringify({
         email: staffEmail,
-        name: staffEmail.split('@')[0].toUpperCase(),
-        role: role,
+        name: staffName,
+        role: roleDisplay,
+        roleKey: roleKey,
         loginTime: new Date().toISOString()
       }));
 

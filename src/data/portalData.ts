@@ -17,12 +17,27 @@ export interface BookingLead {
 export interface StaffMember {
   id: string;
   name: string;
-  role: 'Admin Utama' | 'Pegawai Jualan (Sales)' | 'Akauntan & Kewangan' | 'Mutawwif / Tour Lead';
+  role: 'Admin Utama' | 'Pegawai Jualan (Sales)' | 'Akauntan & Kewangan' | 'Mutawwif / Tour Lead' | 'Pegawai Sumber Manusia (HR)';
   email: string;
   phone: string;
   assignedTripsCount: number;
   totalSalesDeals: number;
   status: 'Aktif' | 'Cuti' | 'Sedang Bertugas (Luar Negara)';
+}
+
+export interface LeaveApplication {
+  id: string;
+  staffId: string;
+  staffName: string;
+  staffRole: string;
+  leaveType: 'Cuti Tahunan' | 'Cuti Sakit (MC)' | 'Cuti Kecemasan' | 'Cuti Tanpa Gaji' | 'Cuti Ibadah Umrah/Haji';
+  startDate: string;
+  endDate: string;
+  totalDays: number;
+  reason: string;
+  status: 'Menunggu Kelulusan' | 'Diluluskan' | 'Ditolak';
+  appliedAt: string;
+  approvedBy?: string;
 }
 
 export interface TripAssignment {
@@ -311,3 +326,47 @@ export const sampleBankStatements: BankStatementRow[] = [
     referenceNo: "CDM-88192"
   }
 ];
+
+export const initialLeaveApplications: LeaveApplication[] = [
+  {
+    id: "LV-2026-01",
+    staffId: "STF-02",
+    staffName: "Siti Sarah binti Idris",
+    staffRole: "Pegawai Jualan (Sales)",
+    leaveType: "Cuti Tahunan",
+    startDate: "2026-08-25",
+    endDate: "2026-08-27",
+    totalDays: 3,
+    reason: "Urusan keluarga di kampung (Kedah)",
+    status: "Menunggu Kelulusan",
+    appliedAt: "2026-08-18"
+  },
+  {
+    id: "LV-2026-02",
+    staffId: "STF-03",
+    staffName: "Ustaz Amir Syakir",
+    staffRole: "Mutawwif / Tour Lead",
+    leaveType: "Cuti Sakit (MC)",
+    startDate: "2026-08-18",
+    endDate: "2026-08-18",
+    totalDays: 1,
+    reason: "Demam dan rawatan klinik (Klinik Mediviron)",
+    status: "Diluluskan",
+    appliedAt: "2026-08-18",
+    approvedBy: "Zaim Rosli (Admin)"
+  },
+  {
+    id: "LV-2026-03",
+    staffId: "STF-04",
+    staffName: "Hafizuddin Danial",
+    staffRole: "Akauntan & Kewangan",
+    leaveType: "Cuti Tahunan",
+    startDate: "2026-09-02",
+    endDate: "2026-09-04",
+    totalDays: 3,
+    reason: "Urusan pembaharuan pasport & peribadi",
+    status: "Menunggu Kelulusan",
+    appliedAt: "2026-08-19"
+  }
+];
+
