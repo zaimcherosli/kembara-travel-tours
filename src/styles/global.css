@@ -24,9 +24,7 @@
 
 /* Glassmorphism & custom utility classes */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #ffffff;
 }
 
 .glass-dark {
