@@ -1,0 +1,808 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { companyInfo } from '../../data/company';
+import { tourPackages } from '../../data/packages';
+import { initialBookings, initialStaff, initialTripAssignments } from '../../data/portalData';
+---
+
+<Layout title="Portal Pengurusan & Operasi Staf | Kembara Travel">
+  <div class="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans">
+    
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-950 border-b border-slate-800 sticky top-0 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          
+          <!-- Brand & System Badge -->
+          <div class="flex items-center space-x-3">
+            <a href="/" class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-teal-400 flex items-center justify-center text-white font-bold shadow-md shadow-teal-500/20">
+                KT
+              </div>
+              <div>
+                <div class="text-base font-extrabold text-white leading-tight">
+                  KEMBARA <span class="text-teal-400">OPERATIONS</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-medium">
+                  Portal Staf & Pengurusan
+                </div>
+              </div>
+            </a>
+            <span class="hidden sm:inline-block bg-teal-500/10 text-teal-400 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-500/20">
+              v1.0 Cloudflare
+            </span>
+          </div>
+
+          <!-- Staff Profile & Quick Actions -->
+          <div class="flex items-center space-x-4">
+            <div class="text-right hidden sm:block">
+              <div id="display-staff-name" class="text-xs font-bold text-white">ZAIM ROSLI</div>
+              <div id="display-staff-role" class="text-[10px] text-emerald-400 font-semibold">👑 Admin Utama</div>
+            </div>
+
+            <a
+              href="/"
+              target="_blank"
+              class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 hover:text-white transition-colors border border-slate-700"
+            >
+              <svg class="w-3.5 h-3.5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              <span>Lihat Web Awam</span>
+            </a>
+
+            <button
+              id="logout-btn"
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold transition-colors border border-rose-500/20 cursor-pointer"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span>Log Keluar</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Tab Navigation Bar -->
+      <div class="bg-slate-900 border-t border-slate-800 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-4 overflow-x-auto py-2">
+          
+          <button
+            type="button"
+            data-tab="overview"
+            class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-teal-600 text-white shadow-sm flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <span>📊 Ringkasan Dashboard</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="packages"
+            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <span>📦 Pengurusan Pakej (CMS)</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="bookings"
+            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <span>👥 Tempahan & Leads CRM</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="accounts"
+            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <span>💰 Invois & Resit Rasmi</span>
+          </button>
+
+          <button
+            type="button"
+            data-tab="hr"
+            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <span>👔 HR & Tugasan Trip</span>
+          </button>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      
+      <!-- ================= TAB 1: OVERVIEW ================= -->
+      <section id="tab-overview" class="tab-pane space-y-8">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+          <div>
+            <div class="text-xs font-bold text-teal-400 uppercase tracking-wider mb-1">
+              Selamat Datang Kembali
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Papan Kawalan Operasi Kembara Travel
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
+              Pantau status jualan pakej, kutipan bayaran jemaah, dan penugasan Mutawwif/Tour Leader secara langsung.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              id="quick-add-pkg-btn"
+              class="bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-teal-500/20 transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Tambah Pakej Baru</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Key Metrics Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
+            <div class="flex items-center justify-between text-slate-400 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider">Hasil Jualan (Bulan Ini)</span>
+              <span class="p-2 rounded-xl bg-teal-500/10 text-teal-400">💵</span>
+            </div>
+            <div class="text-2xl font-black text-white">RM 98,150</div>
+            <div class="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
+              <span>↑ 18.5%</span> <span class="text-slate-500 font-normal">berbanding bulan lepas</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
+            <div class="flex items-center justify-between text-slate-400 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider">Tempahan & Leads</span>
+              <span class="p-2 rounded-xl bg-sky-500/10 text-sky-400">👥</span>
+            </div>
+            <div class="text-2xl font-black text-white">15 Peserta</div>
+            <div class="text-[11px] text-sky-400 font-semibold mt-1">
+              <span>4 Menunggu Bayaran Penuh</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
+            <div class="flex items-center justify-between text-slate-400 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider">Pakej Aktif di Web</span>
+              <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">📦</span>
+            </div>
+            <div class="text-2xl font-black text-white">{tourPackages.length} Pakej</div>
+            <div class="text-[11px] text-amber-400 font-semibold mt-1">
+              <span>Semua sedia untuk tempahan</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-5">
+            <div class="flex items-center justify-between text-slate-400 mb-3">
+              <span class="text-xs font-semibold uppercase tracking-wider">Trip Berlepas Terdekat</span>
+              <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">✈️</span>
+            </div>
+            <div class="text-2xl font-black text-white">3 Kumpulan</div>
+            <div class="text-[11px] text-emerald-400 font-semibold mt-1">
+              <span>Jepun (10 Okt) & Swiss (15 Okt)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Recent Leads & Trip Schedule Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Recent Bookings Table (7 cols) -->
+          <div class="lg:col-span-7 bg-slate-950/80 border border-slate-800 rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-teal-400"></span>
+                Tempahan & Leads Terkini
+              </h3>
+              <button type="button" class="switch-to-tab text-xs text-teal-400 hover:text-teal-300 font-semibold" data-target="bookings">
+                Lihat Semua →
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="text-slate-400 border-b border-slate-800 pb-2">
+                    <th class="pb-3 font-semibold">Pelanggan</th>
+                    <th class="pb-3 font-semibold">Pakej</th>
+                    <th class="pb-3 font-semibold">Jumlah (RM)</th>
+                    <th class="pb-3 font-semibold">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-850">
+                  {initialBookings.slice(0, 4).map((bk) => (
+                    <tr class="hover:bg-slate-900/50">
+                      <td class="py-3">
+                        <div class="font-bold text-white">{bk.customerName}</div>
+                        <div class="text-[10px] text-slate-400">{bk.phone}</div>
+                      </td>
+                      <td class="py-3">
+                        <div class="text-slate-200 font-medium">{bk.packageName}</div>
+                        <div class="text-[10px] text-teal-400">{bk.pax} Pax • {bk.travelDate}</div>
+                      </td>
+                      <td class="py-3 font-bold text-slate-200">
+                        RM {bk.totalAmount.toLocaleString()}
+                      </td>
+                      <td class="py-3">
+                        <span class={`px-2 py-1 rounded-full text-[10px] font-bold ${
+                          bk.status === 'Bayaran Penuh' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                          bk.status === 'Deposit Selesai' ? 'bg-sky-500/10 text-sky-400 border border-sky-500/20' :
+                          'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                        }`}>
+                          {bk.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Trip Operations Schedule (5 cols) -->
+          <div class="lg:col-span-5 bg-slate-950/80 border border-slate-800 rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-5">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                Jadual Pelepasan Terdekat
+              </h3>
+              <button type="button" class="switch-to-tab text-xs text-teal-400 hover:text-teal-300 font-semibold" data-target="hr">
+                Urus Trip →
+              </button>
+            </div>
+
+            <div class="space-y-3.5">
+              {initialTripAssignments.map((trip) => (
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-white">{trip.tripTitle}</span>
+                    <span class="text-[10px] font-bold bg-teal-500/10 text-teal-400 px-2 py-0.5 rounded border border-teal-500/20">
+                      {trip.totalPax} Pax
+                    </span>
+                  </div>
+                  <div class="text-[11px] text-slate-400">
+                    📅 Tarikh: <span class="text-slate-200">{trip.departureDate} - {trip.returnDate}</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400 flex items-center justify-between pt-1 border-t border-slate-800">
+                    <span>Lead: <strong class="text-emerald-400">{trip.leadGuide}</strong></span>
+                    <span class="text-slate-500">{trip.flightNo}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= TAB 2: PENGURUSAN PAKEJ (CMS) ================= -->
+      <section id="tab-packages" class="tab-pane hidden space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-950/80 border border-slate-800 p-6 rounded-3xl">
+          <div>
+            <h2 class="text-xl font-bold text-white">Katalog Pakej Pelancongan (Live CMS)</h2>
+            <p class="text-xs text-slate-400">Kemas kini harga, diskaun promosi, tarikh perlepasan atau tambah pakej baru.</p>
+          </div>
+          <button
+            type="button"
+            id="open-new-pkg-modal"
+            class="bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Tambah Pakej Baru</span>
+          </button>
+        </div>
+
+        <!-- Package List Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cms-packages-container">
+          {tourPackages.map((pkg) => (
+            <div class="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between p-5 space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-[11px] font-bold text-teal-400 uppercase tracking-wider">{pkg.categoryLabel}</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    ● Aktif di Web
+                  </span>
+                </div>
+                <h3 class="text-base font-bold text-white line-clamp-1">{pkg.title}</h3>
+                <p class="text-xs text-slate-400 line-clamp-2 mt-1">{pkg.subtitle}</p>
+                
+                <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                  <div>
+                    <span class="text-[10px] text-slate-500 block">Harga Jualan</span>
+                    <span class="text-base font-extrabold text-teal-400">RM {pkg.price.toLocaleString()}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] text-slate-500 block">Deposit</span>
+                    <span class="font-bold text-slate-200">RM {pkg.deposit}</span>
+                  </div>
+                </div>
+
+                <div class="mt-3 text-[11px] text-slate-400">
+                  <span>📅 Perlepasan:</span>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    {pkg.nextDepartureDates.slice(0, 2).map(d => (
+                      <span class="bg-slate-900 border border-slate-800 px-2 py-0.5 rounded text-[10px] text-slate-300">{d}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- CMS Actions -->
+              <div class="pt-3 border-t border-slate-800 flex items-center gap-2">
+                <button
+                  type="button"
+                  class="edit-pkg-btn flex-1 bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold py-2 px-3 rounded-xl border border-slate-700 transition-colors"
+                  data-pkg-id={pkg.id}
+                >
+                  ✏️ Edit Harga / Info
+                </button>
+                <button
+                  type="button"
+                  class="toggle-status-btn px-3 py-2 bg-slate-900 hover:bg-slate-800 text-slate-400 text-xs rounded-xl border border-slate-700"
+                  title="Toggle Sold Out"
+                >
+                  🔒 Sold Out
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+
+      <!-- ================= TAB 3: TEMPAHAN & LEADS CRM ================= -->
+      <section id="tab-bookings" class="tab-pane hidden space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-950/80 border border-slate-800 p-6 rounded-3xl">
+          <div>
+            <h2 class="text-xl font-bold text-white">Pengurusan Tempahan & Leads CRM</h2>
+            <p class="text-xs text-slate-400">Pantau permohonan tempahan daripada borang web & WhatsApp pelanggan.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              id="crm-search-input"
+              placeholder="Cari nama / no telefon / pakej..."
+              class="bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+          </div>
+        </div>
+
+        <!-- CRM Leads Table -->
+        <div class="bg-slate-950 border border-slate-800 rounded-3xl p-6 overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead>
+                <tr class="text-slate-400 border-b border-slate-800 pb-3">
+                  <th class="pb-3 font-semibold">ID & Pelanggan</th>
+                  <th class="pb-3 font-semibold">Pakej & Tarikh</th>
+                  <th class="pb-3 font-semibold">Bil. Pax</th>
+                  <th class="pb-3 font-semibold">Kewangan (Bayaran / Total)</th>
+                  <th class="pb-3 font-semibold">Status Bayaran</th>
+                  <th class="pb-3 font-semibold">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-850" id="crm-leads-tbody">
+                {initialBookings.map((bk) => (
+                  <tr class="hover:bg-slate-900/50">
+                    <td class="py-3.5">
+                      <span class="text-[10px] text-teal-400 font-mono block">{bk.id}</span>
+                      <div class="font-bold text-white text-sm">{bk.customerName}</div>
+                      <div class="text-slate-400">{bk.phone} • {bk.email}</div>
+                    </td>
+                    <td class="py-3.5">
+                      <div class="font-semibold text-slate-200">{bk.packageName}</div>
+                      <div class="text-[11px] text-slate-400">📅 {bk.travelDate}</div>
+                    </td>
+                    <td class="py-3.5 font-bold text-slate-200">
+                      {bk.pax} Orang
+                    </td>
+                    <td class="py-3.5">
+                      <div class="font-bold text-emerald-400">RM {bk.paidAmount.toLocaleString()}</div>
+                      <div class="text-[10px] text-slate-500">drpd RM {bk.totalAmount.toLocaleString()}</div>
+                    </td>
+                    <td class="py-3.5">
+                      <select class="lead-status-select bg-slate-900 border border-slate-700 text-xs text-white rounded-lg p-1 font-semibold">
+                        <option value="Pertanyaan Baru" selected={bk.status === 'Pertanyaan Baru'}>⏳ Pertanyaan Baru</option>
+                        <option value="Deposit Selesai" selected={bk.status === 'Deposit Selesai'}>💳 Deposit Selesai</option>
+                        <option value="Bayaran Penuh" selected={bk.status === 'Bayaran Penuh'}>✅ Bayaran Penuh</option>
+                        <option value="Selesai Trip" selected={bk.status === 'Selesai Trip'}>🎉 Selesai Trip</option>
+                      </select>
+                    </td>
+                    <td class="py-3.5">
+                      <div class="flex items-center gap-2">
+                        <a
+                          href={`https://wa.me/6${bk.phone.replace(/[^0-9]/g, '')}?text=Salam%20${encodeURIComponent(bk.customerName)},%20ini%20adalah%20susulan%20rasmi%20daripada%20Kembara%20Travel%20berkenaan%20pakej%20${encodeURIComponent(bk.packageName)}.`}
+                          target="_blank"
+                          class="p-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white"
+                          title="Hantar WhatsApp Follow-up"
+                        >
+                          💬
+                        </a>
+                        <button
+                          type="button"
+                          class="generate-invoice-btn px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-semibold border border-slate-700"
+                          data-booking-id={bk.id}
+                        >
+                          📄 Resit
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ================= TAB 4: AKAUN & RESIT RASMI ================= -->
+      <section id="tab-accounts" class="tab-pane hidden space-y-8">
+        
+        <div class="bg-slate-950/80 border border-slate-800 p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Penjana Invois & Resit Rasmi (Invoicing Engine)</h2>
+            <p class="text-xs text-slate-400">Jana dokumen invois & resit rasmi Kembara Travel untuk dihantar kepada pelanggan.</p>
+          </div>
+          <button
+            type="button"
+            onclick="window.print()"
+            class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span>Cetak / Simpan PDF</span>
+          </button>
+        </div>
+
+        <!-- Official Invoice / Receipt Template Display -->
+        <div class="bg-white text-slate-900 rounded-3xl p-8 sm:p-12 shadow-2xl border border-slate-200 max-w-3xl mx-auto" id="printable-receipt">
+          
+          <!-- Letterhead Header -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b-2 border-slate-900 pb-6 gap-4">
+            <div>
+              <div class="text-xl font-black text-slate-950 tracking-tight leading-tight">
+                {companyInfo.name}
+              </div>
+              <div class="text-xs font-bold text-teal-700 mt-0.5">
+                NO LESEN MOTAC: {companyInfo.motacNo} | SSM: {companyInfo.ssmNo}
+              </div>
+              <div class="text-[11px] text-slate-500 max-w-sm mt-1 leading-relaxed">
+                {companyInfo.address} • Tel: {companyInfo.phoneDisplay}
+              </div>
+            </div>
+            <div class="text-left sm:text-right">
+              <span class="bg-teal-100 text-teal-900 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                RESIT RASMI / INVOIS
+              </span>
+              <div class="text-xs font-mono font-bold text-slate-700 mt-2">NO: INV-2026-0819</div>
+              <div class="text-[11px] text-slate-500">Tarikh: 19 Ogos 2026</div>
+            </div>
+          </div>
+
+          <!-- Customer Info -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 border-b border-slate-200 text-xs">
+            <div>
+              <span class="font-bold text-slate-500 uppercase text-[10px] block mb-1">Dikeluarkan Kepada:</span>
+              <div class="text-sm font-black text-slate-900" id="receipt-cust-name">Dato' Hj Razak & Keluarga</div>
+              <div class="text-slate-600" id="receipt-cust-phone">019-2819281 • razak.family@gmail.com</div>
+              <div class="text-slate-500">Shah Alam, Selangor</div>
+            </div>
+            <div class="sm:text-right">
+              <span class="font-bold text-slate-500 uppercase text-[10px] block mb-1">Butiran Perjalanan:</span>
+              <div class="font-bold text-slate-900" id="receipt-pkg-name">Pakej Umrah VIP Musim Sejuk 1448H</div>
+              <div class="text-slate-600">Tarikh Perlepasan: 05 Nov 2026 (12 Hari)</div>
+              <div class="text-teal-700 font-bold">4 Peserta (Bilik Quad/Double)</div>
+            </div>
+          </div>
+
+          <!-- Line Items Table -->
+          <table class="w-full text-xs my-6">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-300">
+                <th class="py-2.5 px-3 text-left">Penerangan Item</th>
+                <th class="py-2.5 px-3 text-center">Pax</th>
+                <th class="py-2.5 px-3 text-right">Harga Seunit (RM)</th>
+                <th class="py-2.5 px-3 text-right">Jumlah (RM)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-3 px-3">
+                  <div class="font-bold text-slate-900">Pakej Umrah VIP 5-Bintang (Tiket Penerbangan + Hotel + Makan)</div>
+                  <div class="text-[11px] text-slate-500">Termasuk Visa Umrah, Haramain Train, Set Beg Kembara & Air Zamzam 5L</div>
+                </td>
+                <td class="py-3 px-3 text-center font-bold">4</td>
+                <td class="py-3 px-3 text-right">7,890.00</td>
+                <td class="py-3 px-3 text-right font-bold">31,560.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Financial Calculation Total -->
+          <div class="border-t-2 border-slate-900 pt-4 flex justify-end">
+            <div class="w-64 space-y-1.5 text-xs text-right">
+              <div class="flex justify-between text-slate-600">
+                <span>Jumlah Kasar:</span>
+                <span class="font-bold">RM 31,560.00</span>
+              </div>
+              <div class="flex justify-between text-emerald-700 font-bold">
+                <span>Jumlah Telah Dibayar:</span>
+                <span>RM 31,560.00</span>
+              </div>
+              <div class="flex justify-between text-base font-black text-slate-950 border-t border-slate-300 pt-1.5">
+                <span>Baki Perlu Dibayar:</span>
+                <span>RM 0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Official Stamp / Signature Area -->
+          <div class="mt-12 pt-6 border-t border-slate-200 grid grid-cols-2 gap-6 text-[11px] text-slate-500">
+            <div>
+              <p class="italic">Resit ini dijana secara elektronik oleh sistem operasi Kembara Travel & Tours Sdn Bhd.</p>
+            </div>
+            <div class="text-right">
+              <div class="font-bold text-slate-900">Pegawai Bertugas:</div>
+              <div class="text-teal-700 font-semibold">Bahagian Kewangan & Akaun</div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= TAB 5: HR & TUGASAN TRIP ================= -->
+      <section id="tab-hr" class="tab-pane hidden space-y-8">
+        
+        <div class="bg-slate-950/80 border border-slate-800 p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white">Pengurusan Staf & Penugasan Mutawwif / Tour Leader</h2>
+            <p class="text-xs text-slate-400">Senarai kakitangan, peranan, penugasan trip dan pengiraan komisen jualan.</p>
+          </div>
+        </div>
+
+        <!-- Staff List Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {initialStaff.map((stf) => (
+            <div class="bg-slate-950 border border-slate-800 rounded-3xl p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-teal-400 font-mono">{stf.id}</span>
+                <span class={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                  stf.status === 'Aktif' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                  'bg-sky-500/10 text-sky-400 border border-sky-500/20'
+                }`}>
+                  ● {stf.status}
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-extrabold text-white">{stf.name}</h3>
+                <div class="text-xs font-semibold text-slate-400">{stf.role}</div>
+                <div class="text-[11px] text-slate-500 mt-1">{stf.email} • {stf.phone}</div>
+              </div>
+              <div class="pt-3 border-t border-slate-800 grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Tugasan Trip</span>
+                  <span class="font-bold text-white">{stf.assignedTripsCount} Trip Diketuai</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 block">Deals Jualan</span>
+                  <span class="font-bold text-teal-400">{stf.totalSalesDeals} Pelanggan</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+</Layout>
+
+<!-- Add/Edit Package Modal -->
+<div id="new-pkg-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+  <div class="bg-slate-900 border border-slate-800 text-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl">
+    <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+      <h3 class="text-base font-bold text-white">Tambah / Edit Pakej Pelancongan</h3>
+      <button type="button" id="close-new-pkg-modal" class="text-slate-400 hover:text-white">✕</button>
+    </div>
+    <form id="new-package-form" class="space-y-3.5 text-xs">
+      <div>
+        <label class="block font-bold text-slate-300 mb-1">Tajuk Pakej *</label>
+        <input type="text" id="modal-pkg-title" required placeholder="cth: Korea Autumn & Nami Island" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white" />
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Kategori *</label>
+          <select id="modal-pkg-cat" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white">
+            <option value="antarabangsa">Antarabangsa</option>
+            <option value="umrah">Umrah & Ziarah</option>
+            <option value="domestik">Domestik</option>
+            <option value="pulau">Pulau & Santai</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Tempoh *</label>
+          <input type="text" id="modal-pkg-duration" required placeholder="cth: 6 Hari 4 Malam" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white" />
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Harga Jualan (RM) *</label>
+          <input type="number" id="modal-pkg-price" required placeholder="cth: 4290" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Deposit (RM) *</label>
+          <input type="number" id="modal-pkg-deposit" required placeholder="cth: 500" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white" />
+        </div>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-300 mb-1">Tarikh Perlepasan (Asingkan dengan koma)</label>
+        <input type="text" id="modal-pkg-dates" placeholder="cth: 12 Nov 2026, 05 Dis 2026" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white" />
+      </div>
+      <div class="pt-3">
+        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-xl transition-all cursor-pointer">
+          Simpan Pakej ke Katalog
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Session check
+  const sessionData = localStorage.getItem('kembara_staff_session');
+  if (sessionData) {
+    try {
+      const parsed = JSON.parse(sessionData);
+      const nameEl = document.getElementById('display-staff-name');
+      const roleEl = document.getElementById('display-staff-role');
+      if (nameEl) nameEl.textContent = parsed.name || 'STAF AKTIF';
+      if (roleEl) roleEl.textContent = parsed.role || 'Admin';
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // Logout button
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('kembara_staff_session');
+      window.location.href = '/staf/login';
+    });
+  }
+
+  // Tab switching
+  const tabButtons = document.querySelectorAll<HTMLButtonElement>('.tab-btn');
+  const tabPanes = document.querySelectorAll<HTMLElement>('.tab-pane');
+
+  function switchTab(tabId: string) {
+    tabButtons.forEach(btn => {
+      if (btn.getAttribute('data-tab') === tabId) {
+        btn.classList.add('bg-teal-600', 'text-white', 'shadow-sm');
+        btn.classList.remove('bg-slate-800', 'text-slate-300');
+      } else {
+        btn.classList.remove('bg-teal-600', 'text-white', 'shadow-sm');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      }
+    });
+
+    tabPanes.forEach(pane => {
+      if (pane.id === `tab-${tabId}`) {
+        pane.classList.remove('hidden');
+      } else {
+        pane.classList.add('hidden');
+      }
+    });
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.getAttribute('data-tab');
+      if (tab) switchTab(tab);
+    });
+  });
+
+  // Cross-tab button triggers
+  document.querySelectorAll('.switch-to-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      if (target) switchTab(target);
+    });
+  });
+
+  // Modal logic for Add Package
+  const modal = document.getElementById('new-pkg-modal');
+  const openModalBtn = document.getElementById('open-new-pkg-modal');
+  const quickAddBtn = document.getElementById('quick-add-pkg-btn');
+  const closeModalBtn = document.getElementById('close-new-pkg-modal');
+  const newPkgForm = document.getElementById('new-package-form');
+
+  function openModal() {
+    if (modal) modal.classList.remove('hidden');
+    if (modal) modal.classList.add('flex');
+  }
+
+  function closeModal() {
+    if (modal) modal.classList.add('hidden');
+    if (modal) modal.classList.remove('flex');
+  }
+
+  if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+  if (quickAddBtn) quickAddBtn.addEventListener('click', openModal);
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+  if (newPkgForm) {
+    newPkgForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = (document.getElementById('modal-pkg-title') as HTMLInputElement)?.value;
+      const price = (document.getElementById('modal-pkg-price') as HTMLInputElement)?.value;
+      const deposit = (document.getElementById('modal-pkg-deposit') as HTMLInputElement)?.value;
+      const duration = (document.getElementById('modal-pkg-duration') as HTMLInputElement)?.value;
+      const dates = (document.getElementById('modal-pkg-dates') as HTMLInputElement)?.value || 'Segera';
+
+      const container = document.getElementById('cms-packages-container');
+      if (container && title) {
+        const newCard = document.createElement('div');
+        newCard.className = 'bg-slate-950 border border-teal-500/50 rounded-3xl p-5 space-y-4 shadow-lg animate-pulse';
+        newCard.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-[11px] font-bold text-teal-400 uppercase tracking-wider">Pakej Baru</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">● Baru Ditambah</span>
+            </div>
+            <h3 class="text-base font-bold text-white">${title}</h3>
+            <p class="text-xs text-slate-400 mt-1">${duration}</p>
+            <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <div>
+                <span class="text-[10px] text-slate-500 block">Harga</span>
+                <span class="text-base font-extrabold text-teal-400">RM ${Number(price).toLocaleString()}</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-500 block">Deposit</span>
+                <span class="font-bold text-slate-200">RM ${Number(deposit).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-xs text-emerald-400 font-semibold">
+            ✓ Berjaya disimpan dalam memori sistem
+          </div>
+        `;
+        container.prepend(newCard);
+      }
+      closeModal();
+      switchTab('packages');
+      alert(`Pakej "${title}" berjaya ditambah!`);
+    });
+  }
+
+  // Quick Receipt Trigger from CRM Leads
+  document.querySelectorAll('.generate-invoice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab('accounts');
+      const printable = document.getElementById('printable-receipt');
+      if (printable) {
+        printable.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
