@@ -10,31 +10,31 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     
     <!-- Top Navigation Header -->
     <header class="bg-white border-b border-slate-250 sticky top-0 z-40 shadow-xs">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 gap-2">
           
           <!-- Brand & System Badge -->
-          <div class="flex items-center space-x-3">
-            <a href="/" class="flex items-center gap-2.5">
-              <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-600 flex items-center justify-center text-white font-bold shadow-md shadow-teal-600/20">
+          <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+            <a href="/" class="flex items-center gap-2 sm:gap-2.5">
+              <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-600 flex items-center justify-center text-white font-bold shadow-md shadow-teal-600/20 text-xs sm:text-sm">
                 KT
               </div>
               <div>
-                <div class="text-base font-extrabold text-slate-900 leading-tight">
+                <div class="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
                   KEMBARA <span class="text-teal-700">OPERATIONS</span>
                 </div>
-                <div class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                <div class="text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-wider">
                   Portal Staf & Pengurusan
                 </div>
               </div>
             </a>
-            <span class="hidden sm:inline-block bg-teal-50 text-teal-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-teal-200">
+            <span class="hidden md:inline-block bg-teal-50 text-teal-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-teal-200">
               v1.0 Cloudflare
             </span>
           </div>
 
           <!-- Staff Profile & Quick Actions -->
-          <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2 sm:space-x-4">
             <div class="text-right hidden sm:block">
               <div id="display-staff-name" class="text-xs font-black text-slate-900">ZAIM ROSLI</div>
               <div id="display-staff-role" class="text-[11px] text-teal-700 font-bold">Admin Utama</div>
@@ -43,7 +43,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             <a
               href="/"
               target="_blank"
-              class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 hover:text-slate-900 transition-colors border border-slate-300"
+              class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 hover:text-slate-900 transition-colors border border-slate-300"
             >
               <svg class="w-3.5 h-3.5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -54,7 +54,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             <button
               id="logout-btn"
               type="button"
-              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition-colors border border-rose-200 cursor-pointer"
+              class="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] sm:text-xs font-bold transition-colors border border-rose-200 cursor-pointer shrink-0"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -66,14 +66,14 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
       </div>
 
-      <!-- Tab Navigation Bar -->
-      <div class="bg-slate-100/90 border-t border-slate-200 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-3 overflow-x-auto py-2.5">
+      <!-- Tab Navigation Bar (Scrollable on Mobile) -->
+      <div class="bg-slate-100/95 border-t border-slate-200 px-3 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-3 overflow-x-auto py-2 sm:py-2.5 scrollbar-none" style="-webkit-overflow-scrolling: touch;">
           
           <button
             type="button"
             data-tab="overview"
-            class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-teal-700 text-white shadow-sm flex items-center gap-2 shrink-0 cursor-pointer"
+            class="tab-btn active px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-teal-700 text-white shadow-sm flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Ringkasan Dashboard</span>
           </button>
@@ -81,7 +81,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="packages"
-            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 cursor-pointer"
+            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Pengurusan Pakej (CMS)</span>
           </button>
@@ -89,7 +89,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="bookings"
-            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 cursor-pointer"
+            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Tempahan & Leads CRM</span>
           </button>
@@ -97,7 +97,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="accounts"
-            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 cursor-pointer"
+            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>Lejer Kewangan & Penyesuaian Bank</span>
           </button>
@@ -105,7 +105,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <button
             type="button"
             data-tab="hr"
-            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 cursor-pointer"
+            class="tab-btn px-3 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 hover:bg-slate-200 border border-slate-200 hover:text-slate-900 flex items-center gap-2 shrink-0 whitespace-nowrap cursor-pointer"
           >
             <span>HR & Tugasan Trip</span>
           </button>
@@ -115,29 +115,29 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
       
       <!-- ================= TAB 1: OVERVIEW ================= -->
-      <section id="tab-overview" class="tab-pane space-y-8">
+      <section id="tab-overview" class="tab-pane space-y-6 sm:space-y-8">
         
         <!-- Welcome Banner -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
           <div>
             <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
               Selamat Datang Kembali
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight">
               Papan Kawalan Operasi Kembara Travel
             </h1>
             <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
               Pantau status jualan pakej, lejer kutipan bayaran jemaah, dan penugasan Mutawwif/Tour Leader secara langsung.
             </p>
           </div>
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 w-full sm:w-auto">
             <button
               type="button"
               id="quick-add-pkg-btn"
-              class="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              class="w-full sm:w-auto justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
               <span>Tambah Pakej Baru</span>
@@ -146,48 +146,48 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
 
         <!-- 4 Key Metrics Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-              <span class="text-xs font-bold uppercase tracking-wider">Hasil Jualan (Bulan Ini)</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div class="flex items-center justify-between text-slate-500 mb-2 sm:mb-3">
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Hasil Jualan (Bulan Ini)</span>
               <span class="p-1.5 rounded-lg bg-teal-100 text-teal-800 font-extrabold text-xs">RM</span>
             </div>
-            <div class="text-2xl font-black text-slate-900" id="overview-stat-sales">RM 98,150</div>
-            <div class="text-[11px] text-emerald-700 font-bold mt-1 flex items-center gap-1">
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="overview-stat-sales">RM 98,150</div>
+            <div class="text-[10px] sm:text-[11px] text-emerald-700 font-bold mt-1 flex items-center gap-1">
               <span>↑ 18.5%</span> <span class="text-slate-500 font-normal">berbanding bulan lepas</span>
             </div>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-              <span class="text-xs font-bold uppercase tracking-wider">Kutipan Lejer Tunai</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div class="flex items-center justify-between text-slate-500 mb-2 sm:mb-3">
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Kutipan Lejer Tunai</span>
               <span class="p-1.5 rounded-lg bg-sky-100 text-sky-800 font-extrabold text-xs">LEJER</span>
             </div>
-            <div class="text-2xl font-black text-slate-900" id="overview-stat-ledger">RM 35,160</div>
-            <div class="text-[11px] text-sky-700 font-bold mt-1">
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="overview-stat-ledger">RM 35,160</div>
+            <div class="text-[10px] sm:text-[11px] text-sky-700 font-bold mt-1">
               <span>Disahkan masuk akaun syarikat</span>
             </div>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-              <span class="text-xs font-bold uppercase tracking-wider">Pakej Aktif di Web</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div class="flex items-center justify-between text-slate-500 mb-2 sm:mb-3">
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Pakej Aktif di Web</span>
               <span class="p-1.5 rounded-lg bg-amber-100 text-amber-800 font-extrabold text-xs">PKG</span>
             </div>
-            <div class="text-2xl font-black text-slate-900">{tourPackages.length} Pakej</div>
-            <div class="text-[11px] text-amber-700 font-bold mt-1">
+            <div class="text-xl sm:text-2xl font-black text-slate-900">{tourPackages.length} Pakej</div>
+            <div class="text-[10px] sm:text-[11px] text-amber-700 font-bold mt-1">
               <span>Semua sedia untuk tempahan</span>
             </div>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <div class="flex items-center justify-between text-slate-500 mb-3">
-              <span class="text-xs font-bold uppercase tracking-wider">Trip Berlepas Terdekat</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <div class="flex items-center justify-between text-slate-500 mb-2 sm:mb-3">
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider">Trip Berlepas Terdekat</span>
               <span class="p-1.5 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold text-xs">TRIP</span>
             </div>
-            <div class="text-2xl font-black text-slate-900">3 Kumpulan</div>
-            <div class="text-[11px] text-emerald-700 font-bold mt-1">
+            <div class="text-xl sm:text-2xl font-black text-slate-900">3 Kumpulan</div>
+            <div class="text-[10px] sm:text-[11px] text-emerald-700 font-bold mt-1">
               <span>Jepun (10 Okt) & Swiss (15 Okt)</span>
             </div>
           </div>
@@ -195,12 +195,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
 
         <!-- Recent Leads & Trip Schedule Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
           
           <!-- Recent Bookings Table (7 cols) -->
-          <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-5">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+          <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span>
                 Tempahan & Leads Terkini
               </h3>
@@ -209,32 +209,33 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </button>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs">
+            <!-- Responsive Table with explicit min-w to prevent overlapping -->
+            <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
+              <table class="w-full text-left text-xs min-w-[520px]">
                 <thead>
                   <tr class="text-slate-600 bg-slate-50 border-b border-slate-200">
-                    <th class="py-2.5 px-3 font-bold">Pelanggan</th>
-                    <th class="py-2.5 px-3 font-bold">Pakej</th>
-                    <th class="py-2.5 px-3 font-bold">Jumlah (RM)</th>
-                    <th class="py-2.5 px-3 font-bold">Status</th>
+                    <th class="py-2.5 px-3 font-bold whitespace-nowrap">Pelanggan</th>
+                    <th class="py-2.5 px-3 font-bold whitespace-nowrap">Pakej</th>
+                    <th class="py-2.5 px-3 font-bold whitespace-nowrap">Jumlah (RM)</th>
+                    <th class="py-2.5 px-3 font-bold whitespace-nowrap">Status</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                   {initialBookings.slice(0, 4).map((bk) => (
                     <tr class="hover:bg-slate-50 transition-colors">
                       <td class="py-3 px-3">
-                        <div class="font-bold text-slate-900">{bk.customerName}</div>
-                        <div class="text-[11px] text-slate-500">{bk.phone}</div>
+                        <div class="font-bold text-slate-900 whitespace-nowrap">{bk.customerName}</div>
+                        <div class="text-[11px] text-slate-500 whitespace-nowrap">{bk.phone}</div>
                       </td>
                       <td class="py-3 px-3">
-                        <div class="text-slate-800 font-semibold">{bk.packageName}</div>
-                        <div class="text-[11px] text-teal-700 font-medium">{bk.pax} Pax • {bk.travelDate}</div>
+                        <div class="text-slate-800 font-semibold max-w-[200px] truncate">{bk.packageName}</div>
+                        <div class="text-[11px] text-teal-700 font-medium whitespace-nowrap">{bk.pax} Pax • {bk.travelDate}</div>
                       </td>
-                      <td class="py-3 px-3 font-extrabold text-slate-900">
+                      <td class="py-3 px-3 font-extrabold text-slate-900 whitespace-nowrap">
                         RM {bk.totalAmount.toLocaleString()}
                       </td>
-                      <td class="py-3 px-3">
-                        <span class={`px-2.5 py-1 rounded-full text-[10px] font-bold ${
+                      <td class="py-3 px-3 whitespace-nowrap">
+                        <span class={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold ${
                           bk.status === 'Bayaran Penuh' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' :
                           bk.status === 'Deposit Selesai' ? 'bg-sky-100 text-sky-800 border border-sky-300' :
                           'bg-amber-100 text-amber-800 border border-amber-300'
@@ -250,9 +251,9 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           </div>
 
           <!-- Trip Operations Schedule (5 cols) -->
-          <div class="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-5">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+          <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
                 Jadual Pelepasan Terdekat
               </h3>
@@ -261,12 +262,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </button>
             </div>
 
-            <div class="space-y-3.5">
+            <div class="space-y-3">
               {initialTripAssignments.map((trip) => (
-                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
-                  <div class="flex items-center justify-between">
-                    <span class="text-xs font-bold text-slate-900">{trip.tripTitle}</span>
-                    <span class="text-[10px] font-bold bg-teal-100 text-teal-800 px-2 py-0.5 rounded border border-teal-300">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl sm:rounded-2xl p-3.5 sm:p-4 space-y-1.5 sm:space-y-2">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-xs font-bold text-slate-900 truncate">{trip.tripTitle}</span>
+                    <span class="text-[10px] font-bold bg-teal-100 text-teal-800 px-2 py-0.5 rounded border border-teal-300 shrink-0">
                       {trip.totalPax} Pax
                     </span>
                   </div>
@@ -290,15 +291,15 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       <!-- ================= TAB 2: PENGURUSAN PAKEJ (CMS) ================= -->
       <section id="tab-packages" class="tab-pane hidden space-y-6">
         
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm">
           <div>
-            <h2 class="text-xl font-extrabold text-slate-900">Katalog Pakej Pelancongan (Live CMS)</h2>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Katalog Pakej Pelancongan (Live CMS)</h2>
             <p class="text-xs text-slate-600">Kemas kini harga, diskaun promosi, tarikh perlepasan atau tambah pakej baru.</p>
           </div>
           <button
             type="button"
             id="open-new-pkg-modal"
-            class="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
+            class="w-full sm:w-auto justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             <span>+ Tambah Pakej Baru</span>
@@ -306,9 +307,9 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
 
         <!-- Package List Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cms-packages-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" id="cms-packages-container">
           {tourPackages.map((pkg) => (
-            <div class="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm space-y-4 flex flex-col justify-between hover:shadow-md transition-all">
+            <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-sm space-y-4 flex flex-col justify-between hover:shadow-md transition-all">
               <div>
                 <div class="flex items-center justify-between mb-3">
                   <span class="text-[11px] font-bold text-teal-700 uppercase tracking-wider">{pkg.categoryLabel}</span>
@@ -367,63 +368,63 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       <!-- ================= TAB 3: TEMPAHAN & LEADS CRM ================= -->
       <section id="tab-bookings" class="tab-pane hidden space-y-6">
         
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm">
           <div>
-            <h2 class="text-xl font-extrabold text-slate-900">Pengurusan Tempahan & Leads CRM</h2>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Pengurusan Tempahan & Leads CRM</h2>
             <p class="text-xs text-slate-600">Pantau permohonan tempahan daripada borang web & WhatsApp pelanggan. Status bayaran akan mengemas kini Lejer Kewangan secara automatik.</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 w-full sm:w-auto">
             <input
               type="text"
               id="crm-search-input"
               placeholder="Cari nama / no telefon / pakej..."
-              class="bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600"
+              class="w-full sm:w-64 bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-600"
             />
           </div>
         </div>
 
-        <!-- CRM Leads Table -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+        <!-- CRM Leads Table (Responsive Horizontal Scroll) -->
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
+            <table class="w-full text-left text-xs min-w-[700px]">
               <thead>
                 <tr class="text-slate-600 bg-slate-50 border-b border-slate-200 pb-3">
-                  <th class="py-3 px-3 font-bold">ID & Pelanggan</th>
-                  <th class="py-3 px-3 font-bold">Pakej & Tarikh</th>
-                  <th class="py-3 px-3 font-bold">Bil. Pax</th>
-                  <th class="py-3 px-3 font-bold">Kewangan (Bayaran / Total)</th>
-                  <th class="py-3 px-3 font-bold">Status Bayaran</th>
-                  <th class="py-3 px-3 font-bold">Tindakan</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">ID & Pelanggan</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">Pakej & Tarikh</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">Bil. Pax</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">Kewangan (Bayaran / Total)</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">Status Bayaran</th>
+                  <th class="py-3 px-3 font-bold whitespace-nowrap">Tindakan</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100" id="crm-leads-tbody">
                 {initialBookings.map((bk) => (
                   <tr class="hover:bg-slate-50 transition-colors" data-id={bk.id} data-customer={bk.customerName} data-pkg={bk.packageName} data-total={bk.totalAmount} data-paid={bk.paidAmount}>
                     <td class="py-3.5 px-3">
-                      <span class="text-[10px] text-teal-700 font-mono font-bold block">{bk.id}</span>
-                      <div class="font-bold text-slate-900 text-sm">{bk.customerName}</div>
-                      <div class="text-slate-500">{bk.phone} • {bk.email}</div>
+                      <span class="text-[10px] text-teal-700 font-mono font-bold block whitespace-nowrap">{bk.id}</span>
+                      <div class="font-bold text-slate-900 text-sm whitespace-nowrap">{bk.customerName}</div>
+                      <div class="text-slate-500 whitespace-nowrap">{bk.phone} • {bk.email}</div>
                     </td>
                     <td class="py-3.5 px-3">
-                      <div class="font-bold text-slate-800">{bk.packageName}</div>
-                      <div class="text-[11px] text-slate-500 font-medium">{bk.travelDate}</div>
+                      <div class="font-bold text-slate-800 whitespace-nowrap">{bk.packageName}</div>
+                      <div class="text-[11px] text-slate-500 font-medium whitespace-nowrap">{bk.travelDate}</div>
                     </td>
-                    <td class="py-3.5 px-3 font-bold text-slate-900">
+                    <td class="py-3.5 px-3 font-bold text-slate-900 whitespace-nowrap">
                       {bk.pax} Orang
                     </td>
-                    <td class="py-3.5 px-3">
+                    <td class="py-3.5 px-3 whitespace-nowrap">
                       <div class="font-extrabold text-emerald-700 paid-display">RM {bk.paidAmount.toLocaleString()}</div>
                       <div class="text-[10px] text-slate-500 font-medium">drpd RM {bk.totalAmount.toLocaleString()}</div>
                     </td>
-                    <td class="py-3.5 px-3">
-                      <select class="crm-lead-status-select bg-slate-50 border border-slate-300 text-xs text-slate-900 rounded-lg p-1.5 font-bold focus:ring-teal-600" data-booking-id={bk.id}>
+                    <td class="py-3.5 px-3 whitespace-nowrap">
+                      <select class="crm-lead-status-select bg-slate-50 border border-slate-300 text-xs text-slate-900 rounded-lg p-1.5 font-bold focus:ring-teal-600 cursor-pointer" data-booking-id={bk.id}>
                         <option value="Pertanyaan Baru" selected={bk.status === 'Pertanyaan Baru'}>Pertanyaan Baru</option>
                         <option value="Deposit Selesai" selected={bk.status === 'Deposit Selesai'}>Deposit Selesai</option>
                         <option value="Bayaran Penuh" selected={bk.status === 'Bayaran Penuh'}>Bayaran Penuh</option>
                         <option value="Selesai Trip" selected={bk.status === 'Selesai Trip'}>Selesai Trip</option>
                       </select>
                     </td>
-                    <td class="py-3.5 px-3">
+                    <td class="py-3.5 px-3 whitespace-nowrap">
                       <div class="flex items-center gap-2">
                         <a
                           href={`https://wa.me/6${bk.phone.replace(/[^0-9]/g, '')}?text=Salam%20${encodeURIComponent(bk.customerName)},%20ini%20adalah%20susulan%20rasmi%20daripada%20Kembara%20Travel%20berkenaan%20pakej%20${encodeURIComponent(bk.packageName)}.`}
@@ -459,79 +460,79 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
 
       <!-- ================= TAB 4: LEJER KEWANGAN & PENYESUAIAN BANK ================= -->
-      <section id="tab-accounts" class="tab-pane hidden space-y-8">
+      <section id="tab-accounts" class="tab-pane hidden space-y-6 sm:space-y-8">
         
         <!-- Header & Action Toolbar -->
-        <div class="bg-white border border-slate-200 p-6 sm:p-8 rounded-3xl shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="bg-white border border-slate-200 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
           <div>
             <div class="text-xs font-bold text-teal-700 uppercase tracking-wider mb-1">
               Modul Perakaunan & Kewangan Enterprise
             </div>
-            <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               Lejer Am & Penyesuaian Penyata Bank Automatik
             </h2>
             <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
               Sistem lejer berintegrasi automatik dengan tempahan pelanggan. Padankan transaksi sistem dengan penyata bank (Maybank / CIMB / RHB) melalui enjin padanan pintar (*Auto-Matching Engine*).
             </p>
           </div>
-          <div class="flex flex-wrap items-center gap-3">
+          <div class="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto">
             <button
               type="button"
               id="open-manual-ledger-btn"
-              class="bg-white hover:bg-slate-50 text-slate-800 text-xs font-bold px-4 py-2.5 rounded-xl border border-slate-300 shadow-sm transition-colors cursor-pointer"
+              class="flex-1 sm:flex-none justify-center bg-white hover:bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-xl border border-slate-300 shadow-sm transition-colors cursor-pointer whitespace-nowrap"
             >
-              + Entri Lejer Manual
+              + Entri Lejer
             </button>
             <button
               type="button"
               id="trigger-auto-match-btn"
-              class="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-2 cursor-pointer"
+              class="flex-1 sm:flex-none justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>Jalankan Auto-Match Bank</span>
+              <span>Auto-Match Bank</span>
             </button>
             <button
               type="button"
               id="download-sample-csv-btn"
-              class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-200 transition-colors"
+              class="flex-1 sm:flex-none justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-200 transition-colors whitespace-nowrap"
             >
-              Muat Turun CSV Bank
+              CSV Contoh
             </button>
           </div>
         </div>
 
         <!-- 4 Financial KPI Stat Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Jumlah Jualan Lejer (System)</span>
-            <div class="text-2xl font-black text-slate-900" id="stat-ledger-total">RM 35,160.00</div>
-            <span class="text-[11px] text-slate-500 mt-1 block">Semua rekod terimaan tempahan</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Jumlah Jualan Lejer</span>
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="stat-ledger-total">RM 35,160.00</div>
+            <span class="text-[10px] sm:text-[11px] text-slate-500 mt-1 block">Semua rekod terimaan tempahan</span>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Kutipan Penyata Bank</span>
-            <div class="text-2xl font-black text-emerald-700" id="stat-bank-total">RM 35,160.00</div>
-            <span class="text-[11px] text-emerald-700 font-semibold mt-1 block">Disahkan masuk akaun bank</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Kutipan Penyata Bank</span>
+            <div class="text-xl sm:text-2xl font-black text-emerald-700" id="stat-bank-total">RM 35,160.00</div>
+            <span class="text-[10px] sm:text-[11px] text-emerald-700 font-semibold mt-1 block">Disahkan masuk akaun bank</span>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Status Penyesuaian</span>
-            <div class="text-2xl font-black text-teal-700" id="stat-match-status">100% TALLIED</div>
-            <span class="text-[11px] text-teal-700 font-bold mt-1 block" id="stat-match-sub">Semua transaksi sepadan</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Status Penyesuaian</span>
+            <div class="text-xl sm:text-2xl font-black text-teal-700" id="stat-match-status">100% TALLIED</div>
+            <span class="text-[10px] sm:text-[11px] text-teal-700 font-bold mt-1 block" id="stat-match-sub">Semua transaksi sepadan</span>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">Jumlah Ketidaksetara</span>
-            <div class="text-2xl font-black text-slate-900" id="stat-mismatch-count">RM 0.00</div>
-            <span class="text-[11px] text-slate-500 mt-1 block">Tiada ralat amaun dikesan</span>
+          <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <span class="text-[11px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1 sm:mb-2">Ketidaksetara (Discrepancy)</span>
+            <div class="text-xl sm:text-2xl font-black text-slate-900" id="stat-mismatch-count">RM 0.00</div>
+            <span class="text-[10px] sm:text-[11px] text-slate-500 mt-1 block">Tiada ralat amaun dikesan</span>
           </div>
         </div>
 
         <!-- 1. BUKU LEJER AM (GENERAL LEDGER TABLE) -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-200">
             <div>
-              <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-teal-700"></span>
                 Buku Lejer Am & Aliran Tunai (General Ledger Feed)
               </h3>
@@ -542,55 +543,56 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             </div>
           </div>
 
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs">
+          <!-- Responsive Table with explicit min-w -->
+          <div class="overflow-x-auto w-full pb-2" style="-webkit-overflow-scrolling: touch;">
+            <table class="w-full text-left text-xs min-w-[780px]">
               <thead>
                 <tr class="text-slate-600 bg-slate-50 border-b border-slate-200 font-bold">
-                  <th class="py-3 px-3">Tarikh & ID Lejer</th>
-                  <th class="py-3 px-3">No. Tempahan / Kategori</th>
-                  <th class="py-3 px-3">Keterangan & Pelanggan</th>
-                  <th class="py-3 px-3">Kaedah Bayaran</th>
-                  <th class="py-3 px-3 text-right">Debit (Masuk RM)</th>
-                  <th class="py-3 px-3 text-right">Kredit (Keluar RM)</th>
-                  <th class="py-3 px-3 text-center">Status Bank</th>
-                  <th class="py-3 px-3 text-center">Tindakan</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Tarikh & ID Lejer</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">No. Tempahan / Kategori</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Keterangan & Pelanggan</th>
+                  <th class="py-2.5 px-3 whitespace-nowrap">Kaedah Bayaran</th>
+                  <th class="py-2.5 px-3 text-right whitespace-nowrap">Debit (Masuk RM)</th>
+                  <th class="py-2.5 px-3 text-right whitespace-nowrap">Kredit (Keluar RM)</th>
+                  <th class="py-2.5 px-3 text-center whitespace-nowrap">Status Bank</th>
+                  <th class="py-2.5 px-3 text-center whitespace-nowrap">Tindakan</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100" id="ledger-table-tbody">
                 {initialLedgerEntries.map((led) => (
                   <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-3 px-3">
+                    <td class="py-3 px-3 whitespace-nowrap">
                       <div class="font-bold text-slate-900">{led.date}</div>
                       <span class="text-[10px] text-teal-700 font-mono font-bold">{led.id}</span>
                     </td>
-                    <td class="py-3 px-3">
+                    <td class="py-3 px-3 whitespace-nowrap">
                       <div class="font-bold text-slate-800">{led.bookingRef}</div>
                       <div class="text-[10px] text-slate-500">{led.accountCode}</div>
                     </td>
-                    <td class="py-3 px-3">
+                    <td class="py-3 px-3 whitespace-nowrap">
                       <div class="font-bold text-slate-900">{led.customerName}</div>
-                      <div class="text-slate-500 text-[11px]">{led.description}</div>
+                      <div class="text-slate-500 text-[11px] max-w-[220px] truncate">{led.description}</div>
                     </td>
-                    <td class="py-3 px-3">
+                    <td class="py-3 px-3 whitespace-nowrap">
                       <span class="bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded text-[10px] border border-slate-200">
                         {led.paymentMethod}
                       </span>
                     </td>
-                    <td class="py-3 px-3 text-right font-extrabold text-emerald-700">
+                    <td class="py-3 px-3 text-right font-extrabold text-emerald-700 whitespace-nowrap">
                       {led.debit > 0 ? `+RM ${led.debit.toLocaleString(undefined, {minimumFractionDigits:2})}` : '-'}
                     </td>
-                    <td class="py-3 px-3 text-right font-extrabold text-rose-700">
+                    <td class="py-3 px-3 text-right font-extrabold text-rose-700 whitespace-nowrap">
                       {led.credit > 0 ? `-RM ${led.credit.toLocaleString(undefined, {minimumFractionDigits:2})}` : '-'}
                     </td>
-                    <td class="py-3 px-3 text-center">
-                      <span class={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    <td class="py-3 px-3 text-center whitespace-nowrap">
+                      <span class={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
                         led.reconciled ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' :
                         'bg-amber-100 text-amber-800 border border-amber-200'
                       }`}>
                         {led.reconciled ? 'MATCHED' : 'PENDING'}
                       </span>
                     </td>
-                    <td class="py-3 px-3 text-center">
+                    <td class="py-3 px-3 text-center whitespace-nowrap">
                       <button
                         type="button"
                         class="generate-invoice-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold border border-slate-300 transition-colors cursor-pointer"
@@ -612,10 +614,10 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
 
         <!-- 2. AUTOMATED BANK RECONCILIATION ENGINE (SIDE-BY-SIDE MATCHING) -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-sm space-y-4 sm:space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
                 Penyesuaian Penyata Bank (Bank Reconciliation Engine)
               </h3>
@@ -626,32 +628,32 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               <button
                 type="button"
                 onclick="document.getElementById('bank-statement-file-input').click()"
-                class="bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 transition-colors cursor-pointer"
+                class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-300 transition-colors cursor-pointer"
               >
-                Muat Naik Penyata Bank Sebenar
+                Muat Naik Penyata Bank
               </button>
             </div>
           </div>
 
           <!-- Side-By-Side Comparison Grid -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
             
             <!-- Table 1: System Ledger Stream -->
             <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
-              <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
+              <div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between">
                 <span class="font-bold text-xs text-slate-900">1. Rekod Lejer Sistem (System Ledger)</span>
                 <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded border border-teal-200" id="recon-ledger-count">
                   4 Rekod
                 </span>
               </div>
-              <div class="overflow-x-auto max-h-80 overflow-y-auto">
-                <table class="w-full text-left text-xs">
+              <div class="overflow-x-auto max-h-80 overflow-y-auto w-full pb-1" style="-webkit-overflow-scrolling: touch;">
+                <table class="w-full text-left text-xs min-w-[380px]">
                   <thead class="bg-slate-100 text-slate-600 font-bold sticky top-0">
                     <tr>
-                      <th class="py-2 px-3">Rujukan</th>
-                      <th class="py-2 px-3">Pelanggan</th>
-                      <th class="py-2 px-3">Amaun (RM)</th>
-                      <th class="py-2 px-3 text-center">Status</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Rujukan</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Pelanggan</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Amaun (RM)</th>
+                      <th class="py-2 px-3 text-center whitespace-nowrap">Status</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100" id="recon-ledger-tbody">
@@ -663,20 +665,20 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
             <!-- Table 2: Bank Statement Stream -->
             <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
-              <div class="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center justify-between">
-                <span class="font-bold text-xs text-slate-900">2. Penyata Bank Sebenar (Maybank Biz / CIMB)</span>
+              <div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2.5 flex items-center justify-between">
+                <span class="font-bold text-xs text-slate-900">2. Penyata Bank Sebenar (Maybank / CIMB)</span>
                 <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200" id="recon-bank-count">
                   Maybank Islamic
                 </span>
               </div>
-              <div class="overflow-x-auto max-h-80 overflow-y-auto">
-                <table class="w-full text-left text-xs">
+              <div class="overflow-x-auto max-h-80 overflow-y-auto w-full pb-1" style="-webkit-overflow-scrolling: touch;">
+                <table class="w-full text-left text-xs min-w-[380px]">
                   <thead class="bg-slate-100 text-slate-600 font-bold sticky top-0">
                     <tr>
-                      <th class="py-2 px-3">Tarikh</th>
-                      <th class="py-2 px-3">Keterangan Bank</th>
-                      <th class="py-2 px-3">Amaun (RM)</th>
-                      <th class="py-2 px-3 text-center">Status</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Tarikh</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Keterangan Bank</th>
+                      <th class="py-2 px-3 whitespace-nowrap">Amaun (RM)</th>
+                      <th class="py-2 px-3 text-center whitespace-nowrap">Status</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-slate-100" id="recon-bank-tbody">
@@ -690,10 +692,10 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         </div>
 
         <!-- 3. PENJANA INVOIS & RESIT RASMI -->
-        <div class="bg-white border border-slate-200 p-6 sm:p-8 rounded-3xl shadow-sm space-y-6">
+        <div class="bg-white border border-slate-200 p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
             <div>
-              <h3 class="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-teal-700"></span>
                 Penjana Invois & Resit Rasmi (Invoicing Engine)
               </h3>
@@ -702,7 +704,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             <button
               type="button"
               onclick="window.print()"
-              class="bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer self-start sm:self-auto"
+              class="w-full sm:w-auto justify-center bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span>Cetak / Simpan PDF</span>
@@ -710,32 +712,32 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           </div>
 
           <!-- Official Invoice / Receipt Template Display -->
-          <div class="bg-white text-slate-900 rounded-3xl p-8 sm:p-12 shadow-md border border-slate-250 max-w-3xl mx-auto" id="printable-receipt">
+          <div class="bg-white text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 shadow-md border border-slate-250 max-w-3xl mx-auto overflow-hidden" id="printable-receipt">
             
             <!-- Letterhead Header -->
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b-2 border-slate-900 pb-6 gap-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b-2 border-slate-900 pb-5 gap-3">
               <div>
-                <div class="text-xl font-black text-slate-950 tracking-tight leading-tight">
+                <div class="text-lg sm:text-xl font-black text-slate-950 tracking-tight leading-tight">
                   {companyInfo.name}
                 </div>
-                <div class="text-xs font-bold text-teal-800 mt-0.5">
+                <div class="text-[11px] sm:text-xs font-bold text-teal-800 mt-0.5">
                   NO LESEN MOTAC: {companyInfo.motacNo} | SSM: {companyInfo.ssmNo}
                 </div>
-                <div class="text-[11px] text-slate-600 max-w-sm mt-1 leading-relaxed">
+                <div class="text-[10px] sm:text-[11px] text-slate-600 max-w-sm mt-1 leading-relaxed">
                   {companyInfo.address} • Tel: {companyInfo.phoneDisplay}
                 </div>
               </div>
               <div class="text-left sm:text-right">
-                <span class="bg-teal-100 text-teal-900 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-teal-200">
+                <span class="bg-teal-100 text-teal-900 font-black text-[11px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-teal-200">
                   RESIT RASMI / INVOIS
                 </span>
-                <div class="text-xs font-mono font-bold text-slate-800 mt-2" id="receipt-no-display">NO: INV-2026-0819</div>
-                <div class="text-[11px] text-slate-600 font-medium">Tarikh: 19 Ogos 2026</div>
+                <div class="text-xs font-mono font-bold text-slate-800 mt-1.5" id="receipt-no-display">NO: INV-2026-0819</div>
+                <div class="text-[10px] sm:text-[11px] text-slate-600 font-medium">Tarikh: 19 Ogos 2026</div>
               </div>
             </div>
 
             <!-- Customer Info -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6 border-b border-slate-200 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-5 border-b border-slate-200 text-xs">
               <div>
                 <span class="font-bold text-slate-500 uppercase text-[10px] block mb-1">Dikeluarkan Kepada:</span>
                 <div class="text-sm font-black text-slate-900" id="receipt-cust-name">Dato' Hj Razak & Keluarga</div>
@@ -750,32 +752,34 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
               </div>
             </div>
 
-            <!-- Line Items Table -->
-            <table class="w-full text-xs my-6">
-              <thead>
-                <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
-                  <th class="py-2.5 px-3 text-left">Penerangan Item</th>
-                  <th class="py-2.5 px-3 text-center">Pax</th>
-                  <th class="py-2.5 px-3 text-right">Harga Seunit (RM)</th>
-                  <th class="py-2.5 px-3 text-right">Jumlah (RM)</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200">
-                <tr>
-                  <td class="py-3 px-3">
-                    <div class="font-bold text-slate-900" id="receipt-item-title">Pakej Pelancongan / Umrah VIP (Tiket Penerbangan + Hotel + Makan)</div>
-                    <div class="text-[11px] text-slate-500">Termasuk penginapan hotel bertaraf tinggi, pengangkutan bas persiaran & insurans perjalanan</div>
-                  </td>
-                  <td class="py-3 px-3 text-center font-bold text-slate-900" id="receipt-item-pax">4</td>
-                  <td class="py-3 px-3 text-right text-slate-700 font-semibold" id="receipt-item-unit-price">7,890.00</td>
-                  <td class="py-3 px-3 text-right font-black text-slate-900" id="receipt-item-total">31,560.00</td>
-                </tr>
-              </tbody>
-            </table>
+            <!-- Line Items Table (with min-w) -->
+            <div class="overflow-x-auto w-full my-4 pb-1">
+              <table class="w-full text-xs min-w-[460px]">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-800 font-bold border-b border-slate-300">
+                    <th class="py-2.5 px-3 text-left whitespace-nowrap">Penerangan Item</th>
+                    <th class="py-2.5 px-3 text-center whitespace-nowrap">Pax</th>
+                    <th class="py-2.5 px-3 text-right whitespace-nowrap">Harga Seunit (RM)</th>
+                    <th class="py-2.5 px-3 text-right whitespace-nowrap">Jumlah (RM)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr>
+                    <td class="py-3 px-3">
+                      <div class="font-bold text-slate-900" id="receipt-item-title">Pakej Pelancongan / Umrah VIP (Tiket Penerbangan + Hotel + Insurans)</div>
+                      <div class="text-[11px] text-slate-500">Termasuk penginapan hotel bertaraf tinggi, pengangkutan bas persiaran & insurans perjalanan</div>
+                    </td>
+                    <td class="py-3 px-3 text-center font-bold text-slate-900 whitespace-nowrap" id="receipt-item-pax">4</td>
+                    <td class="py-3 px-3 text-right text-slate-700 font-semibold whitespace-nowrap" id="receipt-item-unit-price">7,890.00</td>
+                    <td class="py-3 px-3 text-right font-black text-slate-900 whitespace-nowrap" id="receipt-item-total">31,560.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
             <!-- Financial Calculation Total -->
             <div class="border-t-2 border-slate-900 pt-4 flex justify-end">
-              <div class="w-64 space-y-1.5 text-xs text-right">
+              <div class="w-full sm:w-64 space-y-1.5 text-xs text-right">
                 <div class="flex justify-between text-slate-600 font-medium">
                   <span>Jumlah Kasar:</span>
                   <span class="font-bold text-slate-900" id="receipt-total-gross">RM 31,560.00</span>
@@ -784,7 +788,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
                   <span>Jumlah Telah Dibayar:</span>
                   <span id="receipt-total-paid">RM 31,560.00</span>
                 </div>
-                <div class="flex justify-between text-base font-black text-slate-950 border-t border-slate-300 pt-1.5">
+                <div class="flex justify-between text-sm sm:text-base font-black text-slate-950 border-t border-slate-300 pt-1.5">
                   <span>Baki Perlu Dibayar:</span>
                   <span id="receipt-balance-due">RM 0.00</span>
                 </div>
@@ -792,7 +796,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
             </div>
 
             <!-- Bottom Official Stamp / Signature Area -->
-            <div class="mt-12 pt-6 border-t border-slate-200 grid grid-cols-2 gap-6 text-[11px] text-slate-500">
+            <div class="mt-8 sm:mt-12 pt-5 border-t border-slate-200 grid grid-cols-2 gap-4 text-[10px] sm:text-[11px] text-slate-500">
               <div>
                 <p class="italic">Resit ini dijana secara elektronik oleh sistem operasi Kembara Travel & Tours Sdn Bhd.</p>
               </div>
@@ -809,19 +813,19 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
 
       <!-- ================= TAB 5: HR & TUGASAN TRIP ================= -->
-      <section id="tab-hr" class="tab-pane hidden space-y-8">
+      <section id="tab-hr" class="tab-pane hidden space-y-6 sm:space-y-8">
         
-        <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="bg-white border border-slate-200 p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 class="text-xl font-extrabold text-slate-900">Pengurusan Staf & Penugasan Mutawwif / Tour Leader</h2>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Pengurusan Staf & Penugasan Mutawwif / Tour Leader</h2>
             <p class="text-xs text-slate-600">Senarai kakitangan, peranan, penugasan trip dan pengiraan komisen jualan.</p>
           </div>
         </div>
 
         <!-- Staff List Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {initialStaff.map((stf) => (
-            <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm space-y-4 hover:shadow-md transition-all">
+            <div class="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-sm space-y-4 hover:shadow-md transition-all">
               <div class="flex items-center justify-between">
                 <span class="text-xs font-bold text-teal-800 font-mono">{stf.id}</span>
                 <span class={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
@@ -858,8 +862,8 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 </Layout>
 
 <!-- Add/Edit Package Modal -->
-<div id="new-pkg-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-  <div class="bg-white border border-slate-200 text-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl">
+<div id="new-pkg-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
       <h3 class="text-base font-bold text-slate-900">Tambah / Edit Pakej Pelancongan</h3>
       <button type="button" id="close-new-pkg-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
@@ -869,7 +873,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <label class="block font-bold text-slate-700 mb-1">Tajuk Pakej *</label>
         <input type="text" id="modal-pkg-title" required placeholder="cth: Korea Autumn & Nami Island" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
       </div>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
           <select id="modal-pkg-cat" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-medium">
@@ -884,7 +888,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
           <input type="text" id="modal-pkg-duration" required placeholder="cth: 6 Hari 4 Malam" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
         </div>
       </div>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Harga Jualan (RM) *</label>
           <input type="number" id="modal-pkg-price" required placeholder="cth: 4290" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
@@ -908,14 +912,14 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 </div>
 
 <!-- Add Manual Ledger Entry Modal -->
-<div id="new-ledger-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-  <div class="bg-white border border-slate-200 text-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl">
+<div id="new-ledger-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs">
+  <div class="bg-white border border-slate-200 text-slate-900 rounded-2xl sm:rounded-3xl p-5 sm:p-8 max-w-lg w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200">
       <h3 class="text-base font-bold text-slate-900">Tambah Entri Lejer Kewangan Manual</h3>
       <button type="button" id="close-new-ledger-modal" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
     </div>
     <form id="new-ledger-form" class="space-y-3.5 text-xs">
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-slate-700 mb-1">No. Rujukan / ID *</label>
           <input type="text" id="modal-led-ref" required placeholder="cth: BK-2026-005 atau OPS-102" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-mono" />
@@ -944,7 +948,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
         <label class="block font-bold text-slate-700 mb-1">Keterangan Transaksi *</label>
         <input type="text" id="modal-led-desc" required placeholder="cth: Bayaran Penuh Pakej Korea 4 Pax" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white" />
       </div>
-      <div class="grid grid-cols-2 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Jenis Transaksi *</label>
           <select id="modal-led-type" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-slate-900 focus:bg-white font-medium">
@@ -1191,65 +1195,65 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
     if (mismatchCount > 0) {
       if (statMatchEl) {
         statMatchEl.textContent = `${matchCount} MATCH / ${mismatchCount} UNMATCHED`;
-        statMatchEl.className = 'text-2xl font-black text-rose-700';
+        statMatchEl.className = 'text-xl sm:text-2xl font-black text-rose-700';
       }
       if (statMatchSubEl) {
         statMatchSubEl.textContent = `${mismatchCount} transaksi bank belum dipadankan`;
-        statMatchSubEl.className = 'text-[11px] text-rose-700 font-bold mt-1 block';
+        statMatchSubEl.className = 'text-[10px] sm:text-[11px] text-rose-700 font-bold mt-1 block';
       }
       if (statMismatchEl) {
         statMismatchEl.textContent = `RM ${discrepancyAmt.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-        statMismatchEl.className = 'text-2xl font-black text-rose-700';
+        statMismatchEl.className = 'text-xl sm:text-2xl font-black text-rose-700';
       }
     } else {
       if (statMatchEl) {
         statMatchEl.textContent = `100% TALLIED`;
-        statMatchEl.className = 'text-2xl font-black text-emerald-700';
+        statMatchEl.className = 'text-xl sm:text-2xl font-black text-emerald-700';
       }
       if (statMatchSubEl) {
         statMatchSubEl.textContent = `Semua transaksi lejer sepadan dengan bank`;
-        statMatchSubEl.className = 'text-[11px] text-emerald-700 font-bold mt-1 block';
+        statMatchSubEl.className = 'text-[10px] sm:text-[11px] text-emerald-700 font-bold mt-1 block';
       }
       if (statMismatchEl) {
         statMismatchEl.textContent = `RM 0.00`;
-        statMismatchEl.className = 'text-2xl font-black text-slate-900';
+        statMismatchEl.className = 'text-xl sm:text-2xl font-black text-slate-900';
       }
     }
 
-    // Render 1: Main Ledger Table
+    // Render 1: Main Ledger Table (with whitespace-nowrap and min-w)
     ledgerTableTbody.innerHTML = ledgerItems.map(led => `
       <tr class="hover:bg-slate-50 transition-colors">
-        <td class="py-3 px-3">
+        <td class="py-3 px-3 whitespace-nowrap">
           <div class="font-bold text-slate-900">${led.date}</div>
           <span class="text-[10px] text-teal-700 font-mono font-bold">${led.id}</span>
         </td>
-        <td class="py-3 px-3">
+        <td class="py-3 px-3 whitespace-nowrap">
           <div class="font-bold text-slate-800">${led.bookingRef}</div>
           <div class="text-[10px] text-slate-500">${led.accountCode}</div>
         </td>
-        <td class="py-3 px-3">
+        <td class="py-3 px-3 whitespace-nowrap">
           <div class="font-bold text-slate-900">${led.customerName}</div>
-          <div class="text-slate-500 text-[11px]">${led.description}</div>
+          <div class="text-slate-500 text-[11px] max-w-[200px] truncate">${led.description}</div>
         </td>
-        <td class="py-3 px-3">
+        <td class="py-3 px-3 whitespace-nowrap">
           <span class="bg-slate-100 text-slate-700 font-medium px-2 py-0.5 rounded text-[10px] border border-slate-200">
             ${led.paymentMethod}
           </span>
         </td>
-        <td class="py-3 px-3 text-right font-extrabold text-emerald-700">
+        <td class="py-3 px-3 text-right font-extrabold text-emerald-700 whitespace-nowrap">
           ${led.debit > 0 ? `+RM ${led.debit.toLocaleString(undefined, {minimumFractionDigits: 2})}` : '-'}
         </td>
-        <td class="py-3 px-3 text-right font-extrabold text-rose-700">
+        <td class="py-3 px-3 text-right font-extrabold text-rose-700 whitespace-nowrap">
           ${led.credit > 0 ? `-RM ${led.credit.toLocaleString(undefined, {minimumFractionDigits: 2})}` : '-'}
         </td>
-        <td class="py-3 px-3 text-center">
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${
+        <td class="py-3 px-3 text-center whitespace-nowrap">
+          <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
             matchedLedgerRefs.has(led.bookingRef) ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800 border border-amber-200'
           }">
             ${matchedLedgerRefs.has(led.bookingRef) ? 'MATCHED' : 'PENDING'}
           </span>
         </td>
-        <td class="py-3 px-3 text-center">
+        <td class="py-3 px-3 text-center whitespace-nowrap">
           <button
             type="button"
             class="generate-invoice-btn px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] font-bold border border-slate-300 transition-colors cursor-pointer"
@@ -1272,12 +1276,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       const amt = l.debit > 0 ? l.debit : l.credit;
       return `
         <tr class="${isMatched ? 'bg-emerald-50/50' : 'bg-amber-50/40'}">
-          <td class="py-2.5 px-3 font-bold ${isMatched ? 'text-teal-800' : 'text-amber-800'}">${l.bookingRef}</td>
-          <td class="py-2.5 px-3 font-medium text-slate-900">${l.customerName}</td>
-          <td class="py-2.5 px-3 font-bold text-slate-900">RM ${amt.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
-          <td class="py-2.5 px-3 text-center">
+          <td class="py-2.5 px-3 font-bold ${isMatched ? 'text-teal-800' : 'text-amber-800'} whitespace-nowrap">${l.bookingRef}</td>
+          <td class="py-2.5 px-3 font-medium text-slate-900 whitespace-nowrap">${l.customerName}</td>
+          <td class="py-2.5 px-3 font-bold text-slate-900 whitespace-nowrap">RM ${amt.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
             <span class="px-2 py-0.5 rounded text-[9px] font-bold ${isMatched ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
-              ${isMatched ? 'MATCH' : 'NO BANK RECORD'}
+              ${isMatched ? 'MATCH' : 'NO BANK'}
             </span>
           </td>
         </tr>
@@ -1298,12 +1302,12 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
 
       return `
         <tr class="${isMatched ? 'bg-emerald-50/50' : 'bg-rose-50/40'}">
-          <td class="py-2.5 px-3 font-medium text-slate-600">${b.date}</td>
-          <td class="py-2.5 px-3 font-medium text-slate-900 line-clamp-1">${b.desc}</td>
-          <td class="py-2.5 px-3 font-bold ${isDebit ? 'text-rose-700' : 'text-emerald-700'}">
+          <td class="py-2.5 px-3 font-medium text-slate-600 whitespace-nowrap">${b.date}</td>
+          <td class="py-2.5 px-3 font-medium text-slate-900 max-w-[180px] truncate">${b.desc}</td>
+          <td class="py-2.5 px-3 font-bold ${isDebit ? 'text-rose-700' : 'text-emerald-700'} whitespace-nowrap">
             ${isDebit ? '-' : '+'}RM ${b.amount.toLocaleString(undefined, {minimumFractionDigits: 2})}
           </td>
-          <td class="py-2.5 px-3 text-center">
+          <td class="py-2.5 px-3 text-center whitespace-nowrap">
             <span class="px-2 py-0.5 rounded text-[9px] font-bold ${isMatched ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-rose-100 text-rose-800 border border-rose-300'}">
               ${isMatched ? 'MATCHED' : 'UNMATCHED'}
             </span>
@@ -1591,7 +1595,7 @@ import { initialBookings, initialStaff, initialTripAssignments, initialLedgerEnt
       const container = document.getElementById('cms-packages-container');
       if (container && title) {
         const newCard = document.createElement('div');
-        newCard.className = 'bg-white border border-teal-500 rounded-3xl p-5 space-y-4 shadow-md';
+        newCard.className = 'bg-white border border-teal-500 rounded-2xl sm:rounded-3xl p-4 sm:p-5 space-y-4 shadow-md';
         newCard.innerHTML = `
           <div>
             <div class="flex items-center justify-between mb-3">
